@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nWc-ws-jsh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LinkWithDropboxIdentifier" id="vXZ-lx-hvc" customClass="ViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +15,209 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ho-rV-etX">
+                                <rect key="frame" x="238" y="285" width="125" height="30"/>
+                                <state key="normal" title="Link with Dropbox">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressLinkWithDropbox:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="cdO-lr-Tpm"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="6Ho-rV-etX" secondAttribute="centerX" id="7zC-2K-S2Q"/>
+                            <constraint firstAttribute="centerY" secondItem="6Ho-rV-etX" secondAttribute="centerY" id="si9-7Y-LJm"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="RMo-cy-iA4"/>
+                    <connections>
+                        <segue destination="kLp-y0-Ll8" kind="show" identifier="LinkWithDropbox" id="Bxc-gH-zQd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1159" y="360"/>
+        </scene>
+        <!--Wiki-->
+        <scene sceneID="tYb-ZV-L9A">
+            <objects>
+                <viewController storyboardIdentifier="WikiViewControllerIdentifier" title="Wiki" id="kLp-y0-Ll8" customClass="WikiViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O1k-wT-M5Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="aRg-bM-3XX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dYm-iI-Mtq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvm-Bx-0sg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Pvm-Bx-0sg" firstAttribute="leading" secondItem="dYm-iI-Mtq" secondAttribute="leading" id="Dlk-Sj-FHH"/>
+                            <constraint firstAttribute="bottom" secondItem="Pvm-Bx-0sg" secondAttribute="bottom" id="VGa-aa-ek1"/>
+                            <constraint firstAttribute="trailing" secondItem="Pvm-Bx-0sg" secondAttribute="trailing" id="lPv-Z1-Mjq"/>
+                            <constraint firstItem="Pvm-Bx-0sg" firstAttribute="top" secondItem="dYm-iI-Mtq" secondAttribute="top" id="tih-Ub-qPu"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Wiki" id="q5I-bN-moH">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="P7Y-UP-Ffi">
+                            <connections>
+                                <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="C29-iP-bfp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="zXh-yV-Rx8">
+                            <connections>
+                                <segue destination="0Ue-zd-YbW" kind="presentation" identifier="AddWikiPage" id="rh2-16-zsD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="topConstraint" destination="tih-Ub-qPu" id="pQe-zO-epP"/>
+                        <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
+                        <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="spK-i8-QtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2059" y="300"/>
+        </scene>
+        <!--Add Page-->
+        <scene sceneID="om2-J8-jCi">
+            <objects>
+                <viewController title="Add Page" id="Qb5-dw-z0X" customClass="AddPageViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WUa-rs-cvW"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lfy-TF-vdn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gIp-v3-zRf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Page" id="EFz-B7-8zz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="vzg-0b-vpp">
+                            <connections>
+                                <segue destination="jEa-D0-den" kind="unwind" identifier="CancelAddPage" unwindAction="cancelToWikiViewController:" id="vF7-jY-vd7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hta-In-qi9">
+                            <connections>
+                                <segue destination="jEa-D0-den" kind="unwind" identifier="SavePage" unwindAction="savePage:" id="aIV-iF-eMB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="jEa-D0-den" kind="unwind" identifier="DeletePage" unwindAction="deletePage:" id="U97-8J-pZt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gzr-C3-NbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jEa-D0-den" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3622" y="300"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="51C-lD-YzY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nWc-ws-jsh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K9U-19-WGB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="d3x-eK-B9I"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="662" y="-333"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ubT-Un-oYh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0Ue-zd-YbW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IAo-69-ZtW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Qb5-dw-z0X" kind="relationship" relationship="rootViewController" id="H0H-bC-JTd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vau-Xz-SGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2820" y="300"/>
+        </scene>
+        <!--All Pages-->
+        <scene sceneID="1r2-X8-FbD">
+            <objects>
+                <tableViewController title="All Pages" id="KaT-x9-YnM" customClass="AllPagesViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qtu-7j-kYR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pageCell" id="Ak8-fb-YDf">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ak8-fb-YDf" id="RPT-sS-Y66">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="60c-f4-41C" kind="unwind" identifier="NavigateToSelectedPage" unwindAction="navigateToSelectedPage:" id="oNt-Q4-vd3"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KaT-x9-YnM" id="KYh-RT-RyQ"/>
+                            <outlet property="delegate" destination="KaT-x9-YnM" id="gg5-Tm-5Qc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="All Pages" id="4Gf-nQ-dOx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Xgx-yW-Fje">
+                            <connections>
+                                <segue destination="60c-f4-41C" kind="unwind" unwindAction="cancelToWikiViewController:" id="l13-qX-hBq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ui-f7-7hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="60c-f4-41C" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3630" y="1121"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xoy-Js-f8y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Z0d-ey-Vd9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OFU-qF-Vht">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KaT-x9-YnM" kind="relationship" relationship="rootViewController" id="YWb-GH-gN1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jeo-hP-DJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2818" y="1121"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="rh2-16-zsD"/>
+    </inferredMetricsTieBreakers>
 </document>

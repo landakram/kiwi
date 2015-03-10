@@ -7,12 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A554EF09DDD397D78707F10 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBCC3B4B6086ADD6C185EACC /* libPods.a */; };
+		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
+		4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
+		4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
 		4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */; };
 		4D2AAC221A9DA30300E0904B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC211A9DA30300E0904B /* ViewController.swift */; };
 		4D2AAC251A9DA30300E0904B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC231A9DA30300E0904B /* Main.storyboard */; };
 		4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC261A9DA30300E0904B /* Images.xcassets */; };
 		4D2AAC2A1A9DA30300E0904B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */; };
 		4D2AAC361A9DA30300E0904B /* MemexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC351A9DA30300E0904B /* MemexTests.swift */; };
+		4D7CBBAA1AA8272E00638C5C /* WikiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */; };
+		4D7CBBAC1AA8291E00638C5C /* home.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CBBAB1AA8291E00638C5C /* home.md */; };
+		4D7CBBAD1AA82A8400638C5C /* home.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBAB1AA8291E00638C5C /* home.md */; };
+		4D7CBBAF1AA82F4300638C5C /* layout.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBAE1AA82F4300638C5C /* layout.mustache */; };
+		4D7CBBB11AA8304200638C5C /* article.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB01AA8304200638C5C /* article.mustache */; };
+		4D7CBBB31AA833E200638C5C /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB21AA833E200638C5C /* screen.css */; };
+		4DBE60841AA5527A003D3F34 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60831AA5527A003D3F34 /* Page.swift */; };
+		4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60871AA5542A003D3F34 /* Wiki.swift */; };
+		4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */; };
+		4DBE60911AA6A783003D3F34 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60901AA6A783003D3F34 /* SwiftRegex.swift */; };
+		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
+		4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
+		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
+		4D0378121AA88EA600B6D841 /* markdown_test.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = markdown_test.md; sourceTree = "<group>"; };
 		4D2AAC1A1A9DA30300E0904B /* Memex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2AAC1E1A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +55,23 @@
 		4D2AAC2F1A9DA30300E0904B /* MemexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2AAC341A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2AAC351A9DA30300E0904B /* MemexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemexTests.swift; sourceTree = "<group>"; };
+		4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
+		4D7CBBAB1AA8291E00638C5C /* home.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = home.md; sourceTree = "<group>"; };
+		4D7CBBAE1AA82F4300638C5C /* layout.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.mustache; sourceTree = "<group>"; };
+		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
+		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
+		4DBE60511A9DAA43003D3F34 /* Memex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Memex-Bridging-Header.h"; sourceTree = "<group>"; };
+		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		4DBE60871AA5542A003D3F34 /* Wiki.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wiki.swift; sourceTree = "<group>"; };
+		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoedown.h; sourceTree = SOURCE_ROOT; };
+		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hoedown.m; sourceTree = SOURCE_ROOT; };
+		4DBE60901AA6A783003D3F34 /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
+		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
+		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPagesViewController.swift; sourceTree = "<group>"; };
+		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPageViewController.swift; sourceTree = "<group>"; };
+		72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EBCC3B4B6086ADD6C185EACC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A554EF09DDD397D78707F10 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +93,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48924F7F2E83D886BAA39977 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBCC3B4B6086ADD6C185EACC /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4D2AAC111A9DA30300E0904B = {
 			isa = PBXGroup;
 			children = (
+				4DEB69861AA94F6500FB480C /* AddPageViewController.swift */,
 				4D2AAC1C1A9DA30300E0904B /* Memex */,
 				4D2AAC321A9DA30300E0904B /* MemexTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
+				5AE65EF13EAABF3CEA7CA127 /* Pods */,
+				48924F7F2E83D886BAA39977 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +131,14 @@
 				4D2AAC261A9DA30300E0904B /* Images.xcassets */,
 				4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */,
 				4D2AAC1D1A9DA30300E0904B /* Supporting Files */,
+				4DBE60511A9DAA43003D3F34 /* Memex-Bridging-Header.h */,
+				4DBE60831AA5527A003D3F34 /* Page.swift */,
+				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
+				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
+				4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */,
+				4DBE60901AA6A783003D3F34 /* SwiftRegex.swift */,
+				4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */,
+				4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */,
 			);
 			path = Memex;
 			sourceTree = "<group>";
@@ -90,7 +146,14 @@
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4DC9DC951AADDC5500C64275 /* gray@2x.png */,
+				4D7CBBAB1AA8291E00638C5C /* home.md */,
+				4D0378121AA88EA600B6D841 /* markdown_test.md */,
 				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
+				4D7CBBB21AA833E200638C5C /* screen.css */,
+				4D7CBBAE1AA82F4300638C5C /* layout.mustache */,
+				4D7CBBB01AA8304200638C5C /* article.mustache */,
+				4D0378101AA881BA00B6D841 /* links.js */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -112,6 +175,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5AE65EF13EAABF3CEA7CA127 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */,
+				CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +191,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D2AAC391A9DA30300E0904B /* Build configuration list for PBXNativeTarget "Memex" */;
 			buildPhases = (
+				8B74CDFD524C9C5543CFD790 /* Check Pods Manifest.lock */,
 				4D2AAC161A9DA30300E0904B /* Sources */,
 				4D2AAC171A9DA30300E0904B /* Frameworks */,
 				4D2AAC181A9DA30300E0904B /* Resources */,
+				391825FF31A3EA8BC3A72A1E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,9 +266,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */,
+				4D7CBBAD1AA82A8400638C5C /* home.md in Resources */,
+				4D7CBBB31AA833E200638C5C /* screen.css in Resources */,
+				4D7CBBAF1AA82F4300638C5C /* layout.mustache in Resources */,
 				4D2AAC251A9DA30300E0904B /* Main.storyboard in Resources */,
+				4D0378111AA881BA00B6D841 /* links.js in Resources */,
 				4D2AAC2A1A9DA30300E0904B /* LaunchScreen.xib in Resources */,
+				4D7CBBB11AA8304200638C5C /* article.mustache in Resources */,
 				4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */,
+				4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,13 +288,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		391825FF31A3EA8BC3A72A1E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B74CDFD524C9C5543CFD790 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4D2AAC161A9DA30300E0904B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4D2AAC221A9DA30300E0904B /* ViewController.swift in Sources */,
+				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
+				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
+				4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
+				4DBE60841AA5527A003D3F34 /* Page.swift in Sources */,
+				4DBE60911AA6A783003D3F34 /* SwiftRegex.swift in Sources */,
+				4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */,
+				4D7CBBAA1AA8272E00638C5C /* WikiViewController.swift in Sources */,
+				4D7CBBAC1AA8291E00638C5C /* home.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,21 +457,28 @@
 		};
 		4D2AAC3A1A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Memex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Memex/Memex-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4D2AAC3B1A9DA30300E0904B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Memex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Memex/Memex-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -405,6 +535,7 @@
 				4D2AAC3B1A9DA30300E0904B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "MemexTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +544,7 @@
 				4D2AAC3E1A9DA30300E0904B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
