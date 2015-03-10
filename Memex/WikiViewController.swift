@@ -16,6 +16,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     var wiki: Wiki!
     var currentPage: Page!
     
+    var currentExternalURL: String! 
     var pendingPageName: String?
     
     override func viewDidLoad() {
@@ -93,6 +94,9 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         } else if segue.identifier == "ShowAllPages" {
             let allPagesViewController = segue.destinationViewController.topViewController as AllPagesViewController
             allPagesViewController.wiki = self.wiki
+        } else if segue.identifier == "ViewExternalLink" {
+            let externalLinkViewController = segue.destinationViewController.topViewController as ExternalLinkViewController
+            externalLinkViewController.url = NSURL(string: self.currentExternalURL)
         }
     }
     
@@ -186,7 +190,13 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
             if let body: NSDictionary = message.body as? NSDictionary {
                 let path = (body.objectForKey("page") as String).lastPathComponent
                 let name = (body.objectForKey("name") as String)
-                delegate.renderPermalink(path, name: name)
+                let isInternal = body.objectForKey("internal") as Bool
+                if isInternal {
+                    delegate.renderPermalink(path, name: name)
+                } else {
+                    delegate.currentExternalURL = path
+                    delegate.performSegueWithIdentifier("ViewExternalLink", sender: self)
+                }
             }
         }
     }

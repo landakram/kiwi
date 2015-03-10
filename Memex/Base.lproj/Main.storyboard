@@ -85,11 +85,38 @@
                         <outlet property="topConstraint" destination="tih-Ub-qPu" id="pQe-zO-epP"/>
                         <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
                         <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
+                        <segue destination="3Gt-G4-CbL" kind="presentation" identifier="ViewExternalLink" id="ehy-f9-l2C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spK-i8-QtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2059" y="300"/>
+        </scene>
+        <!--External Link View Controller-->
+        <scene sceneID="aS9-Rp-Vzw">
+            <objects>
+                <viewController id="SWf-KQ-lLn" customClass="ExternalLinkViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LB5-U8-GtZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lai-3U-j0p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CHW-cd-eGp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MHH-4V-TiB">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="eRL-CU-S47">
+                            <connections>
+                                <segue destination="3al-zB-w0P" kind="unwind" unwindAction="cancelToWikiViewController:" id="FnT-7N-fBI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ba-6c-ns2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3al-zB-w0P" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2526" y="1153"/>
         </scene>
         <!--Add Page-->
         <scene sceneID="om2-J8-jCi">
@@ -196,7 +223,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ui-f7-7hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="60c-f4-41C" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3630" y="1121"/>
+            <point key="canvasLocation" x="4442" y="1121"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xoy-Js-f8y">
@@ -214,7 +241,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jeo-hP-DJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2818" y="1121"/>
+            <point key="canvasLocation" x="3630" y="1121"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OvM-qV-LGM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Gt-G4-CbL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="taI-Vj-975">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SWf-KQ-lLn" kind="relationship" relationship="rootViewController" id="r6M-eo-vUJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="niy-0v-zOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1714" y="1153"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
