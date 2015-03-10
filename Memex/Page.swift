@@ -54,11 +54,24 @@ class Page {
         mutable["\\[\\[(.+?)\\]\\]"] ~= {
             (groups: [String]) in
             let match = groups[1]
-            let permalink = match.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "_")
-            if self.wiki.isPage(permalink) {
-                return "<a class=\"internal\" href=\"\(permalink)\">" + match + "</a>"
+            
+            var pageName: String!
+            var name: String!
+            
+            // Handle aliases
+            let a = match.componentsSeparatedByString(":")
+            if a.count > 1 {
+                name = a[0]
+                pageName = a[1]
             } else {
-                return "<a class=\"internal new\" href=\"\(permalink)\">" + match + "</a>"
+                pageName = match
+                name = pageName
+            }
+            let permalink = pageName.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "_")
+            if self.wiki.isPage(permalink) {
+                return "<a class=\"internal\" href=\"\(permalink)\">" + name + "</a>"
+            } else {
+                return "<a class=\"internal new\" href=\"\(permalink)\">" + name + "</a>"
             }
         }
         return mutable
