@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Link With Dropbox View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="LinkWithDropboxIdentifier" id="vXZ-lx-hvc" customClass="ViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LinkWithDropboxIdentifier" id="vXZ-lx-hvc" customClass="LinkWithDropboxViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -44,7 +44,7 @@
         <!--Wiki-->
         <scene sceneID="tYb-ZV-L9A">
             <objects>
-                <viewController storyboardIdentifier="WikiViewControllerIdentifier" title="Wiki" id="kLp-y0-Ll8" customClass="WikiViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WikiViewControllerIdentifier" title="Wiki" id="kLp-y0-Ll8" customClass="WikiViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O1k-wT-M5Y"/>
                         <viewControllerLayoutGuide type="bottom" id="aRg-bM-3XX"/>
@@ -68,12 +68,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Wiki" id="q5I-bN-moH">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="P7Y-UP-Ffi">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Znp-7h-271">
                             <connections>
-                                <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="C29-iP-bfp"/>
+                                <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="OQW-UX-bTN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="zXh-yV-Rx8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zXh-yV-Rx8">
                             <connections>
                                 <segue destination="0Ue-zd-YbW" kind="presentation" identifier="AddWikiPage" id="rh2-16-zsD"/>
                             </connections>
@@ -85,43 +85,16 @@
                         <outlet property="topConstraint" destination="tih-Ub-qPu" id="pQe-zO-epP"/>
                         <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
                         <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
-                        <segue destination="3Gt-G4-CbL" kind="presentation" identifier="ViewExternalLink" id="ehy-f9-l2C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spK-i8-QtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2059" y="300"/>
         </scene>
-        <!--External Link View Controller-->
-        <scene sceneID="aS9-Rp-Vzw">
-            <objects>
-                <viewController id="SWf-KQ-lLn" customClass="ExternalLinkViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="LB5-U8-GtZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Lai-3U-j0p"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CHW-cd-eGp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="MHH-4V-TiB">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="eRL-CU-S47">
-                            <connections>
-                                <segue destination="3al-zB-w0P" kind="unwind" unwindAction="cancelToWikiViewController:" id="FnT-7N-fBI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ba-6c-ns2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="3al-zB-w0P" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2526" y="1153"/>
-        </scene>
         <!--Add Page-->
         <scene sceneID="om2-J8-jCi">
             <objects>
-                <viewController title="Add Page" id="Qb5-dw-z0X" customClass="AddPageViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Page" id="Qb5-dw-z0X" customClass="AddPageViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WUa-rs-cvW"/>
                         <viewControllerLayoutGuide type="bottom" id="Lfy-TF-vdn"/>
@@ -155,7 +128,8 @@
         <!--Navigation Controller-->
         <scene sceneID="51C-lD-YzY">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nWc-ws-jsh" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="nWc-ws-jsh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K9U-19-WGB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -166,7 +140,6 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="d3x-eK-B9I"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="662" y="-333"/>
         </scene>
@@ -191,7 +164,7 @@
         <!--All Pages-->
         <scene sceneID="1r2-X8-FbD">
             <objects>
-                <tableViewController title="All Pages" id="KaT-x9-YnM" customClass="AllPagesViewController" customModule="Memex" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AllPagesViewController" title="All Pages" id="KaT-x9-YnM" customClass="AllPagesViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qtu-7j-kYR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -228,7 +201,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xoy-Js-f8y">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Z0d-ey-Vd9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AllPagesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Z0d-ey-Vd9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OFU-qF-Vht">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -243,26 +216,8 @@
             </objects>
             <point key="canvasLocation" x="3630" y="1121"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="OvM-qV-LGM">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Gt-G4-CbL" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="taI-Vj-975">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="SWf-KQ-lLn" kind="relationship" relationship="rootViewController" id="r6M-eo-vUJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="niy-0v-zOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1714" y="1153"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rh2-16-zsD"/>
+        <segue reference="OQW-UX-bTN"/>
     </inferredMetricsTieBreakers>
 </document>

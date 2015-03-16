@@ -9,3 +9,5 @@
 #import <TPKeyboardAvoiding/TPKeyboardAvoidingScrollView.h>
 #import "IDMPhotoBrowser.h"
 #import "UIViewController+ScrollingNavbar.h"
+#import <STKWebKitViewController/STKWebKitViewController.h>
+#import "RESideMenu.h"

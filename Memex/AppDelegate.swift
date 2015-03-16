@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.
 //
 
-import UIKit
+import UIKit    
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let account = DBAccountManager.sharedManager().linkedAccount {
             if account.linked {
-                let filesystem = DBFilesystem(account: account)
-                DBFilesystem.setSharedFilesystem(filesystem)
+                if DBFilesystem.sharedFilesystem() == nil {
+                    let filesystem = DBFilesystem(account: account)
+                    DBFilesystem.setSharedFilesystem(filesystem)
+                }
                 let rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("WikiViewControllerIdentifier") as? UIViewController
                 (self.window?.rootViewController as UINavigationController).setViewControllers([rootViewController!], animated: false)
             }
@@ -30,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor(red: 0.362, green: 0.724, blue: 0.111, alpha: 1.0)
         UINavigationBar.appearance().titleTextAttributes = [
             NSForegroundColorAttributeName: UINavigationBar.appearance().tintColor,
-//            UITextAttributeTextShadowColor: [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],
+//            UITextAttributeTextShadowColor: [UIColor colorWithRed:0.362 green:0.724 blue:0.111 alpha:0.8],
 //            UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
             NSFontAttributeName: UIFont.systemFontOfSize(0),
         ]

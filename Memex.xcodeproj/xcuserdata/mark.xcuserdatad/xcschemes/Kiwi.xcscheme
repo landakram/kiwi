@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D2AAC191A9DA30300E0904B"
-               BuildableName = "Memex.app"
-               BlueprintName = "Memex"
+               BuildableName = "Kiwi.app"
+               BlueprintName = "Kiwi"
                ReferencedContainer = "container:Memex.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D2AAC191A9DA30300E0904B"
-            BuildableName = "Memex.app"
-            BlueprintName = "Memex"
+            BuildableName = "Kiwi.app"
+            BlueprintName = "Kiwi"
             ReferencedContainer = "container:Memex.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +76,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D2AAC191A9DA30300E0904B"
-            BuildableName = "Memex.app"
-            BlueprintName = "Memex"
+            BuildableName = "Kiwi.app"
+            BlueprintName = "Kiwi"
             ReferencedContainer = "container:Memex.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -94,8 +94,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D2AAC191A9DA30300E0904B"
-            BuildableName = "Memex.app"
-            BlueprintName = "Memex"
+            BuildableName = "Kiwi.app"
+            BlueprintName = "Kiwi"
             ReferencedContainer = "container:Memex.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

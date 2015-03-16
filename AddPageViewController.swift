@@ -53,6 +53,12 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         titleField.delegate = self
         titleField.textAlignment = .Center
         self.navigationItem.titleView = titleField
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "checkmark"),
+            style: UIBarButtonItemStyle.Plain,
+            target: self,
+            action: Selector("save")
+        )
         
         if self.editing {
             let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: Selector("deletePage"))
@@ -90,6 +96,12 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     }
 
     // MARK: - Navigation
+    
+    func save() {
+        if shouldPerformSegueWithIdentifier("SavePage", sender: self) {
+            self.performSegueWithIdentifier("SavePage", sender: self)
+        }
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let titleField = self.navigationItem.titleView as UITextField

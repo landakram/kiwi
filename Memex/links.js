@@ -2,19 +2,19 @@ var links = document.getElementsByTagName("a");
 
 for (var i = 0; i < links.length; i++) {
     var el = links[i];
-    var internal = el.className.contains("internal");
+    var isInternal = el.className.indexOf("internal") > -1;
     var page = el.href;
-    var name = el.textContent
-    el.onclick = (function(page, name, internal) {
+    var name = el.textContent;
+    el.onclick = (function(page, name, isInternal) {
         return function(e) {
             e.preventDefault();
             window.webkit.messageHandlers.navigation.postMessage({
                 page: page,
                 name: name,
-                internal: internal
+                isInternal: isInternal
             });
         };
-    })(page, name, internal);
+    })(page, name, isInternal);
 }
 
 var images = document.getElementsByTagName("img");

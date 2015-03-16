@@ -41,8 +41,6 @@ class ExternalLinkViewController: UIViewController {
         self.view.addConstraints(verticalConstraints)
         
         self.webView.loadRequest(NSURLRequest(URL: self.url))
-        
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

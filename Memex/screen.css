@@ -2008,7 +2008,11 @@ footer a {
   text-decoration: none;
 }
 #page ul li {
-  line-height: 1.3em;
+  line-height: 1.5em;
+  margin-bottom: 0.4em;
+}
+#page ul li ul {
+  margin-top: 0.4em;
 }
 #page code {
   background: #eee;
@@ -2047,7 +2051,7 @@ footer a {
 #page p {
   font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
   font-size: 1em;
-  line-height: 1.3em;
+  line-height: 1.5em;
   margin-bottom: 1.5em;
 }
 #page img {

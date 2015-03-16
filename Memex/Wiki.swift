@@ -14,41 +14,69 @@ enum SaveResult {
 }
 
 class Wiki {
+    let WIKI_PATH = DBPath.root().childPath("wiki")
+    let STATIC_PATH = DBPath.root().childPath("public")
+    let IMG_PATH: DBPath!
+    let STYLES_PATH: DBPath!
+    
     init() {
-        let homePath = DBPath.root().childPath("home.md")
-        let sampleArticlePath = DBPath.root().childPath("markdown_test.md")
-        writeDefaultFile("home", toPath: homePath)
-        writeDefaultFile("markdown_test", toPath: sampleArticlePath)
+        createFolder(self.WIKI_PATH)
+        createFolder(self.STATIC_PATH)
         
-        let imgPath = DBPath.root().childPath("img")
-        if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(imgPath, error: nil) {
+        self.IMG_PATH = self.STATIC_PATH.childPath("img")
+        self.STYLES_PATH = self.STATIC_PATH.childPath("css")
+        createFolder(self.IMG_PATH)
+        createFolder(self.STYLES_PATH)
+        
+        // Write default files if they don't already exist
+        let homePath = self.WIKI_PATH.childPath("home.md")
+        let sampleArticlePath = self.WIKI_PATH.childPath("markdown_test.md")
+        writeDefaultFile("home", ofType: "md", toPath: homePath)
+        writeDefaultFile("markdown_test", ofType: "md", toPath: sampleArticlePath)
+        
+        writeDefaultFile("screen", ofType: "css", toPath: self.STYLES_PATH.childPath("screen.css"))
+        
+        // Copy images to local cache if they aren't already copied
+        if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(self.IMG_PATH, error: nil) {
             for fileInfo in imgFiles {
                 if let info = fileInfo as? DBFileInfo {
                     let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil)
-                    file.addObserver(self, block: { () -> Void in
-                        if file.status.cached {
-                            file.removeObserver(self)
-                            self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
-                        }
-                    })
+                    if !file.status.cached {
+                        file.addObserver(self, block: { () -> Void in
+                            if file.status.cached {
+                                file.removeObserver(self)
+                                self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                            }
+                        })
+                    } else {
+                        self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                    }
+                    
                 }
             }
         }
     }
     
-    func writeDefaultFile(name: String, toPath: DBPath) {
+    func createFolder(folderPath: DBPath) {
+        let fileInfo = DBFilesystem.sharedFilesystem().fileInfoForPath(folderPath, error: nil)
+        if fileInfo == nil {
+            DBFilesystem.sharedFilesystem().createFolder(folderPath, error: nil)
+        }
+    }
+    
+    func writeDefaultFile(name: String, ofType: String = "md", toPath: DBPath) {
         var error : DBError?
         if DBFilesystem.sharedFilesystem().openFile(toPath, error: &error) == nil {
-            let defaultFilePath = NSBundle.mainBundle().pathForResource(name, ofType: "md")
+            let defaultFilePath = NSBundle.mainBundle().pathForResource(name, ofType: ofType)
             let defaultFileContents = NSString(contentsOfFile: defaultFilePath!, encoding: NSUTF8StringEncoding, error: nil)
             let homeFile = DBFilesystem.sharedFilesystem().createFile(toPath, error: nil)
             homeFile.writeString(defaultFileContents, error: nil)
         }
     }
     
-    func files() -> Array<String> {
+    func files() -> [String] {
         var maybeError: DBError?
-        if var files = DBFilesystem.sharedFilesystem().listFolder(DBPath.root(), error: &maybeError) as? [DBFileInfo] {
+        if var files = DBFilesystem.sharedFilesystem().listFolder(self.WIKI_PATH, error: &maybeError) as? [DBFileInfo] {
             let fileNames = files.filter({ (f: DBFileInfo) -> Bool in
                 return !f.isFolder
             }).sorted({ (f1: DBFileInfo, f2: DBFileInfo) -> Bool in
@@ -65,7 +93,7 @@ class Wiki {
     }
     
     func isPage(permalink: String) -> Bool {
-        let filePath = DBPath.root().childPath(permalink + ".md")
+        let filePath = self.WIKI_PATH.childPath(permalink + ".md")
         if let fileInfo = DBFilesystem.sharedFilesystem().fileInfoForPath(filePath, error: nil) {
             return true
         }
@@ -73,7 +101,7 @@ class Wiki {
     }
     
     func page(permalink: String) -> Page? {
-        let filePath = DBPath.root().childPath(permalink + ".md")
+        let filePath = self.WIKI_PATH.childPath(permalink + ".md")
         var maybeError: DBError?
         if let file = DBFilesystem.sharedFilesystem().openFile(filePath, error: &maybeError) {
             var content = file.readString(nil)
@@ -89,13 +117,13 @@ class Wiki {
     }
     
     func delete(page: Page) {
-        self.deleteFileFromDropbox(page.permalink + ".md")
+        self.deleteFileFromDropbox(self.WIKI_PATH.childPath(page.permalink + ".md"))
         self.deleteLocalFile(page.permalink + ".html")
     }
     
     func save(page: Page, overwrite: Bool = false) -> SaveResult {
         page.content = page.renderHTML(page.rawContent)
-        let path = DBPath.root().childPath(page.permalink + ".md")
+        let path = self.WIKI_PATH.childPath(page.permalink + ".md")
         if let file = DBFilesystem.sharedFilesystem().createFile(path, error: nil) {
             file.writeString(page.rawContent, error: nil)
             return SaveResult.Success
@@ -129,12 +157,12 @@ class Wiki {
         return base64String
     }
     
-    func deleteFileFromDropbox(fileName: String) {
-        DBFilesystem.sharedFilesystem().deletePath(DBPath.root().childPath(fileName), error: nil)
+    func deleteFileFromDropbox(filePath: DBPath) {
+        DBFilesystem.sharedFilesystem().deletePath(filePath, error: nil)
     }
     
     func writeImageToDropbox(fileName: String, data: NSData) {
-        let imgFolderPath = DBPath.root().childPath("img")
+        let imgFolderPath = self.STATIC_PATH.childPath("img")
         DBFilesystem.sharedFilesystem().createFolder(imgFolderPath, error: nil)
         
         let imgPath = imgFolderPath.childPath(fileName)

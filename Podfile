@@ -6,3 +6,5 @@ pod 'TPKeyboardAvoiding', '~> 1.2'
 pod "RFMarkdownTextView", "~> 1.4"
 pod 'IDMPhotoBrowser'
 pod 'AMScrollingNavbar'
+pod "STKWebKitViewController"
+pod 'RESideMenu'

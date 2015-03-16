@@ -9,14 +9,13 @@
 import UIKit
 import WebKit
 
-class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewContainer: UIView!
     var webView: WKWebView!
     var wiki: Wiki!
     var currentPage: Page!
     
-    var currentExternalURL: String! 
     var pendingPageName: String?
     
     override func viewDidLoad() {
@@ -54,12 +53,15 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webViewContainer.addConstraints(horizontalConstraints)
         webViewContainer.addConstraints(verticalConstraints)
         
-        self.renderPermalink("home")
+        var swipeGesture = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipeUp"))
+        swipeGesture.numberOfTouchesRequired = 2
+        swipeGesture.direction = .Up
+        swipeGesture.delegate = self
+        self.webView.scrollView.addGestureRecognizer(swipeGesture)
+//        self.webView.scrollView.panGestureRecognizer.delegate = self
+//        self.webView.scrollView.panGestureRecognizer.requireGestureRecognizerToFail(swipeGesture)
         
-        var swipeUpGesture = UITapGestureRecognizer(target: self, action: Selector("handleSwipeUp"))
-        swipeUpGesture.numberOfTouchesRequired = 2
-        swipeUpGesture.numberOfTapsRequired = 1
-        self.webViewContainer.addGestureRecognizer(swipeUpGesture)
+        self.renderPermalink("home")
 //        self.followScrollView(self.webView, usingTopConstraint: self.topConstraint, withDelay: 0.75)
     }
     
@@ -74,6 +76,10 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     }
 
     // MARK: - Navigation
+    
+    func handleTitleTap() {
+        self.performSegueWithIdentifier("EditWikiPage", sender: self)
+    }
     
     func handleSwipeUp() {
         self.performSegueWithIdentifier("ShowAllPages", sender: self)
@@ -94,9 +100,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         } else if segue.identifier == "ShowAllPages" {
             let allPagesViewController = segue.destinationViewController.topViewController as AllPagesViewController
             allPagesViewController.wiki = self.wiki
-        } else if segue.identifier == "ViewExternalLink" {
-            let externalLinkViewController = segue.destinationViewController.topViewController as ExternalLinkViewController
-            externalLinkViewController.url = NSURL(string: self.currentExternalURL)
         }
     }
     
@@ -149,6 +152,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @IBAction func savePage(segue: UIStoryboardSegue) {
         let addPageViewController = segue.sourceViewController as AddPageViewController
         if let page = addPageViewController.page {
+            self.webView.reload()
             self.renderPage(page)   
         }
     }
@@ -177,6 +181,18 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         browser.usePopAnimation = true
         self.presentViewController(browser, animated: true, completion: nil)
     }
+    
+    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return true
+    }
+    
+    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
 class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
@@ -188,14 +204,14 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         if message.name == self.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let path = (body.objectForKey("page") as String).lastPathComponent
-                let name = (body.objectForKey("name") as String)
-                let isInternal = body.objectForKey("internal") as Bool
+                let path = body.objectForKey("page") as String
+                let name = body.objectForKey("name") as String
+                let isInternal = body.objectForKey("isInternal") as Bool
                 if isInternal {
-                    delegate.renderPermalink(path, name: name)
+                    delegate.renderPermalink(path.lastPathComponent, name: name)
                 } else {
-                    delegate.currentExternalURL = path
-                    delegate.performSegueWithIdentifier("ViewExternalLink", sender: self)
+                    var webViewController = STKWebKitModalViewController(URL: NSURL(string: path))
+                    delegate.presentViewController(webViewController, animated: true, completion: nil)
                 }
             }
         }
