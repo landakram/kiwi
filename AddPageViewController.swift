@@ -24,6 +24,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         
         textView = RFMarkdownTextView(frame: self.view.frame)
         textView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        textView.restorationIdentifier = "EditPageTextView"
+        
         self.automaticallyAdjustsScrollViewInsets = true
         view.addSubview(textView)
         
@@ -54,6 +56,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         titleField.returnKeyType = .Next
         titleField.delegate = self
         titleField.textAlignment = .Center
+        titleField.restorationIdentifier = "EditPageTitleView"
+
         self.navigationItem.titleView = titleField
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "checkmark"),
@@ -196,5 +200,25 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.textView.becomeFirstResponder()
         return true
+    }
+    
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        super.encodeRestorableStateWithCoder(coder)
+        coder.encodeObject(self.textView.text, forKey: "editedText")
+        coder.encodeObject(self.page, forKey: "page")
+        
+        let titleField = self.navigationItem.titleView as! UITextField
+        coder.encodeObject(titleField.text, forKey: "titleText")
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        super.decodeRestorableStateWithCoder(coder)
+        self.page = coder.decodeObjectForKey("page") as? Page
+        self.wiki = Wiki()
+        self.textView.insertText(coder.decodeObjectForKey("editedText") as! String)
+        
+        let titleField = self.navigationItem.titleView as! UITextField
+        titleField.text = coder.decodeObjectForKey("titleText") as! String
+        textFieldDidChange()
     }
 }

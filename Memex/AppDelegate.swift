@@ -13,9 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         let accountManager = DBAccountManager(appKey: "***REMOVED***", secret: "***REMOVED***")
         DBAccountManager.setSharedManager(accountManager)
         
@@ -75,6 +73,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return false
     }
 
+    func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
 
 }
 
