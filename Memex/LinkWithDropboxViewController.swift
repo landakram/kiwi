@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MRProgress
+import Async
 
 class LinkWithDropboxViewController: UIViewController {
     override func viewDidLoad() {
@@ -29,10 +31,43 @@ class LinkWithDropboxViewController: UIViewController {
                     DBFilesystem.setSharedFilesystem(filesystem)
                 }
                 if !DBFilesystem.sharedFilesystem().completedFirstSync {
+                    let spinner = MRProgressOverlayView.showOverlayAddedTo(self.view.window,
+                        title: "Importing...",
+                        mode: .Indeterminate,
+                        animated: true)
+//                    SVProgressHUD.showWithStatus("Importing your wiki...\nThis may take a minute or two if you have a lot of pages.")
                     DBFilesystem.sharedFilesystem().addObserver(self, block: { () -> Void in
                         if DBFilesystem.sharedFilesystem().completedFirstSync {
                             DBFilesystem.sharedFilesystem().removeObserver(self)
-                            self.performSegueWithIdentifier("LinkWithDropbox", sender: self)
+                            
+                            // Load the whole wiki from Dropbox, then move on
+                            let wiki = Wiki()
+                            Async.background {
+                                if let fileInfos = wiki.getAllFileInfos() {
+                                    let total = Float(fileInfos.count)
+                                    for (index, info) in enumerate(fileInfos) {
+                                        if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
+                                            var error: DBError?
+                                            file.readData(&error)
+                                        }
+                                        if index == 0 {
+                                            Async.main {
+                                                spinner.mode = .DeterminateCircular;
+                                            }
+                                        }
+                                        Async.main {
+                                            spinner.setProgress(Float(index + 1) / total, animated: true)
+                                        }
+                                    }
+                                }
+                            }.main {
+                                spinner.mode = .Indeterminate
+                            }.background {
+                                wiki.syncUpdatedPagesToYapDatabase()
+                            }.main {
+                                spinner.dismiss(true)
+                                self.performSegueWithIdentifier("LinkWithDropbox", sender: self)
+                            }
                         }
                     })
                 } else {

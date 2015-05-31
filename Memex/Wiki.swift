@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import YapDatabase
+import Async
 
 enum SaveResult {
     case Success
@@ -14,50 +16,110 @@ enum SaveResult {
 }
 
 class Wiki {
-    let WIKI_PATH = DBPath.root().childPath("wiki")
-    let STATIC_PATH = DBPath.root().childPath("public")
+    let WIKI_PATH: DBPath! = DBPath.root().childPath("wiki")
+    let STATIC_PATH: DBPath! = DBPath.root().childPath("public")
     let IMG_PATH: DBPath!
     let STYLES_PATH: DBPath!
     
     init() {
-        createFolder(self.WIKI_PATH)
-        createFolder(self.STATIC_PATH)
+        
+        Wiki.createFolder(self.WIKI_PATH)
+        Wiki.createFolder(self.STATIC_PATH)
         
         self.IMG_PATH = self.STATIC_PATH.childPath("img")
         self.STYLES_PATH = self.STATIC_PATH.childPath("css")
-        createFolder(self.IMG_PATH)
-        createFolder(self.STYLES_PATH)
+        
+        Wiki.createFolder(self.IMG_PATH)
+        Wiki.createFolder(self.STYLES_PATH)
         
         // Write default files if they don't already exist
         let homePath = self.WIKI_PATH.childPath("home.md")
         let sampleArticlePath = self.WIKI_PATH.childPath("markdown_test.md")
         writeDefaultFile("home", ofType: "md", toPath: homePath)
         writeDefaultFile("markdown_test", ofType: "md", toPath: sampleArticlePath)
-        
         writeDefaultFile("screen", ofType: "css", toPath: self.STYLES_PATH.childPath("screen.css"))
         
         // Copy images to local cache if they aren't already copied
         if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(self.IMG_PATH, error: nil) {
             for fileInfo in imgFiles {
                 if let info = fileInfo as? DBFileInfo {
-                    let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil)
-                    if !file.status.cached {
-                        file.addObserver(self, block: { () -> Void in
-                            if file.status.cached {
-                                file.removeObserver(self)
-                                self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
-                            }
-                        })
-                    } else {
-                        self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                    let filename = info.path.stringValue()
+                    if !self.localImageExists(filename) {
+                        let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil)
+                        if !file.status.cached {
+                            file.addObserver(self, block: { () -> Void in
+                                if file.status.cached {
+                                    file.removeObserver(self)
+                                    self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                                }
+                            })
+                        } else {
+                            self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                        }
                     }
-                    
+                }
+            }
+        }
+        
+//        if !NSUserDefaults.standardUserDefaults().boolForKey("didLoadFirstTime") {
+//            if let file = DBFilesystem.sharedFilesystem().openFile(homePath, error: nil) {
+//                
+//            }
+//            self.syncUpdatedPagesToYapDatabase()
+//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didLoadFirstTime")
+//        }
+        
+        // Persist files to YapDatabase for search
+        DBFilesystem.sharedFilesystem().addObserver(self, forPathAndDescendants: self.WIKI_PATH) {
+            if !DBFilesystem.sharedFilesystem().status.download.inProgress {
+                Async.background {
+                    self.syncUpdatedPagesToYapDatabase()   
                 }
             }
         }
     }
     
-    func createFolder(folderPath: DBPath) {
+    deinit {
+        DBFilesystem.sharedFilesystem().removeObserver(self)
+    }
+    
+    func getAllFileInfos() -> [DBFileInfo]? {
+        return DBFilesystem.sharedFilesystem().listFolder(self.WIKI_PATH, error: nil) as? [DBFileInfo]
+    }
+    
+    func syncUpdatedPagesToYapDatabase() {
+        if let wikiFiles = getAllFileInfos() {
+            for info in wikiFiles {
+                if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
+                    let permalink = info.path.stringValue().lastPathComponent.stringByDeletingPathExtension
+                    if !file.status.cached {
+                        file.addObserver(self, block: {
+                            if file.status.cached {
+                                file.removeObserver(self)
+                                self.persistToYapDatabase(file)
+                            }
+                        })
+                    } else {
+                        self.persistToYapDatabase(file)
+                    }
+                }
+            }
+        }
+    }
+    
+    func persistToYapDatabase(file: DBFile) {
+        if let page = self.page(file) {
+            var connection = Yap.sharedInstance.newConnection()
+            connection.readWriteWithBlock({ (transaction: YapDatabaseReadWriteTransaction!) in
+                let persistedPage = transaction.objectForKey(page.permalink, inCollection: "pages") as? Page
+                if persistedPage == nil || persistedPage!.modifiedTime.compare(page.modifiedTime) == .OrderedAscending {
+                    transaction.setObject(page, forKey: page.permalink, inCollection: "pages")
+                }
+            })
+        }
+    }
+    
+    class func createFolder(folderPath: DBPath) {
         let fileInfo = DBFilesystem.sharedFilesystem().fileInfoForPath(folderPath, error: nil)
         if fileInfo == nil {
             DBFilesystem.sharedFilesystem().createFolder(folderPath, error: nil)
@@ -70,7 +132,7 @@ class Wiki {
             let defaultFilePath = NSBundle.mainBundle().pathForResource(name, ofType: ofType)
             let defaultFileContents = NSString(contentsOfFile: defaultFilePath!, encoding: NSUTF8StringEncoding, error: nil)
             let homeFile = DBFilesystem.sharedFilesystem().createFile(toPath, error: nil)
-            homeFile.writeString(defaultFileContents, error: nil)
+            homeFile.writeString(defaultFileContents as! String, error: nil)
         }
     }
     
@@ -108,12 +170,22 @@ class Wiki {
             if content == nil {
                 content = ""
             }
-            let page = Page(rawContent: content, filename: permalink, wiki: self)
+            let page = Page(rawContent: content, filename: permalink, modifiedTime: file.info.modifiedTime, wiki: self)
             return page
         } else if let error = maybeError {
             println(error.localizedDescription)
         }
         return nil
+    }
+    
+    func page(file: DBFile) -> Page? {
+        let permalink = file.info.path.stringValue().lastPathComponent.stringByDeletingPathExtension
+        var content = file.readString(nil)
+        if content == nil {
+            content = ""
+        }
+        let page = Page(rawContent: content, filename: permalink, modifiedTime: file.info.modifiedTime, wiki: self)
+        return page
     }
     
     func delete(page: Page) {
@@ -126,10 +198,12 @@ class Wiki {
         let path = self.WIKI_PATH.childPath(page.permalink + ".md")
         if let file = DBFilesystem.sharedFilesystem().createFile(path, error: nil) {
             file.writeString(page.rawContent, error: nil)
+            self.persistToYapDatabase(file)
             return SaveResult.Success
         } else if overwrite {
             let file = DBFilesystem.sharedFilesystem().openFile(path, error: nil)
             file.writeString(page.rawContent, error: nil)
+            self.persistToYapDatabase(file)
             return SaveResult.Success
         } else {
             return SaveResult.FileExists
@@ -214,6 +288,40 @@ class Wiki {
     }
     
     func writeLocalFile(fileName: String, data: NSData, subfolder: String = "", overwrite: Bool = false) -> String? {
+        if let basePath = self.localDestinationBasePath(subfolder: subfolder) {
+            let dstPath = basePath.stringByAppendingPathComponent(fileName)
+            let fileMgr = NSFileManager.defaultManager()
+            if !fileMgr.fileExistsAtPath(dstPath) {
+                if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
+                    println("Couldn't copy file to \(basePath).")
+                    return nil
+                }
+            } else if overwrite {
+                fileMgr.removeItemAtPath(dstPath, error: nil)
+                if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
+                    println("Couldn't copy file to \(basePath).")
+                    return nil
+                }
+            }
+            return dstPath
+        }
+        return nil
+    }
+    
+    func localFileExists(fileName: String, subfolder: String = "") -> Bool {
+        if let basePath = self.localDestinationBasePath(subfolder: subfolder) {
+            let dstPath = basePath.stringByAppendingPathComponent(fileName)
+            let fileMgr = NSFileManager.defaultManager()
+            return fileMgr.fileExistsAtPath(dstPath)
+        }
+        return false
+    }
+    
+    func localImageExists(fileName: String) -> Bool {
+        return self.localFileExists(fileName, subfolder: "img")
+    }
+    
+    func localDestinationBasePath(subfolder: String = "") -> String? {
         let fullPath = "www/" + subfolder
         let fileMgr = NSFileManager.defaultManager()
         let tmpPath = NSTemporaryDirectory().stringByAppendingPathComponent(fullPath)
@@ -222,20 +330,7 @@ class Wiki {
             println("Couldn't create \(fullPath) subdirectory. \(error)")
             return nil
         }
-        let dstPath = tmpPath.stringByAppendingPathComponent(fileName)
-        if !fileMgr.fileExistsAtPath(dstPath) {
-            if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
-                println("Couldn't copy file to /tmp/\(fullPath). \(error)")
-                return nil
-            }
-        } else if overwrite {
-            fileMgr.removeItemAtPath(dstPath, error: nil)
-            if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
-                println("Couldn't copy file to /tmp/\(fullPath). \(error)")
-                return nil
-            }
-        }
-        return dstPath
+        return tmpPath
     }
     
     func writeLocalFile(fileName: String, content: String, subfolder: String = "", overwrite: Bool = false) -> String? {

@@ -26,10 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     DBFilesystem.setSharedFilesystem(filesystem)
                 }
                 let rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("WikiViewControllerIdentifier") as? UIViewController
-                (self.window?.rootViewController as UINavigationController).setViewControllers([rootViewController!], animated: false)
+                (self.window?.rootViewController as! UINavigationController).setViewControllers([rootViewController!], animated: false)
             }
         }
-        UINavigationBar.appearance().tintColor = UIColor(red: 0.362, green: 0.724, blue: 0.111, alpha: 1.0)
+        let kiwiColor = UIColor(red: 0.362, green: 0.724, blue: 0.111, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = kiwiColor
+        UISearchBar.appearance().tintColor = kiwiColor
+        UITextField.appearance().tintColor = kiwiColor
+        UITextView.appearance().tintColor = kiwiColor
         UINavigationBar.appearance().titleTextAttributes = [
             NSForegroundColorAttributeName: UINavigationBar.appearance().tintColor,
 //            UITextAttributeTextShadowColor: [UIColor colorWithRed:0.362 green:0.724 blue:0.111 alpha:0.8],

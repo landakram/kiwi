@@ -8,6 +8,9 @@
 
 import UIKit
 import WebKit
+import GRMustache
+import IDMPhotoBrowser
+import STKWebKitViewController
 
 class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -18,16 +21,45 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     var pendingPageName: String?
     
+    deinit {
+        self.webView.stopLoading()
+        self.webView.configuration.userContentController.removeScriptMessageHandlerForName(ImageBrowserScriptHandler.name)
+        self.webView.configuration.userContentController.removeScriptMessageHandlerForName(NavigationScriptMessageHandler.name)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupWebView()
+        
         self.wiki = Wiki()
         
+        let scriptPath = NSBundle.mainBundle().pathForResource("links", ofType: "js")!
+        let stylesPath = NSBundle.mainBundle().pathForResource("screen", ofType: "css")!
+        self.wiki.copyFileToLocal(scriptPath)
+        self.wiki.copyFileToLocal(stylesPath)
+        
+        self.renderPermalink("home")
+//        self.followScrollView(self.webView, usingTopConstraint: self.topConstraint, withDelay: 0.75)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // Mark: - Setup
+    
+    func setupWebView() {
         let userContentController = WKUserContentController()
         let handler = NavigationScriptMessageHandler(delegate: self)
-        userContentController.addScriptMessageHandler(handler, name: handler.name)
+        userContentController.addScriptMessageHandler(handler, name: NavigationScriptMessageHandler.name)
         let imageHandler = ImageBrowserScriptHandler(delegate: self)
-        userContentController.addScriptMessageHandler(imageHandler, name: imageHandler.name)
+        userContentController.addScriptMessageHandler(imageHandler, name: ImageBrowserScriptHandler.name)
         
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = userContentController
@@ -49,7 +81,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             options: NSLayoutFormatOptions(0),
             metrics: nil,
             views: ["webView": webView, "webViewContainer": webViewContainer])
-
+        
         webViewContainer.addConstraints(horizontalConstraints)
         webViewContainer.addConstraints(verticalConstraints)
         
@@ -58,21 +90,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         swipeGesture.direction = .Up
         swipeGesture.delegate = self
         self.webView.scrollView.addGestureRecognizer(swipeGesture)
-//        self.webView.scrollView.panGestureRecognizer.delegate = self
-//        self.webView.scrollView.panGestureRecognizer.requireGestureRecognizerToFail(swipeGesture)
-        
-        self.renderPermalink("home")
-//        self.followScrollView(self.webView, usingTopConstraint: self.topConstraint, withDelay: 0.75)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.showNavBarAnimated(false)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        //        self.webView.scrollView.panGestureRecognizer.delegate = self
+        //        self.webView.scrollView.panGestureRecognizer.requireGestureRecognizerToFail(swipeGesture)
     }
 
     // MARK: - Navigation
@@ -87,18 +106,18 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AddWikiPage" {
-            let addPageViewController = segue.destinationViewController.topViewController as AddPageViewController
+            let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             if let name = pendingPageName {
-                addPageViewController.page = Page(rawContent: "", name: name, wiki: self.wiki)
+                addPageViewController.page = Page(rawContent: "", name: name, modifiedTime: NSDate(), wiki: self.wiki)
             }
         } else if segue.identifier == "EditWikiPage" {
-            let addPageViewController = segue.destinationViewController.topViewController as AddPageViewController
+            let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             addPageViewController.page = self.currentPage
             addPageViewController.editing = true
         } else if segue.identifier == "ShowAllPages" {
-            let allPagesViewController = segue.destinationViewController.topViewController as AllPagesViewController
+            let allPagesViewController = segue.destinationViewController.topViewController as! AllPagesViewController
             allPagesViewController.wiki = self.wiki
         }
     }
@@ -116,14 +135,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     func renderPermalink(permalink: String, name: String? = nil) {
-        let scriptPath = NSBundle.mainBundle().pathForResource("links", ofType: "js")!
-        let stylesPath = NSBundle.mainBundle().pathForResource("screen", ofType: "css")!
-        
-        self.wiki.copyFileToLocal(scriptPath)
-        self.wiki.copyFileToLocal(stylesPath)
-        
-        if let page = wiki.page(permalink) {
-            self.renderPage(page)
+        if self.wiki.isPage(permalink) {
+            self.renderPage(self.wiki.page(permalink)!)
         } else {
             self.pendingPageName = name
             self.performSegueWithIdentifier("AddWikiPage", sender: self)
@@ -150,15 +163,15 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     @IBAction func savePage(segue: UIStoryboardSegue) {
-        let addPageViewController = segue.sourceViewController as AddPageViewController
+        let addPageViewController = segue.sourceViewController as! AddPageViewController
         if let page = addPageViewController.page {
-            self.webView.reload()
+            self.webView.reloadFromOrigin()
             self.renderPage(page)   
         }
     }
     
     @IBAction func navigateToSelectedPage(segue: UIStoryboardSegue) {
-        let allPagesViewController = segue.sourceViewController as AllPagesViewController
+        let allPagesViewController = segue.sourceViewController as! AllPagesViewController
         self.renderPermalink(allPagesViewController.selectedPermalink)
     }
     
@@ -167,11 +180,12 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        let permalink = webView.URL!.absoluteString?.lastPathComponent.stringByDeletingPathExtension
-        if permalink != self.currentPage.permalink {
-            if let page = wiki.page(permalink!) {
-                self.currentPage = page
-                self.title = self.currentPage.name
+        if let permalink = webView.URL!.absoluteString?.lastPathComponent.stringByDeletingPathExtension {
+            if permalink != self.currentPage.permalink {
+                if let page = wiki.page(permalink) {
+                    self.currentPage = page
+                    self.title = self.currentPage.name
+                }
             }
         }
     }
@@ -181,37 +195,25 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         browser.usePopAnimation = true
         self.presentViewController(browser, animated: true, completion: nil)
     }
-    
-    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return true
-    }
-    
-    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
 }
 
 class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    var name = "navigation"
-    var delegate: WikiViewController
+    static var name = "navigation"
+    weak var delegate: WikiViewController?
     init(delegate: WikiViewController) {
         self.delegate = delegate
     }
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == self.name {
+        if message.name == NavigationScriptMessageHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let path = body.objectForKey("page") as String
-                let name = body.objectForKey("name") as String
-                let isInternal = body.objectForKey("isInternal") as Bool
+                let path = body.objectForKey("page") as! String
+                let name = body.objectForKey("name") as! String
+                let isInternal = body.objectForKey("isInternal") as! Bool
                 if isInternal {
-                    delegate.renderPermalink(path.lastPathComponent, name: name)
+                    delegate?.renderPermalink(path.lastPathComponent, name: name)
                 } else {
                     var webViewController = STKWebKitModalViewController(URL: NSURL(string: path))
-                    delegate.presentViewController(webViewController, animated: true, completion: nil)
+                    delegate?.presentViewController(webViewController, animated: true, completion: nil)
                 }
             }
         }
@@ -219,16 +221,16 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
 }
 
 class ImageBrowserScriptHandler: NSObject, WKScriptMessageHandler {
-    var name = "showImageBrowser"
-    var delegate: WikiViewController
+    static var name = "showImageBrowser"
+    weak var delegate: WikiViewController?
     init(delegate: WikiViewController) {
         self.delegate = delegate
     }
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if message.name == self.name {
+        if message.name == ImageBrowserScriptHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let src = (body.objectForKey("src") as String).lastPathComponent
-                delegate.showImageBrowser(src)
+                let src = (body.objectForKey("src") as! String).lastPathComponent
+                delegate?.showImageBrowser(src)
             }
         }
     }

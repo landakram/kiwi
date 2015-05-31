@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RFMarkdownTextView
 
 class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -23,6 +24,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         
         textView = RFMarkdownTextView(frame: self.view.frame)
         textView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.automaticallyAdjustsScrollViewInsets = true
         view.addSubview(textView)
         
         var dict = ["textView": textView]
@@ -104,7 +106,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let titleField = self.navigationItem.titleView as UITextField
+        let titleField = self.navigationItem.titleView as! UITextField
         titleField.resignFirstResponder()
         textView.resignFirstResponder()
     }
@@ -112,8 +114,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         if identifier == "SavePage" {
             if !self.editing {
-                let titleField = self.navigationItem.titleView as UITextField
-                self.page = Page(rawContent: textView.text, name: titleField.text, wiki: self.wiki)
+                let titleField = self.navigationItem.titleView as! UITextField
+                self.page = Page(rawContent: textView.text, name: titleField.text, modifiedTime: NSDate(), wiki: self.wiki)
             } else {
                 self.page?.rawContent = textView.text
             }
@@ -179,7 +181,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         dismissViewControllerAnimated(true, completion: nil)
         
-        var chosenImage = info[UIImagePickerControllerOriginalImage] as UIImage
+        var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         var imageFileName = self.wiki.saveImage(chosenImage)
         
         imageBlock(imageFileName)
@@ -187,7 +189,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     }
     
     func textFieldDidChange() {
-        let textField = self.navigationItem.titleView as UITextField
+        let textField = self.navigationItem.titleView as! UITextField
         self.navigationItem.rightBarButtonItem?.enabled = !textField.text.isEmpty
     }
     

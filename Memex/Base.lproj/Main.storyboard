@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nWc-ws-jsh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nWc-ws-jsh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Link With Dropbox View Controller-->
@@ -128,7 +129,6 @@
         <!--Navigation Controller-->
         <scene sceneID="51C-lD-YzY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="nWc-ws-jsh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K9U-19-WGB">
@@ -140,6 +140,7 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="d3x-eK-B9I"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="662" y="-333"/>
         </scene>
@@ -165,15 +166,74 @@
         <scene sceneID="1r2-X8-FbD">
             <objects>
                 <tableViewController storyboardIdentifier="AllPagesViewController" title="All Pages" id="KaT-x9-YnM" customClass="AllPagesViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qtu-7j-kYR">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="105" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qtu-7j-kYR">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="AX7-UB-X8F">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="KaT-x9-YnM" id="kMw-1t-b1S"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pageCell" id="Ak8-fb-YDf">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ak8-fb-YDf" id="RPT-sS-Y66">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-L4-Ojy">
+                                            <rect key="frame" x="18" y="13" width="574" height="25.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25.5" id="5q1-rN-WZs"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqF-xu-a9n">
+                                            <rect key="frame" x="18" y="39" width="574" height="56"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="41.5" id="nft-eN-BPL"/>
+                                            </constraints>
+                                            <string key="text">This is a subtitle that potentially has a lot of text if that bothers you then whatever but know that it will eventually be okay. This is a subtitle that potentially has a lot of text if that bothers you then whatever but know that it will eventually be okay. This is a subtitle that potentially has a lot of text if that bothers you then whatever but know that it will eventually be okay. </string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="nft-eN-BPL"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bHJ-L4-Ojy" firstAttribute="top" secondItem="RPT-sS-Y66" secondAttribute="topMargin" constant="5" id="0mn-L6-jZN"/>
+                                        <constraint firstItem="bHJ-L4-Ojy" firstAttribute="leading" secondItem="RPT-sS-Y66" secondAttribute="leadingMargin" constant="10" id="1Fh-h4-3Mk"/>
+                                        <constraint firstItem="bHJ-L4-Ojy" firstAttribute="trailing" secondItem="RPT-sS-Y66" secondAttribute="trailingMargin" id="5tW-Qw-ujL"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="leading" secondItem="RPT-sS-Y66" secondAttribute="leadingMargin" constant="10" id="K4I-Hk-wJY"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="top" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="10" id="TCs-0D-woP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="38" id="Tbf-Sb-amX"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="top" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="5" id="WL7-B0-e04"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="top" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="0.5" id="Yyb-aw-SmQ"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="trailing" secondItem="RPT-sS-Y66" secondAttribute="trailingMargin" id="a6a-Zg-wSv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="uqF-xu-a9n" secondAttribute="bottom" constant="1.5" id="lwf-ab-BOY"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="48" id="pAi-m0-w6c"/>
+                                        <constraint firstItem="uqF-xu-a9n" firstAttribute="top" secondItem="bHJ-L4-Ojy" secondAttribute="bottom" constant="4.5" id="sKw-6H-VE2"/>
+                                        <constraint firstItem="bHJ-L4-Ojy" firstAttribute="trailing" secondItem="RPT-sS-Y66" secondAttribute="trailingMargin" id="yAi-ji-urW"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Tbf-Sb-amX"/>
+                                            <exclude reference="pAi-m0-w6c"/>
+                                            <exclude reference="yAi-ji-urW"/>
+                                            <exclude reference="TCs-0D-woP"/>
+                                            <exclude reference="WL7-B0-e04"/>
+                                            <exclude reference="sKw-6H-VE2"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="60c-f4-41C" kind="unwind" identifier="NavigateToSelectedPage" unwindAction="navigateToSelectedPage:" id="oNt-Q4-vd3"/>
@@ -192,9 +252,23 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="AX7-UB-X8F" id="z6i-TH-Dl8"/>
+                        <outlet property="searchDisplayController" destination="OUA-7b-deI" id="qb4-97-ach"/>
+                        <outlet property="tableView" destination="Qtu-7j-kYR" id="dkl-tL-XHg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ui-f7-7hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="60c-f4-41C" userLabel="Exit" sceneMemberID="exit"/>
+                <searchDisplayController id="OUA-7b-deI">
+                    <connections>
+                        <outlet property="delegate" destination="KaT-x9-YnM" id="SzY-QJ-UWR"/>
+                        <outlet property="searchBar" destination="AX7-UB-X8F" id="f19-o6-QLL"/>
+                        <outlet property="searchContentsController" destination="KaT-x9-YnM" id="lyp-9t-xhW"/>
+                        <outlet property="searchResultsDataSource" destination="KaT-x9-YnM" id="omI-oz-aNQ"/>
+                        <outlet property="searchResultsDelegate" destination="KaT-x9-YnM" id="Gwo-2P-m2f"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="4442" y="1121"/>
         </scene>
