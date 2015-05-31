@@ -21,12 +21,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     var pendingPageName: String?
     
-    deinit {
-        self.webView.stopLoading()
-        self.webView.configuration.userContentController.removeScriptMessageHandlerForName(ImageBrowserScriptHandler.name)
-        self.webView.configuration.userContentController.removeScriptMessageHandlerForName(NavigationScriptMessageHandler.name)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +59,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         configuration.userContentController = userContentController
         
         self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        self.webView.restorationIdentifier = "WikiWebView"
         self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.webView.allowsBackForwardNavigationGestures = true
         self.webView.UIDelegate = self;
@@ -194,6 +189,21 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         var browser = IDMPhotoBrowser(photos: [IDMPhoto(filePath: self.wiki.localImagePath(path))])
         browser.usePopAnimation = true
         self.presentViewController(browser, animated: true, completion: nil)
+    }
+    
+    override func encodeRestorableStateWithCoder(coder: NSCoder) {
+        super.encodeRestorableStateWithCoder(coder)
+        coder.encodeObject(self.currentPage, forKey: "page")
+    }
+    
+    override func decodeRestorableStateWithCoder(coder: NSCoder) {
+        super.decodeRestorableStateWithCoder(coder)
+        self.currentPage = coder.decodeObjectForKey("page") as? Page
+        self.currentPage.wiki = self.wiki
+        self.currentPage.content = self.currentPage.renderHTML(self.currentPage.rawContent)
+        if let page = self.currentPage {
+            self.renderPage(page)
+        }
     }
 }
 
