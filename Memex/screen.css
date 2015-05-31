@@ -1943,6 +1943,7 @@ footer {
 }
 html {
   background: #f6f6f6;
+  -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 body {
   font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
