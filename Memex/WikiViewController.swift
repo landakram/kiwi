@@ -28,9 +28,12 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
         self.wiki = Wiki()
         
+        
         let scriptPath = NSBundle.mainBundle().pathForResource("links", ofType: "js")!
         let stylesPath = NSBundle.mainBundle().pathForResource("screen", ofType: "css")!
         self.wiki.copyFileToLocal(scriptPath)
+        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("auto-render-latex.min", ofType: "js")!)
+        
         self.wiki.copyFileToLocal(stylesPath)
         
         self.renderPermalink("home")
