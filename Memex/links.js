@@ -31,3 +31,30 @@ for (var i = 0; i < images.length; i++) {
         };
     })(src);
 }
+
+var rawMarkdown;
+
+function injectRawMarkdown(markdown) {
+    rawMarkdown = decodeURIComponent(markdown);
+    var checklistNodes = document.getElementsByClassName('task-list-item');
+    Array.prototype.forEach.call(checklistNodes, function(el, index) {
+        var checkbox = el.children[0];
+        checkbox.onclick = function(event) {
+           var elem = event.currentTarget;
+           var newValue = elem.checked ? "[x]": "[ ]";
+           var nth = -1;
+           var newRaw = rawMarkdown.replace(/\[([\ \_\-\x\*]?)\]/g, function(match) {
+                nth += 1;
+                console.log("matches?", nth == index);
+                console.log("using", nth == index ? newValue : match);
+                return nth == index ? newValue : match;
+           });
+           rawMarkdown = newRaw;
+           window.webkit.messageHandlers.updateRaw.postMessage({
+               content: rawMarkdown
+           });
+        };
+    });
+}
+
+window.webkit.messageHandlers.loaded.postMessage({});

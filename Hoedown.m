@@ -7,8 +7,7 @@
 //
 
 #import "Hoedown.h"
-#include "document.h"
-#include "html.h"
+#include "hoedown_html_patch.h"
 
 @implementation Hoedown
 
@@ -18,7 +17,9 @@
     NSData *data = [markdownString dataUsingEncoding:NSUTF8StringEncoding];
     
     hoedown_buffer *buffer = hoedown_buffer_new(data.length);
-    hoedown_renderer *renderer = hoedown_html_renderer_new(0, 16);
+    hoedown_renderer *renderer = hoedown_html_renderer_new(HOEDOWN_HTML_USE_TASK_LIST, 16);
+    renderer->listitem = hoedown_patch_render_listitem;
+    
     hoedown_document *document = hoedown_document_new(renderer, HOEDOWN_EXT_BLOCK | HOEDOWN_EXT_SPAN, 16);
     
     hoedown_document_render(document, buffer, data.bytes, data.length);

@@ -33,6 +33,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         let stylesPath = NSBundle.mainBundle().pathForResource("screen", ofType: "css")!
         self.wiki.copyFileToLocal(scriptPath)
         self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("auto-render-latex.min", ofType: "js")!)
+        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("prism", ofType: "css")!)
+        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("prism", ofType: "js")!)
         
         self.wiki.copyFileToLocal(stylesPath)
         
@@ -57,7 +59,10 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         userContentController.addScriptMessageHandler(handler, name: NavigationScriptMessageHandler.name)
         let imageHandler = ImageBrowserScriptHandler(delegate: self)
         userContentController.addScriptMessageHandler(imageHandler, name: ImageBrowserScriptHandler.name)
-        
+        let checklistHandler = ChecklistScriptMessageHandler(delegate: self)
+        userContentController.addScriptMessageHandler(checklistHandler, name: ChecklistScriptMessageHandler.name)
+        userContentController.addScriptMessageHandler(checklistHandler, name: "loaded")
+
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = userContentController
         
@@ -231,6 +236,29 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
             }
         }
     }
+}
+
+class ChecklistScriptMessageHandler: NSObject, WKScriptMessageHandler {
+    static var name = "updateRaw"
+    weak var delegate: WikiViewController?
+    init(delegate: WikiViewController) {
+        self.delegate = delegate
+    }
+    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+        if message.name == ChecklistScriptMessageHandler.name {
+            if let body: NSDictionary = message.body as? NSDictionary {
+                let rawContent = body.objectForKey("content") as! String
+                delegate?.currentPage.rawContent = rawContent
+                delegate?.wiki.save(delegate!.currentPage!, overwrite: true)
+            }
+        } else if message.name == "loaded" {
+            if let string = delegate?.currentPage.rawContent {
+                let js = "injectRawMarkdown(\"\(string.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)\")"
+                delegate?.webView.evaluateJavaScript(js, completionHandler: nil)
+            }
+        }
+    }
+
 }
 
 class ImageBrowserScriptHandler: NSObject, WKScriptMessageHandler {

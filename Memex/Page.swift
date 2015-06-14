@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftRegex
 
 class Page: NSObject, NSCoding {
     var content: String?
