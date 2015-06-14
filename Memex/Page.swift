@@ -73,29 +73,6 @@ class Page: NSObject, NSCoding {
     }
     
     func parseLinks(rawContent: String) -> String {
-//        let regex = Regex("\\[\\[(.+?)\\]\\]")
-//        let parsed = regex.replace(rawContent, withBlock: { (regexMatch : RegexMatch) -> String in
-//            let match = regexMatch.subgroupMatchAtIndex(0)!
-//            var pageName: String!
-//            var name: String!
-//
-//            // Handle aliases
-//            let a = match.componentsSeparatedByString(":")
-//            if a.count > 1 {
-//                name = a[0]
-//                pageName = a[1]
-//            } else {
-//                pageName = match
-//                name = pageName
-//            }
-//            let permalink = pageName.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "_")
-//            if self.wiki!.isPage(permalink) {
-//                return "<a class=\"internal\" href=\"\(permalink)\">" + name + "</a>"
-//            } else {
-//                return "<a class=\"internal new\" href=\"\(permalink)\">" + name + "</a>"
-//            }
-//        })
-//        return parsed!
         
         var mutable = RegexMutable(rawContent)
         mutable["\\[\\[(.+?)\\]\\]"] ~= {
