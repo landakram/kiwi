@@ -179,6 +179,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         picker.delegate = self
         
         self.imageBlock = imageBlock
+        picker.popoverPresentationController?.sourceView = textView
+        picker.popoverPresentationController?.sourceRect = textView.caretRectForPosition(textView.selectedTextRange?.start)
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
