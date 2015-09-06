@@ -2017,8 +2017,6 @@ footer a {
 #page a.internal {
   text-decoration: none;
   padding: 2px 3px;
-  font-family: Monaco, Andale Mono, Courier New, monospace;
-  font-size: 0.75em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -2065,6 +2063,12 @@ footer a {
 .tools {
   margin-bottom: 1em;
   text-align: right;
+}
+li input[type=checkbox] {
+  
+}
+li.task-list-item {
+  list-style: none;
 }
 @media screen and (max-width: 480px) {
   #content {

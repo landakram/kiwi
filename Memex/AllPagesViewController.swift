@@ -79,16 +79,14 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
         
         self.yapConnection.readWithBlock({ (transaction) in
             if let page = transaction.objectForKey(fileName, inCollection: "pages") as? Page {
-                    //                NSCharacterSet *delimiterCharacterSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-                    //                NSArray *firstWords = [[str componentsSeparatedByCharactersInSet:delimiterCharacterSet] subarrayWithRange:wordRange];
-                    let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-                    if let components = page.rawContent?.componentsSeparatedByCharactersInSet(characterSet) {
-                        let length = min(components.count, 30)
-                        let firstWords = " ".join(components[0..<length])
-                        if let detailLabel = cell.viewWithTag(101) as? UILabel {
-                            detailLabel.text = firstWords;
-                        }
+                let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+                if let components = page.rawContent?.componentsSeparatedByCharactersInSet(characterSet) {
+                    let length = min(components.count, 30)
+                    let firstWords = " ".join(components[0..<length])
+                    if let detailLabel = cell.viewWithTag(101) as? UILabel {
+                        detailLabel.text = firstWords;
                     }
+                }
             }
             
             

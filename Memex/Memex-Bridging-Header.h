@@ -12,3 +12,5 @@
 #import <YapDatabase/YapDatabase.h>
 #import <YapDatabase/YapDatabaseFullTextSearch.h>
 #import <YapDatabase/YapDatabaseFullTextSearchTransaction.h>
+
+#import <ViewUtils/ViewUtils.h>

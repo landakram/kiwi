@@ -10,6 +10,7 @@
 		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
 		4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
 		4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
+		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
 		4D26DBBA1ABD4002007CE00E /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D26DBB91ABD4002007CE00E /* home@2x.png */; };
 		4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
 		4D0378121AA88EA600B6D841 /* markdown_test.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = markdown_test.md; sourceTree = "<group>"; };
+		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YapDatabase.swift; sourceTree = "<group>"; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		4D2AAC1A1A9DA30300E0904B /* Kiwi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */,
 				4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */,
 				4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */,
+				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
 			);
 			path = Memex;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
+				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
 				4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,

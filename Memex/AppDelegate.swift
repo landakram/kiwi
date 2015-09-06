@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 (self.window?.rootViewController as! UINavigationController).setViewControllers([rootViewController!], animated: false)
             }
         }
-        let kiwiColor = UIColor(red: 0.362, green: 0.724, blue: 0.111, alpha: 1.0)
+        let kiwiColor = Constants.KiwiColor
         UINavigationBar.appearance().tintColor = kiwiColor
         UISearchBar.appearance().tintColor = kiwiColor
         UITextField.appearance().tintColor = kiwiColor

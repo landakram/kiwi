@@ -73,6 +73,7 @@ PODS:
   - RFMarkdownTextView (1.4):
     - RFKeyboardToolbar (~> 1.3)
   - STKWebKitViewController (0.1.9)
+  - ViewUtils (1.1.2)
   - YapDatabase (2.6.4):
     - YapDatabase/standard (= 2.6.4)
   - YapDatabase/standard (2.6.4):
@@ -89,6 +90,7 @@ DEPENDENCIES:
   - RESideMenu
   - RFMarkdownTextView (from `https://github.com/landakram/RFMarkdownTextView.git`)
   - STKWebKitViewController
+  - ViewUtils (~> 1.1)
   - YapDatabase (~> 2.5)
 
 EXTERNAL SOURCES:
@@ -127,6 +129,7 @@ SPEC CHECKSUMS:
   RFKeyboardToolbar: c96a7d9458564d1fedc8ef6844b6c467934aade2
   RFMarkdownTextView: 07713b785f1b9285eda1d8a3ab70a361ea8eb259
   STKWebKitViewController: 679e9f6ceff88572eb5596f0662b992e9ebb55e3
+  ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: f9051e178a38f48d0f3a78562423a5bc969f1ca3
 
 COCOAPODS: 0.37.1

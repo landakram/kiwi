@@ -11,8 +11,17 @@ import MRProgress
 import Async
 
 class LinkWithDropboxViewController: UIViewController {
+    @IBOutlet weak var linkWithDropboxButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBarHidden = true;
+        
+        linkWithDropboxButton.layer.borderWidth = 1
+        linkWithDropboxButton.layer.cornerRadius = 5
+        linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.CGColor
+        linkWithDropboxButton.layer.masksToBounds = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,7 +44,7 @@ class LinkWithDropboxViewController: UIViewController {
                         title: "Importing...",
                         mode: .Indeterminate,
                         animated: true)
-//                    SVProgressHUD.showWithStatus("Importing your wiki...\nThis may take a minute or two if you have a lot of pages.")
+                    spinner.setTintColor(Constants.KiwiColor)
                     DBFilesystem.sharedFilesystem().addObserver(self, block: { () -> Void in
                         if DBFilesystem.sharedFilesystem().completedFirstSync {
                             DBFilesystem.sharedFilesystem().removeObserver(self)

@@ -24,6 +24,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBarHidden = false;
+        
         self.setupWebView()
         
         self.wiki = Wiki()
@@ -195,7 +197,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     func showImageBrowser(path: String) {
         var browser = IDMPhotoBrowser(photos: [IDMPhoto(filePath: self.wiki.localImagePath(path))])
-        browser.usePopAnimation = true
+        browser.usePopAnimation = false
         self.presentViewController(browser, animated: true, completion: nil)
     }
     

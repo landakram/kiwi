@@ -8,6 +8,7 @@
 
 import UIKit
 import RFMarkdownTextView
+import ViewUtils
 
 class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -22,11 +23,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView = RFMarkdownTextView(frame: self.view.frame)
+        textView = RFMarkdownTextView(frame: self.view.bounds)
         textView.setTranslatesAutoresizingMaskIntoConstraints(false)
         textView.restorationIdentifier = "EditPageTextView"
         
-        self.automaticallyAdjustsScrollViewInsets = true
+        self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(textView)
         
         var dict = ["textView": textView]
@@ -45,6 +46,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         
         textView.scrollEnabled = true
         textView.imagePickerDelegate = self
+        textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.y + self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         
         // 50 is estimated from the size of the left and right bar button items
