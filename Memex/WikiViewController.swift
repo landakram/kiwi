@@ -11,15 +11,33 @@ import WebKit
 import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
+import AMScrollingNavbar
 
-class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate {
+class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewContainer: UIView!
+    
+    var titleView : UIButton!
+    
     var webView: WKWebView!
     var wiki: Wiki!
     var currentPage: Page!
     
     var pendingPageName: String?
+    
+    override var title: String? {
+        set {
+            super.title = newValue
+            UIView.performWithoutAnimation { () -> Void in
+                self.titleView.setTitle(newValue, forState: UIControlState.Normal)
+                self.titleView.sizeToFit()
+                self.titleView.layoutIfNeeded()
+            }
+        }
+        get {
+            return super.title
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +59,16 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.wiki.copyFileToLocal(stylesPath)
         
         self.renderPermalink("home")
-//        self.followScrollView(self.webView, usingTopConstraint: self.topConstraint, withDelay: 0.75)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.scrollingNavbarDelegate = self
+            navigationController.followScrollView(self.webView.scrollView, delay: 50.0)
+        }
+    }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
     }
@@ -51,6 +76,9 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func scrollingNavigationController(controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
     }
     
     // Mark: - Setup
@@ -95,14 +123,26 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         swipeGesture.direction = .Up
         swipeGesture.delegate = self
         self.webView.scrollView.addGestureRecognizer(swipeGesture)
-        //        self.webView.scrollView.panGestureRecognizer.delegate = self
-        //        self.webView.scrollView.panGestureRecognizer.requireGestureRecognizerToFail(swipeGesture)
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTitleTap"))
+        
+        titleView = UIButton.buttonWithType(.System) as! UIButton
+        titleView.sizeToFit()
+        titleView.titleLabel!.font = UIFont.systemFontOfSize(18)
+        titleView.showsTouchWhenHighlighted = true
+        titleView.userInteractionEnabled = true
+        titleView.addTarget(self, action: Selector("handleTitleTap"), forControlEvents: UIControlEvents.TouchUpInside)
+        titleView.setTitleColor(Constants.KiwiColor, forState: UIControlState.Normal)
+        self.navigationController?.navigationItem.titleView = titleView
+        
+        self.navigationItem.titleView = titleView
+        self.webView.scrollView.delegate = self
     }
 
     // MARK: - Navigation
     
     func handleTitleTap() {
-        self.performSegueWithIdentifier("EditWikiPage", sender: self)
+        self.performSegueWithIdentifier("ShowAllPages", sender: self)
     }
     
     func handleSwipeUp() {
@@ -137,6 +177,10 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.webView.loadRequest(NSURLRequest(URL: NSURL.fileURLWithPath(path!)!))
         self.currentPage = page
         self.title = self.currentPage.name
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
     }
     
     func renderPermalink(permalink: String, name: String? = nil) {

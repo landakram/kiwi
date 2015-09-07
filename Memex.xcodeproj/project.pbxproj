@@ -38,6 +38,7 @@
 		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
 		4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
 		4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
+		4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */; };
 		4DE39A4E1B2CD03E0099E757 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA87BC11ADF454E001F525B /* SwiftRegex.swift */; };
 		4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */; };
 		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
@@ -75,7 +76,6 @@
 		4D44273B1B1D7C8B00B35C01 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
-		4D4B33EF1B9E1FF900BCBE5B /* IDMPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPhotoBrowser.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
@@ -94,6 +94,7 @@
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPagesViewController.swift; sourceTree = "<group>"; };
 		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalLinkViewController.swift; sourceTree = "<group>"; };
+		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		4DE39A521B2CDF840099E757 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -135,7 +136,6 @@
 			isa = PBXGroup;
 			children = (
 				4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */,
-				4D4B33EF1B9E1FF900BCBE5B /* IDMPhotoBrowser.bundle */,
 				4D2AAC1C1A9DA30300E0904B /* Memex */,
 				4D2AAC321A9DA30300E0904B /* MemexTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
@@ -176,6 +176,7 @@
 				4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */,
 				4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */,
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
+				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 			);
 			path = Memex;
 			sourceTree = "<group>";
@@ -404,6 +405,7 @@
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
 				4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */,
+				4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
 				4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */,
 				4DBE60841AA5527A003D3F34 /* Page.swift in Sources */,

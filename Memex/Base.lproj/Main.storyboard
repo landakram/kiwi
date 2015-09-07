@@ -82,10 +82,10 @@
                             <mask key="constraints">
                                 <exclude reference="Ox6-k0-wpx"/>
                                 <exclude reference="v7U-NU-Hr7"/>
-                                <exclude reference="2aH-La-hkW"/>
-                                <exclude reference="gKu-pj-Ujn"/>
                                 <exclude reference="PCf-mx-7R3"/>
                                 <exclude reference="u6r-Ry-ByC"/>
+                                <exclude reference="2aH-La-hkW"/>
+                                <exclude reference="gKu-pj-Ujn"/>
                                 <exclude reference="7zC-2K-S2Q"/>
                                 <exclude reference="si9-7Y-LJm"/>
                             </mask>
@@ -187,10 +187,10 @@
             </objects>
             <point key="canvasLocation" x="3622" y="300"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base Navigation Controller-->
         <scene sceneID="51C-lD-YzY">
             <objects>
-                <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWc-ws-jsh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWc-ws-jsh" customClass="BaseNavigationController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K9U-19-WGB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
