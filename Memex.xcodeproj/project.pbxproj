@@ -22,6 +22,7 @@
 		4D44273A1B1D710000B35C01 /* auto-render-latex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D4427391B1D710000B35C01 /* auto-render-latex.min.js */; };
 		4D44273C1B1D7C8B00B35C01 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273B1B1D7C8B00B35C01 /* prism.css */; };
 		4D44273E1B1D7C9000B35C01 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273D1B1D7C9000B35C01 /* prism.js */; };
+		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
 		4D5F93DD1AB00F5900D92886 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93DC1AB00F5900D92886 /* green@2x.png */; };
 		4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93E01AB02A3F00D92886 /* menu@2x.png */; };
@@ -73,6 +74,9 @@
 		4D4427391B1D710000B35C01 /* auto-render-latex.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "auto-render-latex.min.js"; sourceTree = "<group>"; };
 		4D44273B1B1D7C8B00B35C01 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
+		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
+		4D4B33EF1B9E1FF900BCBE5B /* IDMPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPhotoBrowser.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle; sourceTree = "<group>"; };
+		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 		48924F7F2E83D886BAA39977 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */,
 				4DE39A521B2CDF840099E757 /* libxml2.dylib */,
 				3EF991A60A24FCEA7388DC87 /* Pods.framework */,
 			);
@@ -129,6 +134,8 @@
 		4D2AAC111A9DA30300E0904B = {
 			isa = PBXGroup;
 			children = (
+				4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */,
+				4D4B33EF1B9E1FF900BCBE5B /* IDMPhotoBrowser.bundle */,
 				4D2AAC1C1A9DA30300E0904B /* Memex */,
 				4D2AAC321A9DA30300E0904B /* MemexTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
@@ -306,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
 				4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */,
 				4D7CBBAD1AA82A8400638C5C /* home.md in Resources */,
 				4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */,
@@ -539,6 +547,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
+				);
 				INFOPLIST_FILE = Memex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +568,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
+				);
 				INFOPLIST_FILE = Memex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

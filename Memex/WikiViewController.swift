@@ -198,6 +198,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     func showImageBrowser(path: String) {
         var browser = IDMPhotoBrowser(photos: [IDMPhoto(filePath: self.wiki.localImagePath(path))])
         browser.usePopAnimation = false
+        browser.displayActionButton = false
         self.presentViewController(browser, animated: true, completion: nil)
     }
     
