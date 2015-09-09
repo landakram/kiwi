@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Memex
+//  Kiwi
 //
 //  Created by Mark Hudnall on 2/24/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.

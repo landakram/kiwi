@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  Memex
+//  Kiwi
 //
 //  Created by Mark Hudnall on 8/20/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.

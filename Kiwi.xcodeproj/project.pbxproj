@@ -18,7 +18,7 @@
 		4D2AAC251A9DA30300E0904B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC231A9DA30300E0904B /* Main.storyboard */; };
 		4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC261A9DA30300E0904B /* Images.xcassets */; };
 		4D2AAC2A1A9DA30300E0904B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */; };
-		4D2AAC361A9DA30300E0904B /* MemexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC351A9DA30300E0904B /* MemexTests.swift */; };
+		4D2AAC361A9DA30300E0904B /* KiwiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC351A9DA30300E0904B /* KiwiTests.swift */; };
 		4D44273A1B1D710000B35C01 /* auto-render-latex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D4427391B1D710000B35C01 /* auto-render-latex.min.js */; };
 		4D44273C1B1D7C8B00B35C01 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273B1B1D7C8B00B35C01 /* prism.css */; };
 		4D44273E1B1D7C9000B35C01 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273D1B1D7C9000B35C01 /* prism.js */; };
@@ -55,27 +55,27 @@
 			containerPortal = 4D2AAC121A9DA30300E0904B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4D2AAC191A9DA30300E0904B;
-			remoteInfo = Memex;
+			remoteInfo = Kiwi;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
-		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = writing_with_kiwi.md; sourceTree = "<group>"; };
-		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YapDatabase.swift; sourceTree = "<group>"; };
+		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 2; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = YapDatabase.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		4D2AAC1A1A9DA30300E0904B /* Kiwi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2AAC1E1A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D2AAC211A9DA30300E0904B /* LinkWithDropboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWithDropboxViewController.swift; sourceTree = "<group>"; };
+		4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4D2AAC211A9DA30300E0904B /* LinkWithDropboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LinkWithDropboxViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D2AAC241A9DA30300E0904B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D2AAC261A9DA30300E0904B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D2AAC291A9DA30300E0904B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4D2AAC2F1A9DA30300E0904B /* MemexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D2AAC2F1A9DA30300E0904B /* KiwiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2AAC341A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D2AAC351A9DA30300E0904B /* MemexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemexTests.swift; sourceTree = "<group>"; };
+		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D4427391B1D710000B35C01 /* auto-render-latex.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "auto-render-latex.min.js"; sourceTree = "<group>"; };
 		4D44273B1B1D7C8B00B35C01 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
@@ -84,25 +84,25 @@
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
-		4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiViewController.swift; sourceTree = "<group>"; };
+		4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WikiViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D7CBBAB1AA8291E00638C5C /* home.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = home.md; sourceTree = "<group>"; };
 		4D7CBBAE1AA82F4300638C5C /* layout.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.mustache; sourceTree = "<group>"; };
 		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
 		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
 		4DA87BC11ADF454E001F525B /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
-		4DBE60511A9DAA43003D3F34 /* Memex-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Memex-Bridging-Header.h"; sourceTree = "<group>"; };
-		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
-		4DBE60871AA5542A003D3F34 /* Wiki.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wiki.swift; sourceTree = "<group>"; };
-		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoedown.h; sourceTree = SOURCE_ROOT; };
-		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hoedown.m; sourceTree = SOURCE_ROOT; };
+		4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiwi-Bridging-Header.h"; sourceTree = "<group>"; };
+		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Page.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DBE60871AA5542A003D3F34 /* Wiki.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Wiki.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Hoedown.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hoedown.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
-		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllPagesViewController.swift; sourceTree = "<group>"; };
-		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalLinkViewController.swift; sourceTree = "<group>"; };
-		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
-		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
-		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
+		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExternalLinkViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BaseNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hoedown_html_patch.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
+		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hoedown_html_patch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4DE39A521B2CDF840099E757 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPageViewController.swift; path = ../AddPageViewController.swift; sourceTree = "<group>"; };
+		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AddPageViewController.swift; path = ../AddPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DEFE25D1B9E52EA00462786 /* acknowledgements.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = acknowledgements.md; sourceTree = "<group>"; };
 		4DEFE2601B9FF06A00462786 /* working_with_pages.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = working_with_pages.md; sourceTree = "<group>"; };
 		72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,8 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */,
-				4D2AAC1C1A9DA30300E0904B /* Memex */,
-				4D2AAC321A9DA30300E0904B /* MemexTests */,
+				4D2AAC1C1A9DA30300E0904B /* Kiwi */,
+				4D2AAC321A9DA30300E0904B /* KiwiTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
 				5AE65EF13EAABF3CEA7CA127 /* Pods */,
 				48924F7F2E83D886BAA39977 /* Frameworks */,
@@ -154,12 +154,12 @@
 			isa = PBXGroup;
 			children = (
 				4D2AAC1A1A9DA30300E0904B /* Kiwi.app */,
-				4D2AAC2F1A9DA30300E0904B /* MemexTests.xctest */,
+				4D2AAC2F1A9DA30300E0904B /* KiwiTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4D2AAC1C1A9DA30300E0904B /* Memex */ = {
+		4D2AAC1C1A9DA30300E0904B /* Kiwi */ = {
 			isa = PBXGroup;
 			children = (
 				4DEB69861AA94F6500FB480C /* AddPageViewController.swift */,
@@ -169,7 +169,7 @@
 				4D2AAC261A9DA30300E0904B /* Images.xcassets */,
 				4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */,
 				4D2AAC1D1A9DA30300E0904B /* Supporting Files */,
-				4DBE60511A9DAA43003D3F34 /* Memex-Bridging-Header.h */,
+				4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */,
 				4DBE60831AA5527A003D3F34 /* Page.swift */,
 				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
 				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
@@ -184,7 +184,8 @@
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
 				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 			);
-			path = Memex;
+			name = Kiwi;
+			path = Kiwi;
 			sourceTree = "<group>";
 		};
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
@@ -211,13 +212,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4D2AAC321A9DA30300E0904B /* MemexTests */ = {
+		4D2AAC321A9DA30300E0904B /* KiwiTests */ = {
 			isa = PBXGroup;
 			children = (
-				4D2AAC351A9DA30300E0904B /* MemexTests.swift */,
+				4D2AAC351A9DA30300E0904B /* KiwiTests.swift */,
 				4D2AAC331A9DA30300E0904B /* Supporting Files */,
 			);
-			path = MemexTests;
+			name = KiwiTests;
+			path = KiwiTests;
 			sourceTree = "<group>";
 		};
 		4D2AAC331A9DA30300E0904B /* Supporting Files */ = {
@@ -256,13 +258,13 @@
 			dependencies = (
 			);
 			name = Kiwi;
-			productName = Memex;
+			productName = Kiwi;
 			productReference = 4D2AAC1A1A9DA30300E0904B /* Kiwi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4D2AAC2E1A9DA30300E0904B /* MemexTests */ = {
+		4D2AAC2E1A9DA30300E0904B /* KiwiTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "MemexTests" */;
+			buildConfigurationList = 4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "KiwiTests" */;
 			buildPhases = (
 				4D2AAC2B1A9DA30300E0904B /* Sources */,
 				4D2AAC2C1A9DA30300E0904B /* Frameworks */,
@@ -273,9 +275,9 @@
 			dependencies = (
 				4D2AAC311A9DA30300E0904B /* PBXTargetDependency */,
 			);
-			name = MemexTests;
-			productName = MemexTests;
-			productReference = 4D2AAC2F1A9DA30300E0904B /* MemexTests.xctest */;
+			name = KiwiTests;
+			productName = KiwiTests;
+			productReference = 4D2AAC2F1A9DA30300E0904B /* KiwiTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -298,7 +300,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4D2AAC151A9DA30300E0904B /* Build configuration list for PBXProject "Memex" */;
+			buildConfigurationList = 4D2AAC151A9DA30300E0904B /* Build configuration list for PBXProject "Kiwi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -312,7 +314,7 @@
 			projectRoot = "";
 			targets = (
 				4D2AAC191A9DA30300E0904B /* Kiwi */,
-				4D2AAC2E1A9DA30300E0904B /* MemexTests */,
+				4D2AAC2E1A9DA30300E0904B /* KiwiTests */,
 			);
 		};
 /* End PBXProject section */
@@ -432,7 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D2AAC361A9DA30300E0904B /* MemexTests.swift in Sources */,
+				4D2AAC361A9DA30300E0904B /* KiwiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,11 +567,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
-				INFOPLIST_FILE = Memex/Info.plist;
+				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Memex/Memex-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -586,11 +588,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
-				INFOPLIST_FILE = Memex/Info.plist;
+				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Memex/Memex-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -606,10 +608,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MemexTests/Info.plist;
+				INFOPLIST_FILE = KiwiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memex.app/Memex";
+				PRODUCT_NAME = KiwiTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/Kiwi";
 			};
 			name = Debug;
 		};
@@ -621,17 +623,17 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MemexTests/Info.plist;
+				INFOPLIST_FILE = KiwiTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memex.app/Memex";
+				PRODUCT_NAME = KiwiTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/Kiwi";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D2AAC151A9DA30300E0904B /* Build configuration list for PBXProject "Memex" */ = {
+		4D2AAC151A9DA30300E0904B /* Build configuration list for PBXProject "Kiwi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D2AAC371A9DA30300E0904B /* Debug */,
@@ -649,7 +651,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "MemexTests" */ = {
+		4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "KiwiTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D2AAC3D1A9DA30300E0904B /* Debug */,

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Memex.xcodeproj">
+      location = "self:Kiwi.xcodeproj">
    </FileRef>
 </Workspace>

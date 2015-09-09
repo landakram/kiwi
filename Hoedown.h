@@ -1,6 +1,6 @@
 //
 //  Hoedown.h
-//  Memex
+//  Kiwi
 //
 //  Created by Mark Hudnall on 3/3/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.

@@ -1,6 +1,6 @@
 //
-//  MemexTests.swift
-//  MemexTests
+//  KiwiTests.swift
+//  KiwiTests
 //
 //  Created by Mark Hudnall on 2/24/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class MemexTests: XCTestCase {
+class KiwiTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

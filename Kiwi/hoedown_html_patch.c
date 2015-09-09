@@ -1,6 +1,6 @@
 //
 //  hoedown_html_patch.c
-//  Memex
+//  Kiwi
 //
 //  Created by Mark Hudnall on 6/13/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.
