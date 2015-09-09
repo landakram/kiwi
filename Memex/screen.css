@@ -2002,6 +2002,10 @@ footer a {
   line-height: 1.5em;
   margin-bottom: 0.4em;
 }
+#page ol li {
+    line-height: 1.5em;
+    margin-bottom: 0.4em;
+}
 #page ul li ul {
   margin-top: 0.4em;
 }
@@ -2082,4 +2086,14 @@ li.task-list-item {
     margin: 0 0 1em;
     border: none;
   }
+}
+q {
+    quotes: "“" "”" "‘" "’";
+}
+q:after {
+    content: close-quote;
+}
+
+q:before {
+    content: open-quote;
 }

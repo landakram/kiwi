@@ -69,14 +69,18 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         )
         
         if self.editing {
-            let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: Selector("deletePage"))
-            self.navigationItem.rightBarButtonItems?.append(trashButton)
+            if let page = self.page {
+                let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: Selector("deletePage"))
+                self.navigationItem.rightBarButtonItems?.append(trashButton)
+            }
         }
         
         
         if let page = self.page {
             textView.insertText(page.rawContent)
             titleField.text = page.name
+        } else {
+            titleField.text = ""
         }
         
         NSNotificationCenter.defaultCenter().addObserver(
@@ -127,26 +131,26 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             }
             
             switch self.wiki.save(page!, overwrite: editing) {
-            case SaveResult.Success:
-                break
-            case SaveResult.FileExists:
-                let alertController = UIAlertController(
-                    title: "That page already exists",
-                    message: nil,
-                    preferredStyle: .ActionSheet)
-                
-                let overwriteAction = UIAlertAction(title: "Overwrite it", style: .Destructive, handler: { (action) in
-                    self.wiki.save(self.page!, overwrite: true)
-                    self.performSegueWithIdentifier(identifier, sender: sender)
-                })
-                
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-                
-                alertController.addAction(overwriteAction)
-                alertController.addAction(cancelAction)
-                
-                presentViewController(alertController, animated: true, completion: nil)
-                return false
+                case SaveResult.Success:
+                    break
+                case SaveResult.FileExists:
+                    let alertController = UIAlertController(
+                        title: "That page already exists",
+                        message: nil,
+                        preferredStyle: .ActionSheet)
+                    
+                    let overwriteAction = UIAlertAction(title: "Overwrite it", style: .Destructive, handler: { (action) in
+                        self.wiki.save(self.page!, overwrite: true)
+                        self.performSegueWithIdentifier(identifier, sender: sender)
+                    })
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                    
+                    alertController.addAction(overwriteAction)
+                    alertController.addAction(cancelAction)
+                    
+                    presentViewController(alertController, animated: true, completion: nil)
+                    return false
             }
         }
         return true
@@ -154,14 +158,27 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     
     func deletePage() {
         if let actualPage = self.page {
+            var titleText = "Are you sure you want to delete this page?"
+            if actualPage.permalink == "home" {
+                titleText = "Are you sure you want to clear this page?"
+            }
+            
+            let overwriteActionTitle = actualPage.permalink == "home" ? "Clear it" : "Delete it"
+            
             let alertController = UIAlertController(
-                title: "Are you sure you want to delete this page?",
+                title: titleText,
                 message: nil,
                 preferredStyle: .ActionSheet)
             
-            let overwriteAction = UIAlertAction(title: "Delete it", style: .Destructive, handler: { (action) in
-                self.wiki.delete(actualPage)
-                self.performSegueWithIdentifier("DeletePage", sender: self)
+            let overwriteAction = UIAlertAction(title: overwriteActionTitle, style: .Destructive, handler: { (action) in
+                if actualPage.permalink == "home" {
+                    actualPage.rawContent = ""
+                    self.wiki.save(actualPage, overwrite: true)
+                    self.performSegueWithIdentifier("SavePage", sender: self)
+                } else {
+                    self.wiki.delete(actualPage)
+                    self.performSegueWithIdentifier("DeletePage", sender: self)
+                }
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -193,7 +210,6 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         var imageFileName = self.wiki.saveImage(chosenImage)
         
         imageBlock(imageFileName)
-        
     }
     
     func textFieldDidChange() {

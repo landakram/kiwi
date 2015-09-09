@@ -7,6 +7,7 @@ pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'
 pod "RFMarkdownTextView", :git => 'https://github.com/landakram/RFMarkdownTextView.git'
 pod 'IDMPhotoBrowser'
 pod "STKWebKitViewController"
+pod 'TUSafariActivity', '~> 1.0'
 pod 'RESideMenu'
 pod 'Async', :git => 'https://github.com/duemunk/Async.git'
 pod 'MRProgress'

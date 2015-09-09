@@ -28,14 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         let kiwiColor = Constants.KiwiColor
+        UIToolbar.appearance().tintColor = kiwiColor
         UINavigationBar.appearance().tintColor = kiwiColor
         UISearchBar.appearance().tintColor = kiwiColor
         UITextField.appearance().tintColor = kiwiColor
         UITextView.appearance().tintColor = kiwiColor
         UINavigationBar.appearance().titleTextAttributes = [
             NSForegroundColorAttributeName: UINavigationBar.appearance().tintColor,
-//            UITextAttributeTextShadowColor: [UIColor colorWithRed:0.362 green:0.724 blue:0.111 alpha:0.8],
-//            UITextAttributeTextShadowOffset: [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
             NSFontAttributeName: UIFont.systemFontOfSize(0),
         ]
         return true

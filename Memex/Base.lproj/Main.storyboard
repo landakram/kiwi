@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ho-rV-etX">
-                                <rect key="frame" x="29" y="608" width="356" height="59"/>
+                                <rect key="frame" x="29" y="651" width="356" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="jV8-Oa-Egp"/>
                                 </constraints>
@@ -58,7 +58,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="JR1-i5-mOU" firstAttribute="top" secondItem="RWu-pA-V5e" secondAttribute="bottom" constant="-23" id="2aH-La-hkW"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6Ho-rV-etX" secondAttribute="bottom" constant="69" id="3Ru-Mo-ECL"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6Ho-rV-etX" secondAttribute="bottom" constant="26" id="3Ru-Mo-ECL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JR1-i5-mOU" secondAttribute="trailing" constant="13" id="6QM-jA-1pb"/>
                             <constraint firstItem="7KB-Ah-WHf" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="50" id="7dE-PS-cZu"/>
                             <constraint firstAttribute="centerX" secondItem="6Ho-rV-etX" secondAttribute="centerX" id="7zC-2K-S2Q"/>
@@ -245,8 +245,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ak8-fb-YDf" id="RPT-sS-Y66">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-L4-Ojy">
-                                            <rect key="frame" x="18" y="13" width="574" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-L4-Ojy">
+                                            <rect key="frame" x="18" y="13" width="388" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25.5" id="5q1-rN-WZs"/>
                                             </constraints>
@@ -254,8 +254,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqF-xu-a9n">
-                                            <rect key="frame" x="18" y="39" width="574" height="56"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqF-xu-a9n">
+                                            <rect key="frame" x="18" y="39" width="388" height="56"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="41.5" id="nft-eN-BPL"/>
                                             </constraints>

@@ -34,9 +34,13 @@ class Wiki {
         
         // Write default files if they don't already exist
         let homePath = self.WIKI_PATH.childPath("home.md")
-        let sampleArticlePath = self.WIKI_PATH.childPath("markdown_test.md")
+        let pagesPath = self.WIKI_PATH.childPath("working_with_pages.md")
+        let writingWithKiwiPath = self.WIKI_PATH.childPath("writing_with_kiwi.md")
+        let acknowledgementsPath = self.WIKI_PATH.childPath("acknowledgements.md")
         writeDefaultFile("home", ofType: "md", toPath: homePath)
-        writeDefaultFile("markdown_test", ofType: "md", toPath: sampleArticlePath)
+        writeDefaultFile("working_with_pages", ofType: "md", toPath: pagesPath)
+        writeDefaultFile("writing_with_kiwi", ofType: "md", toPath: writingWithKiwiPath)
+        writeDefaultFile("acknowledgements", ofType: "md", toPath: acknowledgementsPath)
         writeDefaultFile("screen", ofType: "css", toPath: self.STYLES_PATH.childPath("screen.css"))
         
         // Copy images to local cache if they aren't already copied
@@ -70,10 +74,12 @@ class Wiki {
 //        }
         
         // Persist files to YapDatabase for search
-        DBFilesystem.sharedFilesystem().addObserver(self, forPathAndDescendants: self.WIKI_PATH) {
-            if !DBFilesystem.sharedFilesystem().status.download.inProgress {
-                Async.background {
-                    self.syncUpdatedPagesToYapDatabase()   
+        Async.main(after: 0.5) { () -> Void in
+            DBFilesystem.sharedFilesystem().addObserver(self, forPathAndDescendants: self.WIKI_PATH) {
+                if !DBFilesystem.sharedFilesystem().status.download.inProgress {
+                    Async.background {
+                        self.syncUpdatedPagesToYapDatabase()
+                    }
                 }
             }
         }

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
-		4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
-		4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* markdown_test.md */; };
+		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
+		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
 		4D26DBBA1ABD4002007CE00E /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D26DBB91ABD4002007CE00E /* home@2x.png */; };
@@ -42,6 +42,10 @@
 		4DE39A4E1B2CD03E0099E757 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA87BC11ADF454E001F525B /* SwiftRegex.swift */; };
 		4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */; };
 		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
+		4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFE25D1B9E52EA00462786 /* acknowledgements.md */; };
+		4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE25D1B9E52EA00462786 /* acknowledgements.md */; };
+		4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
+		4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
 		55A5204191484C3917AE43A7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF991A60A24FCEA7388DC87 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -58,7 +62,7 @@
 /* Begin PBXFileReference section */
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
-		4D0378121AA88EA600B6D841 /* markdown_test.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = markdown_test.md; sourceTree = "<group>"; };
+		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = writing_with_kiwi.md; sourceTree = "<group>"; };
 		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YapDatabase.swift; sourceTree = "<group>"; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		4DE39A521B2CDF840099E757 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddPageViewController.swift; path = ../AddPageViewController.swift; sourceTree = "<group>"; };
+		4DEFE25D1B9E52EA00462786 /* acknowledgements.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = acknowledgements.md; sourceTree = "<group>"; };
+		4DEFE2601B9FF06A00462786 /* working_with_pages.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = working_with_pages.md; sourceTree = "<group>"; };
 		72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,7 +196,9 @@
 				4D5F93D61AB005F800D92886 /* checkmark@2x.png */,
 				4DC9DC951AADDC5500C64275 /* gray@2x.png */,
 				4D7CBBAB1AA8291E00638C5C /* home.md */,
-				4D0378121AA88EA600B6D841 /* markdown_test.md */,
+				4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */,
+				4DEFE25D1B9E52EA00462786 /* acknowledgements.md */,
+				4DEFE2601B9FF06A00462786 /* working_with_pages.md */,
 				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
 				4D7CBBB21AA833E200638C5C /* screen.css */,
 				4D44273B1B1D7C8B00B35C01 /* prism.css */,
@@ -314,8 +322,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */,
+				4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */,
 				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
-				4D0378141AA88F9B00B6D841 /* markdown_test.md in Resources */,
+				4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */,
 				4D7CBBAD1AA82A8400638C5C /* home.md in Resources */,
 				4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */,
 				4D7CBBB31AA833E200638C5C /* screen.css in Resources */,
@@ -402,9 +412,11 @@
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
+				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
+				4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */,
 				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
-				4D0378131AA88EA600B6D841 /* markdown_test.md in Sources */,
+				4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */,
 				4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
 				4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */,

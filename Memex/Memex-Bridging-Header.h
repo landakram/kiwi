@@ -14,3 +14,7 @@
 #import <YapDatabase/YapDatabaseFullTextSearchTransaction.h>
 
 #import <ViewUtils/ViewUtils.h>
+
+#import <STKWebKitViewController/STKWebKitModalViewController.h>
+
+#import <TUSafariActivity/TUSafariActivity.h>

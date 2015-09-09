@@ -12,6 +12,7 @@ import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
 import AMScrollingNavbar
+import TUSafariActivity
 
 class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -277,7 +278,8 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
                 if isInternal {
                     delegate?.renderPermalink(path.lastPathComponent, name: name)
                 } else {
-                    var webViewController = STKWebKitModalViewController(URL: NSURL(string: path))
+                    let webViewController = STKWebKitModalViewController(address: path)
+                    webViewController.webKitViewController.applicationActivities = [TUSafariActivity()]
                     delegate?.presentViewController(webViewController, animated: true, completion: nil)
                 }
             }
