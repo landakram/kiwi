@@ -24,7 +24,7 @@ I really shine because of my **flexibility**. I hope you'll find new uses for me
 
 I'm written in Markdown plus a lil' extra, so for a good introduction, check out my page on [[Writing with Kiwi]] (which you can then feel free to delete). 
 
-Everything you write with me is **automatically synced to Dropbox**, so **you're in control of your notes**. If you ever want to stop using me, everything you've ever written will already be available in Dropbox.
+Everything you write with me is **automatically synced to Dropbox**, so **you're in control of your notes**. If you ever want to stop using me, everything you've ever written will already be [[Available in Dropbox]].
 
 Other than that, I'm basically just pages. To learn more, check out [[Working with Pages]].
 
@@ -36,4 +36,4 @@ Before I go, I'm leaving you with some [[Acknowledgements]]. I wouldn't be possi
 
 Again, after you've read through all these pages, feel free to delete them and start fresh.
 
-^[1]: Okay okay, you can also show your pages chronologically (by when you last edited) by **tapping the title of the page** (i.e. Home). You can also search through all of your pages there too.
+^[1]: Okay okay, you can also show your pages chronologically (by when you last edited) by **tapping the title of the page** (i.e. Home). You can search through all of your pages there too.

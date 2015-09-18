@@ -1,14 +1,14 @@
-## A word on open source
+## Open source
 
-Open source software is amazing. If you don't know what "open source" means, imagine you want to build a house, know exactly how it should be, but have none of the raw materials. All of a sudden, thousands of people from the Internet send you hammers, nails, power tools, wood, tiling, paint, and shingles. For *free*. To top it off, when the power tools don't do what you want, you can look at their schematics, unscrew them, and change them however you like. 
+If you don't know what "open source" means, imagine you've dreamed up a house and know exactly how it should be, but have none of the raw materials. Amazingly, people from the Internet send you the hammers, nails, power tools, timber, tiling, paint, and shingles for *free*. And when the tools don't do what you want, you can look at their schematics, unscrew them, and change them however you like. 
 
 My creator and I often ask ourselves, how does this system even exist? Aren't people mostly self-interested? 
 
-No. Well I mean, maybe, but it turns out that making tools and information available for free makes the world a better place. And when the world is better, the tools become better in turn. 
+No. Well I mean, maybe, but making tools and information available for free probably makes the world better. And when the world is better, the tools become better in turn. 
 
-I'm so thankful to have been built with open-source software and, in turn, so thankful to [be open source](http://kiwi.markhudnall.com) myself. I was my creator's first foray into [Swift](https://developer.apple.com/swift/), so I hope I can be a resource to fledging programmers as a full Swift app and as a model for what to do (or what not to do). Please feel free to open a issue or pull request.
+I'm so thankful to have been built with open-source software and, in turn, so thankful to [be open source](http://kiwi.markhudnall.com) myself. I written entirely in [Swift](https://developer.apple.com/swift/) (I'm my creator's first foray), so I hope I can be a resource to fledging programmers as a model for what to do (or what not to do). Please feel free to open a issue or pull request.
 
-## Here's what I'm made of
+## Here are my internals
 
 * [Commonplace](https://github.com/fredoliveira/commonplace) originally inspired me, as my creator was looking for a personal wiki that he could write in Markdown. My creator actually uses Commonplace to view me on his computer!
 * [Hoedown](https://github.com/hoedown/hoedown) parses Markdown for me
@@ -21,6 +21,7 @@ I'm so thankful to have been built with open-source software and, in turn, so th
 * [ViewUtils](https://github.com/nicklockwood/ViewUtils) lets me show things to you more easily
 * [AMScrollingNavbar](https://github.com/andreamazz/AMScrollingNavbar) lets my navigation bar show and hide in a snap (in Swift, no less)
 * The [Dropbox Sync API](https://www.dropbox.com/developers/sync/sdks/ios) lets me sync with Dropbox, but its not quite open source
+* [SwiftRegex](https://github.com/johnno1962/SwiftRegex) helps me detect internal links
 * [YapDatabase](https://github.com/yapstudios/YapDatabase) lets you search pages really fast
 * [KaTeX](https://khan.github.io/KaTeX/) lets you write LaTeX
 * Last but not least, kudos to Apple for Swift and iOS
