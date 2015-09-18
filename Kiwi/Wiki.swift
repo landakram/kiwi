@@ -16,41 +16,49 @@ enum SaveResult {
 }
 
 class Wiki {
-    let WIKI_PATH: DBPath! = DBPath.root().childPath("wiki")
-    let STATIC_PATH: DBPath! = DBPath.root().childPath("public")
-    let IMG_PATH: DBPath!
-    let STYLES_PATH: DBPath!
+    static let WIKI_PATH: DBPath! = DBPath.root().childPath("wiki")
+    static let STATIC_PATH: DBPath! = DBPath.root().childPath("public")
+    
+    static let IMG_PATH = Wiki.STATIC_PATH.childPath("img")
+    static let STYLES_PATH = Wiki.STATIC_PATH.childPath("css")
     
     init() {
-        
-        Wiki.createFolder(self.WIKI_PATH)
-        Wiki.createFolder(self.STATIC_PATH)
-        
-        self.IMG_PATH = self.STATIC_PATH.childPath("img")
-        self.STYLES_PATH = self.STATIC_PATH.childPath("css")
-        
-        Wiki.createFolder(self.IMG_PATH)
-        Wiki.createFolder(self.STYLES_PATH)
+        let defaultFolderPaths = [
+            Wiki.WIKI_PATH,
+            Wiki.STATIC_PATH,
+            Wiki.IMG_PATH,
+            Wiki.STYLES_PATH
+        ]
+        for folderPath in defaultFolderPaths {
+            Wiki.createFolder(folderPath)
+        }
         
         // Write default files if they don't already exist
-        let homePath = self.WIKI_PATH.childPath("home.md")
-        let pagesPath = self.WIKI_PATH.childPath("working_with_pages.md")
-        let writingWithKiwiPath = self.WIKI_PATH.childPath("writing_with_kiwi.md")
-        let acknowledgementsPath = self.WIKI_PATH.childPath("acknowledgements.md")
-        writeDefaultFile("home", ofType: "md", toPath: homePath)
-        writeDefaultFile("working_with_pages", ofType: "md", toPath: pagesPath)
-        writeDefaultFile("writing_with_kiwi", ofType: "md", toPath: writingWithKiwiPath)
-        writeDefaultFile("acknowledgements", ofType: "md", toPath: acknowledgementsPath)
-        writeDefaultFile("screen", ofType: "css", toPath: self.STYLES_PATH.childPath("screen.css"))
+        if (self.isLoadingForFirstTime()) {
+            let defaultPermalinks = [
+                "home",
+                "working_with_pages",
+                "writing_with_kiwi",
+                "acknowledgements",
+                "available_in_dropbox"
+            ]
+            for permalink in defaultPermalinks {
+                let wikiPath = Wiki.WIKI_PATH.childPath("\(permalink).md")
+                writeDefaultFile(permalink, ofType: "md", toPath: wikiPath)
+            }
+            writeDefaultFile("screen", ofType: "css", toPath: Wiki.STYLES_PATH.childPath("screen.css"))
+            self.setLoadedFirstTime()
+        }
         
         // Copy images to local cache if they aren't already copied
-        if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(self.IMG_PATH, error: nil) {
+        if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(Wiki.IMG_PATH, error: nil) {
             for fileInfo in imgFiles {
                 if let info = fileInfo as? DBFileInfo {
                     let filename = info.path.stringValue()
                     if !self.localImageExists(filename) {
                         let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil)
                         if !file.status.cached {
+                            // Weeee
                             file.addObserver(self, block: { () -> Void in
                                 if file.status.cached {
                                     file.removeObserver(self)
@@ -65,17 +73,9 @@ class Wiki {
             }
         }
         
-//        if !NSUserDefaults.standardUserDefaults().boolForKey("didLoadFirstTime") {
-//            if let file = DBFilesystem.sharedFilesystem().openFile(homePath, error: nil) {
-//                
-//            }
-//            self.syncUpdatedPagesToYapDatabase()
-//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didLoadFirstTime")
-//        }
-        
         // Persist files to YapDatabase for search
         Async.main(after: 0.5) { () -> Void in
-            DBFilesystem.sharedFilesystem().addObserver(self, forPathAndDescendants: self.WIKI_PATH) {
+            DBFilesystem.sharedFilesystem().addObserver(self, forPathAndDescendants: Wiki.WIKI_PATH) {
                 if !DBFilesystem.sharedFilesystem().status.download.inProgress {
                     Async.background {
                         self.syncUpdatedPagesToYapDatabase()
@@ -89,8 +89,16 @@ class Wiki {
         DBFilesystem.sharedFilesystem().removeObserver(self)
     }
     
+    func isLoadingForFirstTime() -> Bool {
+        return !NSUserDefaults.standardUserDefaults().boolForKey("didLoadFirstTime")
+    }
+    
+    func setLoadedFirstTime() {
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didLoadFirstTime")
+    }
+    
     func getAllFileInfos() -> [DBFileInfo]? {
-        return DBFilesystem.sharedFilesystem().listFolder(self.WIKI_PATH, error: nil) as? [DBFileInfo]
+        return DBFilesystem.sharedFilesystem().listFolder(Wiki.WIKI_PATH, error: nil) as? [DBFileInfo]
     }
     
     func syncUpdatedPagesToYapDatabase() {
@@ -144,7 +152,7 @@ class Wiki {
     
     func files() -> [String] {
         var maybeError: DBError?
-        if var files = DBFilesystem.sharedFilesystem().listFolder(self.WIKI_PATH, error: &maybeError) as? [DBFileInfo] {
+        if var files = DBFilesystem.sharedFilesystem().listFolder(Wiki.WIKI_PATH, error: &maybeError) as? [DBFileInfo] {
             let fileNames = files.filter({ (f: DBFileInfo) -> Bool in
                 return !f.isFolder
             }).sorted({ (f1: DBFileInfo, f2: DBFileInfo) -> Bool in
@@ -161,7 +169,7 @@ class Wiki {
     }
     
     func isPage(permalink: String) -> Bool {
-        let filePath = self.WIKI_PATH.childPath(permalink + ".md")
+        let filePath = Wiki.WIKI_PATH.childPath(permalink + ".md")
         if let fileInfo = DBFilesystem.sharedFilesystem().fileInfoForPath(filePath, error: nil) {
             return true
         }
@@ -169,7 +177,7 @@ class Wiki {
     }
     
     func page(permalink: String) -> Page? {
-        let filePath = self.WIKI_PATH.childPath(permalink + ".md")
+        let filePath = Wiki.WIKI_PATH.childPath(permalink + ".md")
         var maybeError: DBError?
         if let file = DBFilesystem.sharedFilesystem().openFile(filePath, error: &maybeError) {
             var content = file.readString(nil)
@@ -195,13 +203,13 @@ class Wiki {
     }
     
     func delete(page: Page) {
-        self.deleteFileFromDropbox(self.WIKI_PATH.childPath(page.permalink + ".md"))
+        self.deleteFileFromDropbox(Wiki.WIKI_PATH.childPath(page.permalink + ".md"))
         self.deleteLocalFile(page.permalink + ".html")
     }
     
     func save(page: Page, overwrite: Bool = false) -> SaveResult {
         page.content = page.renderHTML(page.rawContent)
-        let path = self.WIKI_PATH.childPath(page.permalink + ".md")
+        let path = Wiki.WIKI_PATH.childPath(page.permalink + ".md")
         if let file = DBFilesystem.sharedFilesystem().createFile(path, error: nil) {
             file.writeString(page.rawContent, error: nil)
             self.persistToYapDatabase(file)
@@ -242,14 +250,13 @@ class Wiki {
     }
     
     func writeImageToDropbox(fileName: String, data: NSData) {
-        let imgFolderPath = self.STATIC_PATH.childPath("img")
+        let imgFolderPath = Wiki.STATIC_PATH.childPath("img")
         DBFilesystem.sharedFilesystem().createFolder(imgFolderPath, error: nil)
         
         let imgPath = imgFolderPath.childPath(fileName)
         let file: DBFile = DBFilesystem.sharedFilesystem().createFile(imgPath, error: nil)
         file.writeData(data, error: nil)
     }
-    
 
     func localImagePath(imageFileName: String) -> String {
         let fullPath = "www/img/\(imageFileName)"

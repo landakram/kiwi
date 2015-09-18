@@ -31,6 +31,7 @@ class LinkWithDropboxViewController: UIViewController {
     }
     
     @IBAction func didPressLinkWithDropbox(sender: AnyObject) {
+        
         DBAccountManager.sharedManager().addObserver(self, block: {
             (account: DBAccount!) in
             if account.linked {

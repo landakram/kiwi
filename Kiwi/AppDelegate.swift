@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let filesystem = DBFilesystem(account: account)
                     DBFilesystem.setSharedFilesystem(filesystem)
                 }
-                let rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("WikiViewControllerIdentifier") as? UIViewController
+                let rootViewController = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("WikiViewControllerIdentifier") as? WikiViewController
                 (self.window?.rootViewController as! UINavigationController).setViewControllers([rootViewController!], animated: false)
             }
         }
