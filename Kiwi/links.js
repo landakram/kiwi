@@ -19,14 +19,19 @@ for (var i = 0; i < links.length; i++) {
 
 var images = document.getElementsByTagName("img");
 
+var sources = Array.prototype.map.call(images, function(img) { return img.src; });
+
 for (var i = 0; i < images.length; i++) {
     var el = images[i];
     var src = el.src;
     el.onclick = (function(src) {
+        var j = i;
         return function(e) {
             e.preventDefault();
             window.webkit.messageHandlers.showImageBrowser.postMessage({
-                src: src
+                src: src,
+                index: j,
+                images: sources
             });
         };
     })(src);

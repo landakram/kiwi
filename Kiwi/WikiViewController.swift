@@ -242,10 +242,18 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         }
     }
     
-    func showImageBrowser(path: String) {
-        var browser = IDMPhotoBrowser(photos: [IDMPhoto(filePath: self.wiki.localImagePath(path))])
+    func showImageBrowser(path: String, sources: [String], index: UInt) {
+        let photos = sources.map({ (src: String) -> IDMPhoto in
+            if src.rangeOfString("file://") != nil {
+                return IDMPhoto(filePath: self.wiki.localImagePath(src.lastPathComponent))
+            } else {
+                return IDMPhoto(URL: NSURL(string: src))
+            }
+        })
+        var browser = IDMPhotoBrowser(photos: photos)
         browser.usePopAnimation = false
         browser.displayActionButton = false
+        browser.setInitialPageIndex(index)
         self.presentViewController(browser, animated: true, completion: nil)
     }
     
@@ -321,8 +329,10 @@ class ImageBrowserScriptHandler: NSObject, WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         if message.name == ImageBrowserScriptHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let src = (body.objectForKey("src") as! String).lastPathComponent
-                delegate?.showImageBrowser(src)
+                let src = (body.objectForKey("src") as! String)
+                let index = (body.objectForKey("index") as! UInt)
+                let sources: [String] = (body.objectForKey("images") as! [String])
+                delegate?.showImageBrowser(src, sources: sources, index: index)
             }
         }
     }
