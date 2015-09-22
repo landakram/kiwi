@@ -1,4 +1,4 @@
-//
+    //
 //  WikiViewController.swift
 //  Kiwi
 //
@@ -48,16 +48,6 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         self.setupWebView()
         
         self.wiki = Wiki()
-        
-        
-        let scriptPath = NSBundle.mainBundle().pathForResource("links", ofType: "js")!
-        let stylesPath = NSBundle.mainBundle().pathForResource("screen", ofType: "css")!
-        self.wiki.copyFileToLocal(scriptPath)
-        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("auto-render-latex.min", ofType: "js")!)
-        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("prism", ofType: "css")!)
-        self.wiki.copyFileToLocal(NSBundle.mainBundle().pathForResource("prism", ofType: "js")!)
-        
-        self.wiki.copyFileToLocal(stylesPath)
         
         self.renderPermalink("home")
     }

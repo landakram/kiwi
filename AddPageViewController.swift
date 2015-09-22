@@ -52,7 +52,6 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         // 50 is estimated from the size of the left and right bar button items
         let availableWidth = self.navigationController!.navigationBar.frame.size.width - 200
         let titleField = UITextField(frame: CGRect(x: 0, y: 0, width: availableWidth, height: self.navigationController!.navigationBar.frame.size.height))
-//        let titleField = UITextField(frame: self.navigationController!.navigationBar.frame)
         titleField.placeholder = "Title"
         titleField.autocapitalizationType = .Words
         titleField.returnKeyType = .Next

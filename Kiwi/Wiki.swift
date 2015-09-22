@@ -46,7 +46,26 @@ class Wiki {
                 let wikiPath = Wiki.WIKI_PATH.childPath("\(permalink).md")
                 writeDefaultFile(permalink, ofType: "md", toPath: wikiPath)
             }
-            writeDefaultFile("screen", ofType: "css", toPath: Wiki.STYLES_PATH.childPath("screen.css"))
+            
+            let defaultJsFiles = [
+                "links",
+                "auto-render-latex.min",
+                "prism",
+                "jquery.min"
+            ]
+            for filename in defaultJsFiles {
+                copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "js")!)
+            }
+            
+            let defaultCSSFiles = [
+                "screen",
+                "prism"
+            ]
+            for filename in defaultCSSFiles {
+                copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "css")!)
+            }
+            
+            
             self.setLoadedFirstTime()
         }
         
@@ -56,17 +75,18 @@ class Wiki {
                 if let info = fileInfo as? DBFileInfo {
                     let filename = info.path.stringValue()
                     if !self.localImageExists(filename) {
-                        let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil)
-                        if !file.status.cached {
-                            // Weeee
-                            file.addObserver(self, block: { () -> Void in
-                                if file.status.cached {
-                                    file.removeObserver(self)
-                                    self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
-                                }
-                            })
-                        } else {
-                            self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                        if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
+                            if !file.status.cached {
+                                // Weeee
+                                file.addObserver(self, block: { () -> Void in
+                                    if file.status.cached {
+                                        file.removeObserver(self)
+                                        self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                                    }
+                                })
+                            } else {
+                                self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
+                            }
                         }
                     }
                 }
