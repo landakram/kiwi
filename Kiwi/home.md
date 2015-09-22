@@ -1,12 +1,10 @@
-# Hi! I'm Kiwi.
+# Hi! I'm Kiwi 😎
 
 I'm a [personal wiki](https://en.wikipedia.org/wiki/Personal_wiki) that you can use to write, edit, and reflect on your thoughts. You might already use an app for taking notes, so let me tell you why I'm a little different.
 
-## Why?
-
 Instead of showing your notes chronologically, I let you **link your notes together** in whatever way makes sense to you. That makes me a flexible, reflective medium for organizing your thoughts and surfacing new ideas^[1].
 
-You see, if you're like my [creator](http://markhudnall.com), your thoughts aren't chronological and linear — they're more like a web. Each thought or idea doesn't necessarily relate to the one before it, but over time, you find that they're connected. When you write with me, you might have a few of those "Aha" moments where a new idea emerges, or a new connection, and you can link it back to your other thoughts.
+If you're like my [creator](http://markhudnall.com), your thoughts aren't chronological and linear — they're more like a web. Each thought or idea doesn't necessarily relate to the one before it, but over time, you find that they're connected. When you write with me, you might have a few of those "Aha" moments where a new idea emerges, or a new connection, and you can link it back to your other thoughts.
 
 That's some pretty heady stuff, but don't worry, not everything you write has to be a Big Idea. My creator uses me for a *lot* of different things:
 

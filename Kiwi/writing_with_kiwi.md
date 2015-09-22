@@ -2,7 +2,7 @@
 
 ------------------------
 
-# This is Markdown.
+# I'm (mostly) Markdown
 
 Markdown is a simple [markup language](https://en.wikipedia.org/wiki/Markdown) that lets you easily make things *italic* or **bold** or _underlined_ or whatever you want. The best way to understand Markdown is to look at this text, and then tap the "Edit" button in the top left and see what the Markdown looks like. It takes a little while to get used to, but it's a really easy way to write.
 
@@ -12,7 +12,7 @@ Here's a _blockquote_:
 
 > Consider a future device for individual use, which is a sort of mechanized private file and library. It needs a name, and, to coin one at random, "memex" will do. A memex is a device in which an individual stores all his books, records, and communications, and which is mechanized so that it may be consulted with exceeding speed and flexibility. It is an enlarged intimate supplement to his memory.
 
--- Vannevar Bush, [As We May Think](http://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/)
+— Vannevar Bush, [As We May Think](http://www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/)
 
 ### This is a smaller headline
 
@@ -30,7 +30,7 @@ To illustrate _lists_ and how they work, here are the days of the week and what 
 
 You can add photos from your device by pressing the "Photos" button in the toolbar. You'll notice that photos get inserted with `![](A URL to the photo)`. That means you can include photos from elsewhere like: 
 
-![](http://lorempixel.com/400/200/)
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Kiwi1.1.jpg/2560px-Kiwi1.1.jpg)
 
 ## Internal links
 
