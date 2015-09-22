@@ -57,4 +57,42 @@ function injectRawMarkdown(markdown) {
     });
 }
 
+getTopmostVisibleElement = function() {
+    var winTop = $(window).scrollTop();
+    var $elements = $('article > article').children();
+    
+    var topEl;
+    $elements.each(function(index) {
+        if ($(this).position().top + $(this).height() >= winTop) {
+            topEl = this;
+            return false;
+        }
+    });
+    return topEl;
+}
+
+getTopmostVisibleText = function() {
+    return $(getTopmostVisibleElement()).text();
+}
+
+getBottommostVisibleElement = function() {
+    var winTop = $(window).scrollTop();
+    var winBottom = $(window).scrollTop() + $(window).height();
+    
+    var $elements = $('article > article').children();
+    
+    var el;
+    $elements.each(function(index) {
+        var elementBottom = $(this).position().top + $(this).height();
+        if (elementBottom >= winTop && elementBottom <= winBottom) {
+           el = this;
+        }
+    });
+    return el;
+}
+
+getBottommostVisibleText = function() {
+    return $(getBottommostVisibleElement()).text();
+}
+
 window.webkit.messageHandlers.loaded.postMessage({});

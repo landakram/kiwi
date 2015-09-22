@@ -26,6 +26,8 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     
     var pendingPageName: String?
     
+    var bottommostVisibleText: String?
+    
     override var title: String? {
         set {
             super.title = newValue
@@ -140,6 +142,15 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         self.performSegueWithIdentifier("ShowAllPages", sender: self)
     }
 
+    @IBAction func editPage(sender: UIBarButtonItem) {
+        self.webView!.evaluateJavaScript("getBottommostVisibleText()", completionHandler: { (text: AnyObject!, error: NSError!) -> Void in
+            if let text = text as? String {
+                self.bottommostVisibleText = text
+                self.performSegueWithIdentifier("EditWikiPage", sender: sender)
+            }
+        });
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AddWikiPage" {
             let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
@@ -151,6 +162,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
             let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             addPageViewController.page = self.currentPage
+            addPageViewController.bottommostVisibleText = self.bottommostVisibleText
             addPageViewController.editing = true
         } else if segue.identifier == "ShowAllPages" {
             let allPagesViewController = segue.destinationViewController.topViewController as! AllPagesViewController

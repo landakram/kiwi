@@ -20,6 +20,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     
     var imageBlock: ImageBlock!
     
+    var bottommostVisibleText: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +90,21 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             name: UITextFieldTextDidChangeNotification,
             object: nil
         )
+        
+        if let visibleText = (self.bottommostVisibleText as NSString?) {
+            var searchText: NSString = visibleText.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) as NSString
+            let start = min(1, searchText.length)
+            let end = min(15, searchText.length)
+            searchText = searchText.substringWithRange(NSMakeRange(start, end - start))
+            let range = (textView.text as NSString).rangeOfString(searchText as String)
+            if range.location != NSNotFound {
+                textView.scrollRangeToVisible(range)
+                var contentOffset = textView.contentOffset
+                contentOffset.y -= textView.contentBounds.height
+                textView.setContentOffset(contentOffset, animated: false)
+                textView.selectedRange = NSMakeRange(range.location, 0)
+            }
+        }
         
         if titleField.text.isEmpty {
             self.navigationItem.rightBarButtonItem?.enabled = false

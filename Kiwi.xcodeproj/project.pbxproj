@@ -33,6 +33,7 @@
 		4D7CBBAF1AA82F4300638C5C /* layout.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBAE1AA82F4300638C5C /* layout.mustache */; };
 		4D7CBBB11AA8304200638C5C /* article.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB01AA8304200638C5C /* article.mustache */; };
 		4D7CBBB31AA833E200638C5C /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB21AA833E200638C5C /* screen.css */; };
+		4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */; };
 		4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DBE60841AA5527A003D3F34 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60831AA5527A003D3F34 /* Page.swift */; };
@@ -93,6 +94,7 @@
 		4D7CBBAE1AA82F4300638C5C /* layout.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.mustache; sourceTree = "<group>"; };
 		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
 		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
+		4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
 		4DA87BC11ADF454E001F525B /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = available_in_dropbox.md; sourceTree = "<group>"; };
 		4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiwi-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
 				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
 				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
 				4D26DBB91ABD4002007CE00E /* home@2x.png */,
@@ -334,6 +337,7 @@
 				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
 				4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */,
 				4D7CBBAD1AA82A8400638C5C /* home.md in Resources */,
+				4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */,
 				4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */,
 				4D7CBBB31AA833E200638C5C /* screen.css in Resources */,
 				4D7CBBAF1AA82F4300638C5C /* layout.mustache in Resources */,

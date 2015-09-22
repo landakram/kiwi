@@ -132,7 +132,7 @@
                     <navigationItem key="navigationItem" title="Wiki" id="q5I-bN-moH">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Znp-7h-271">
                             <connections>
-                                <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="OQW-UX-bTN"/>
+                                <action selector="editPage:" destination="kLp-y0-Ll8" id="vla-Ag-VvI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zXh-yV-Rx8">
@@ -147,6 +147,7 @@
                         <outlet property="topConstraint" destination="tih-Ub-qPu" id="pQe-zO-epP"/>
                         <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
                         <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
+                        <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="29u-FC-IGJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spK-i8-QtA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -358,6 +359,6 @@
         <image name="white" width="1" height="1"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OQW-UX-bTN"/>
+        <segue reference="29u-FC-IGJ"/>
     </inferredMetricsTieBreakers>
 </document>
