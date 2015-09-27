@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        let accountManager = DBAccountManager(appKey: "***REMOVED***", secret: "***REMOVED***")
+        let accountManager = DBAccountManager(appKey: DROPBOX_APP_KEY, secret: DROPBOX_SECRET_KEY)
         DBAccountManager.setSharedManager(accountManager)
         
         if let account = DBAccountManager.sharedManager().linkedAccount {

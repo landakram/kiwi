@@ -64,10 +64,13 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell", forIndexPath: indexPath) as! UITableViewCell
+        var cell : UITableViewCell
         var files = self.files
         if tableView == self.searchDisplayController!.searchResultsTableView {
             files = self.filteredFiles
+            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell") as! UITableViewCell
+        } else {
+            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell", forIndexPath: indexPath) as! UITableViewCell
         }
         let fileName = files[indexPath.row].stringByDeletingPathExtension
         if let titleLabel = cell.viewWithTag(100) as? UILabel {

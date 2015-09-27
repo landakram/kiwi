@@ -1,0 +1,2 @@
+#include "Keys.development.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS=$(inherited) DROPBOX_APP_KEY=@\"$(DROPBOX_APP_KEY)\" DROPBOX_SECRET_KEY=@\"$(DROPBOX_SECRET_KEY)\"

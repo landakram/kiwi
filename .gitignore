@@ -24,3 +24,5 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 *.xcuserstate
+
+keys*xcconfig

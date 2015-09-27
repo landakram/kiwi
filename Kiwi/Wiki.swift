@@ -47,28 +47,10 @@ class Wiki {
                 writeDefaultFile(permalink, ofType: "md", toPath: wikiPath)
             }
             
-            let defaultJsFiles = [
-                "links",
-                "auto-render-latex.min",
-                "prism",
-                "jquery.min"
-            ]
-            for filename in defaultJsFiles {
-                copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "js")!)
-            }
-            
-            let defaultCSSFiles = [
-                "screen",
-                "prism"
-            ]
-            for filename in defaultCSSFiles {
-                copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "css")!)
-            }
-            
-            
             self.setLoadedFirstTime()
         }
         
+        self.writeResouceFiles()
         // Copy images to local cache if they aren't already copied
         if let imgFiles = DBFilesystem.sharedFilesystem().listFolder(Wiki.IMG_PATH, error: nil) {
             for fileInfo in imgFiles {
@@ -115,6 +97,26 @@ class Wiki {
     
     func setLoadedFirstTime() {
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "didLoadFirstTime")
+    }
+    
+    func writeResouceFiles() {
+        let defaultJsFiles = [
+            "links",
+            "auto-render-latex.min",
+            "prism",
+            "jquery.min"
+        ]
+        for filename in defaultJsFiles {
+            copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "js")!)
+        }
+        
+        let defaultCSSFiles = [
+            "screen",
+            "prism"
+        ]
+        for filename in defaultCSSFiles {
+            copyFileToLocal(NSBundle.mainBundle().pathForResource(filename, ofType: "css")!)
+        }
     }
     
     func getAllFileInfos() -> [DBFileInfo]? {

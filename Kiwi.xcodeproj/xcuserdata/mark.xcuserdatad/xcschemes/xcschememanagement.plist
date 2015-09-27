@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Kiwi Development.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
+		<key>Kiwi copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>Kiwi.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>4D2AAC2E1A9DA30300E0904B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D3D8E201BB4A1CF000C53EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
