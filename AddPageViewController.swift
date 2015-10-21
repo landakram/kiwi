@@ -26,7 +26,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         super.viewDidLoad()
         
         textView = RFMarkdownTextView(frame: self.view.bounds)
-        textView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
         
         self.automaticallyAdjustsScrollViewInsets = false
@@ -35,12 +35,12 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         var dict = ["textView": textView]
         var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-0-[textView]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: dict)
         var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|-0-[textView]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["textView" : textView])
         view.addConstraints(verticalConstraints)
@@ -106,7 +106,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             }
         }
         
-        if titleField.text.isEmpty {
+        if titleField.text!.isEmpty {
             self.navigationItem.rightBarButtonItem?.enabled = false
             titleField.becomeFirstResponder()
         } else {
@@ -137,11 +137,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         textView.resignFirstResponder()
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier == "SavePage" {
             if !self.editing {
                 let titleField = self.navigationItem.titleView as! UITextField
-                self.page = Page(rawContent: textView.text, name: titleField.text, modifiedTime: NSDate(), wiki: self.wiki)
+                self.page = Page(rawContent: textView.text, name: titleField.text!, modifiedTime: NSDate(), wiki: self.wiki)
             } else {
                 self.page?.rawContent = textView.text
             }
@@ -215,11 +215,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         
         self.imageBlock = imageBlock
         picker.popoverPresentationController?.sourceView = textView
-        picker.popoverPresentationController?.sourceRect = textView.caretRectForPosition(textView.selectedTextRange?.start)
+        picker.popoverPresentationController?.sourceRect = textView.caretRectForPosition((textView.selectedTextRange?.start)!)
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         dismissViewControllerAnimated(true, completion: nil)
         
         var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -230,7 +230,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     
     func textFieldDidChange() {
         let textField = self.navigationItem.titleView as! UITextField
-        self.navigationItem.rightBarButtonItem?.enabled = !textField.text.isEmpty
+        self.navigationItem.rightBarButtonItem?.enabled = !textField.text!.isEmpty
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

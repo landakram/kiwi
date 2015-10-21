@@ -127,7 +127,6 @@ class Wiki {
         if let wikiFiles = getAllFileInfos() {
             for info in wikiFiles {
                 if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
-                    let permalink = info.path.stringValue().lastPathComponent.stringByDeletingPathExtension
                     if !file.status.cached {
                         file.addObserver(self, block: {
                             if file.status.cached {
@@ -166,7 +165,7 @@ class Wiki {
         var error : DBError?
         if DBFilesystem.sharedFilesystem().openFile(toPath, error: &error) == nil {
             let defaultFilePath = NSBundle.mainBundle().pathForResource(name, ofType: ofType)
-            let defaultFileContents = NSString(contentsOfFile: defaultFilePath!, encoding: NSUTF8StringEncoding, error: nil)
+            let defaultFileContents = try? NSString(contentsOfFile: defaultFilePath!, encoding: NSUTF8StringEncoding)
             let homeFile = DBFilesystem.sharedFilesystem().createFile(toPath, error: nil)
             homeFile.writeString(defaultFileContents as! String, error: nil)
         }
@@ -177,7 +176,7 @@ class Wiki {
         if var files = DBFilesystem.sharedFilesystem().listFolder(Wiki.WIKI_PATH, error: &maybeError) as? [DBFileInfo] {
             let fileNames = files.filter({ (f: DBFileInfo) -> Bool in
                 return !f.isFolder
-            }).sorted({ (f1: DBFileInfo, f2: DBFileInfo) -> Bool in
+            }).sort({ (f1: DBFileInfo, f2: DBFileInfo) -> Bool in
                 return f1.modifiedTime.laterDate(f2.modifiedTime) == f1.modifiedTime
             }).map {
                 (fileInfo: DBFileInfo) -> String in
@@ -185,7 +184,7 @@ class Wiki {
             }
             return fileNames
         } else if let error = maybeError {
-            println(error.localizedDescription)
+            print(error.localizedDescription)
         }
         return []
     }
@@ -209,7 +208,7 @@ class Wiki {
             let page = Page(rawContent: content, filename: permalink, modifiedTime: file.info.modifiedTime, wiki: self)
             return page
         } else if let error = maybeError {
-            println(error.localizedDescription)
+            print(error.localizedDescription)
         }
         return nil
     }
@@ -247,12 +246,12 @@ class Wiki {
     }
     
     func saveImage(image: UIImage) -> String {
-        var imageName = self.generateImageName()
-        var imageFileName = imageName + ".jpg"
-        var imageData = UIImageJPEGRepresentation(image, 0.5)
+        let imageName = self.generateImageName()
+        let imageFileName = imageName + ".jpg"
+        let imageData = UIImageJPEGRepresentation(image, 0.5)
         
-        self.writeImageToDropbox(imageFileName, data: imageData)
-        self.writeLocalImage(imageFileName, data: imageData)
+        self.writeImageToDropbox(imageFileName, data: imageData!)
+        self.writeLocalImage(imageFileName, data: imageData!)
         
         return imageFileName
     }
@@ -260,7 +259,7 @@ class Wiki {
     func generateImageName() -> String {
         var random = arc4random()
         var data = NSData(bytes: &random, length: 4)
-        var base64String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(0))
+        var base64String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         base64String = base64String.stringByReplacingOccurrencesOfString("=", withString: "")
         base64String = base64String.stringByReplacingOccurrencesOfString("+", withString: "_")
         base64String = base64String.stringByReplacingOccurrencesOfString("/", withString: "-")
@@ -290,21 +289,33 @@ class Wiki {
         let fullPath = "www/" + subfolder
         let fileMgr = NSFileManager.defaultManager()
         let tmpPath = NSTemporaryDirectory().stringByAppendingPathComponent(fullPath)
-        var error: NSErrorPointer = nil
-        if !fileMgr.createDirectoryAtPath(tmpPath, withIntermediateDirectories: true, attributes: nil, error: error) {
-            println("Couldn't create www subdirectory. \(error)")
+        let error: NSErrorPointer = nil
+        do {
+            try fileMgr.createDirectoryAtPath(tmpPath, withIntermediateDirectories: true, attributes: nil)
+        } catch let error1 as NSError {
+            error.memory = error1
+            print("Couldn't create www subdirectory. \(error)")
             return nil
         }
         let dstPath = tmpPath.stringByAppendingPathComponent(filePath.lastPathComponent)
         if !fileMgr.fileExistsAtPath(dstPath) {
-            if !fileMgr.copyItemAtPath(filePath, toPath: dstPath, error: error) {
-                println("Couldn't copy file to /tmp/\(fullPath). \(error)")
+            do {
+                try fileMgr.copyItemAtPath(filePath, toPath: dstPath)
+            } catch let error1 as NSError {
+                error.memory = error1
+                print("Couldn't copy file to /tmp/\(fullPath). \(error)")
                 return nil
             }
         } else if overwrite {
-            fileMgr.removeItemAtPath(dstPath, error: nil)
-            if !fileMgr.copyItemAtPath(filePath, toPath: dstPath, error: error) {
-                println("Couldn't copy file to /tmp/\(fullPath). \(error)")
+            do {
+                try fileMgr.removeItemAtPath(dstPath)
+            } catch _ {
+            }
+            do {
+                try fileMgr.copyItemAtPath(filePath, toPath: dstPath)
+            } catch let error1 as NSError {
+                error.memory = error1
+                print("Couldn't copy file to /tmp/\(fullPath). \(error)")
                 return nil
             }
         }
@@ -315,26 +326,32 @@ class Wiki {
         let fullPath = "www/" + subfolder
         let fileMgr = NSFileManager.defaultManager()
         let tmpPath = NSTemporaryDirectory().stringByAppendingPathComponent(fullPath)
-        var error: NSErrorPointer = nil
+        let error: NSErrorPointer = nil
         let dstPath = tmpPath.stringByAppendingPathComponent(fileName)
-        if !fileMgr.removeItemAtPath(dstPath, error: error) {
-            println("Couldn't delete \(dstPath) file. \(error)")
+        do {
+            try fileMgr.removeItemAtPath(dstPath)
+        } catch let error1 as NSError {
+            error.memory = error1
+            print("Couldn't delete \(dstPath) file. \(error)")
         }
     }
     
     func writeLocalFile(fileName: String, data: NSData, subfolder: String = "", overwrite: Bool = false) -> String? {
-        if let basePath = self.localDestinationBasePath(subfolder: subfolder) {
+        if let basePath = self.localDestinationBasePath(subfolder) {
             let dstPath = basePath.stringByAppendingPathComponent(fileName)
             let fileMgr = NSFileManager.defaultManager()
             if !fileMgr.fileExistsAtPath(dstPath) {
                 if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
-                    println("Couldn't copy file to \(basePath).")
+                    print("Couldn't copy file to \(basePath).")
                     return nil
                 }
             } else if overwrite {
-                fileMgr.removeItemAtPath(dstPath, error: nil)
+                do {
+                    try fileMgr.removeItemAtPath(dstPath)
+                } catch _ {
+                }
                 if !fileMgr.createFileAtPath(dstPath, contents:data, attributes: nil) {
-                    println("Couldn't copy file to \(basePath).")
+                    print("Couldn't copy file to \(basePath).")
                     return nil
                 }
             }
@@ -344,7 +361,7 @@ class Wiki {
     }
     
     func localFileExists(fileName: String, subfolder: String = "") -> Bool {
-        if let basePath = self.localDestinationBasePath(subfolder: subfolder) {
+        if let basePath = self.localDestinationBasePath(subfolder) {
             let dstPath = basePath.stringByAppendingPathComponent(fileName)
             let fileMgr = NSFileManager.defaultManager()
             return fileMgr.fileExistsAtPath(dstPath)
@@ -360,9 +377,12 @@ class Wiki {
         let fullPath = "www/" + subfolder
         let fileMgr = NSFileManager.defaultManager()
         let tmpPath = NSTemporaryDirectory().stringByAppendingPathComponent(fullPath)
-        var error: NSErrorPointer = nil
-        if !fileMgr.createDirectoryAtPath(tmpPath, withIntermediateDirectories: true, attributes: nil, error: error) {
-            println("Couldn't create \(fullPath) subdirectory. \(error)")
+        let error: NSErrorPointer = nil
+        do {
+            try fileMgr.createDirectoryAtPath(tmpPath, withIntermediateDirectories: true, attributes: nil)
+        } catch let error1 as NSError {
+            error.memory = error1
+            print("Couldn't create \(fullPath) subdirectory. \(error)")
             return nil
         }
         return tmpPath

@@ -91,7 +91,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         
         self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
         self.webView.restorationIdentifier = "WikiWebView"
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.allowsBackForwardNavigationGestures = true
         self.webView.UIDelegate = self;
         self.webView.navigationDelegate = self;
@@ -99,12 +99,12 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         
         var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-0-[webView(webViewContainer)]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "webViewContainer": webViewContainer])
         var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|-0-[webView(webViewContainer)]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "webViewContainer": webViewContainer])
         
@@ -119,7 +119,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
 
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTitleTap"))
         
-        titleView = UIButton.buttonWithType(.System) as! UIButton
+        titleView = UIButton(type: .System)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFontOfSize(18)
         titleView.showsTouchWhenHighlighted = true
@@ -143,7 +143,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     }
 
     @IBAction func editPage(sender: UIBarButtonItem) {
-        self.webView!.evaluateJavaScript("getBottommostVisibleText()", completionHandler: { (text: AnyObject!, error: NSError!) -> Void in
+        self.webView!.evaluateJavaScript("getBottommostVisibleText()", completionHandler: { (text: AnyObject?, error: NSError?) -> Void in
             if let text = text as? String {
                 self.bottommostVisibleText = text
                 self.performSegueWithIdentifier("EditWikiPage", sender: sender)
@@ -153,36 +153,40 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "AddWikiPage" {
-            let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
+            let addPageViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             if let name = pendingPageName {
                 addPageViewController.page = Page(rawContent: "", name: name, modifiedTime: NSDate(), wiki: self.wiki)
             }
         } else if segue.identifier == "EditWikiPage" {
-            let addPageViewController = segue.destinationViewController.topViewController as! AddPageViewController
+            let addPageViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             addPageViewController.page = self.currentPage
             addPageViewController.bottommostVisibleText = self.bottommostVisibleText
             addPageViewController.editing = true
         } else if segue.identifier == "ShowAllPages" {
-            let allPagesViewController = segue.destinationViewController.topViewController as! AllPagesViewController
+            let allPagesViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AllPagesViewController
             allPagesViewController.wiki = self.wiki
         }
     }
     
     func renderPage(page: Page) {
-        let content = GRMustacheTemplate.renderObject([
-            "title": page.name,
-            "content": page.content
-            ], fromResource: "layout", bundle: nil, error: nil)
-        let fileName = page.permalink + ".html"
-        let path = self.wiki.writeLocalFile(fileName, content: content, overwrite: true)
-        self.webView.loadRequest(NSURLRequest(URL: NSURL.fileURLWithPath(path!)!))
-        self.currentPage = page
-        self.title = self.currentPage.name
-        
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.showNavbar(animated: true)
+        do {
+            let content = try GRMustacheTemplate.renderObject([
+                "title": page.name,
+                "content": page.content
+                ], fromResource: "layout", bundle: nil)
+            let fileName = page.permalink + ".html"
+            let path = self.wiki.writeLocalFile(fileName, content: content, overwrite: true)
+            self.webView.loadRequest(NSURLRequest(URL: NSURL.fileURLWithPath(path!)))
+            self.currentPage = page
+            self.title = self.currentPage.name
+            
+            if let navigationController = self.navigationController as? ScrollingNavigationController {
+                navigationController.showNavbar(animated: true)
+            }
+        } catch {
+            return
         }
     }
     
@@ -232,7 +236,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        if let permalink = webView.URL!.absoluteString?.lastPathComponent.stringByDeletingPathExtension {
+        if let permalink : String = webView.URL!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
             if permalink != self.currentPage.permalink {
                 if let page = wiki.page(permalink) {
                     self.currentPage = page
@@ -250,7 +254,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
                 return IDMPhoto(URL: NSURL(string: src))
             }
         })
-        var browser = IDMPhotoBrowser(photos: photos)
+        let browser = IDMPhotoBrowser(photos: photos)
         browser.usePopAnimation = false
         browser.displayActionButton = false
         browser.setInitialPageIndex(index)

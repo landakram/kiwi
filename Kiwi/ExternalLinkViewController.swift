@@ -20,7 +20,7 @@ class ExternalLinkViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         
         self.webView = WKWebView(frame: self.view.bounds, configuration: configuration)
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.allowsBackForwardNavigationGestures = true
 //        self.webView.UIDelegate = self;
 //        self.webView.navigationDelegate = self;
@@ -28,12 +28,12 @@ class ExternalLinkViewController: UIViewController {
         
         var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|-0-[webView(view)]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "view": self.view])
         var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|-0-[webView(view)]-0-|",
-            options: NSLayoutFormatOptions(0),
+            options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "view": self.view])
         

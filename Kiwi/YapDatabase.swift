@@ -14,7 +14,8 @@ private var _sharedInstance: YapDatabase?
 class Yap {
     class var sharedInstance: YapDatabase {
         if _sharedInstance == nil {
-            _sharedInstance = YapDatabase(path: NSTemporaryDirectory().stringByAppendingPathComponent("wiki.sqlite"))
+            let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+            _sharedInstance = YapDatabase(path: documentsURL.URLByAppendingPathComponent("wiki.sqlite").absoluteString)
             
             var block: YapDatabaseFullTextSearchWithObjectBlock = {
                 (dict: NSMutableDictionary!, collection: String!, key: String!, object: AnyObject!) in

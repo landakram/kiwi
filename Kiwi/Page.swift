@@ -40,7 +40,7 @@ class Page: NSObject, NSCoding {
         self.content = self.renderHTML(rawContent)
     }
     
-    required init(coder decoder: NSCoder) {
+    required init?(coder decoder: NSCoder) {
         super.init()
         
         self.rawContent = decoder.decodeObjectForKey("rawContent") as! String
@@ -74,7 +74,7 @@ class Page: NSObject, NSCoding {
     
     func parseLinks(rawContent: String) -> String {
         
-        var mutable = RegexMutable(rawContent)
+        let mutable = RegexMutable(rawContent)
         mutable["\\[\\[(.+?)\\]\\]"] ~= {
             (groups: [String]) in
             let match = groups[1]

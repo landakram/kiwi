@@ -68,11 +68,11 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
         var files = self.files
         if tableView == self.searchDisplayController!.searchResultsTableView {
             files = self.filteredFiles
-            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell") as! UITableViewCell
+            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell")!
         } else {
-            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell", forIndexPath: indexPath) as! UITableViewCell
+            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell", forIndexPath: indexPath) 
         }
-        let fileName = files[indexPath.row].stringByDeletingPathExtension
+        let fileName = (files[indexPath.row] as NSString).stringByDeletingPathExtension
         if let titleLabel = cell.viewWithTag(100) as? UILabel {
             titleLabel.text = Page.permalinkToName(fileName)
         }
@@ -85,7 +85,7 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
                 let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
                 if let components = page.rawContent?.componentsSeparatedByCharactersInSet(characterSet) {
                     let length = min(components.count, 30)
-                    let firstWords = " ".join(components[0..<length])
+                    let firstWords = components[0..<length].joinWithSeparator(" ")
                     if let detailLabel = cell.viewWithTag(101) as? UILabel {
                         detailLabel.text = firstWords;
                     }
@@ -168,12 +168,12 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     // MARK: - Search
     
     func searchPages(searchText: String) {
-        if count(searchText) >= 2 {
+        if searchText.characters.count >= 2 {
             let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
             let components = searchText.componentsSeparatedByCharactersInSet(characterSet).map( { (word) in
                 word + "*"
             })
-            let searchTerms = " ".join(components)
+            let searchTerms = components.joinWithSeparator(" ")
             self.filteredFiles.removeAll(keepCapacity: true)
             Yap.sharedInstance.newConnection().readWithBlock { (transaction) in
                 transaction.ext("fts").enumerateKeysMatching(searchTerms, usingBlock: { (collection, key, stop) in
@@ -183,8 +183,10 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
         }
     }
     
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        self.searchPages(searchString)
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+        if let str = searchString {
+            self.searchPages(str)
+        }
         return true
     }
 

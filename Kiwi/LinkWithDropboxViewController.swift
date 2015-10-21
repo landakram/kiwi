@@ -55,7 +55,7 @@ class LinkWithDropboxViewController: UIViewController {
                             Async.background {
                                 if let fileInfos = wiki.getAllFileInfos() {
                                     let total = Float(fileInfos.count)
-                                    for (index, info) in enumerate(fileInfos) {
+                                    for (index, info) in fileInfos.enumerate() {
                                         if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
                                             var error: DBError?
                                             file.readData(&error)
