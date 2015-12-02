@@ -80,13 +80,13 @@
 		4D7CBBB11AA8304200638C5C /* article.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB01AA8304200638C5C /* article.mustache */; };
 		4D7CBBB31AA833E200638C5C /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB21AA833E200638C5C /* screen.css */; };
 		4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */; };
+		4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
+		4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
 		4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DBE60841AA5527A003D3F34 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60831AA5527A003D3F34 /* Page.swift */; };
 		4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60871AA5542A003D3F34 /* Wiki.swift */; };
 		4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */; };
-		4DC512F01BD72D3E00E62355 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512EF1BD72D3E00E62355 /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
-		4DC512F11BD72D3E00E62355 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512EF1BD72D3E00E62355 /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
 		4DC512F31BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; settings = {ASSET_TAGS = (); }; };
 		4DC512F41BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; settings = {ASSET_TAGS = (); }; };
 		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
@@ -148,13 +148,13 @@
 		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
 		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
 		4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
+		4DA69FC81C0EA2530020554E /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = available_in_dropbox.md; sourceTree = "<group>"; };
 		4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiwi-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Page.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DBE60871AA5542A003D3F34 /* Wiki.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Wiki.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Hoedown.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hoedown.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4DC512EF1BD72D3E00E62355 /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = SOURCE_ROOT; };
 		4DC512F21BD7374A00E62355 /* String+NSString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+NSString.swift"; sourceTree = "<group>"; };
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -247,7 +247,7 @@
 				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
 				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
 				4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */,
-				4DC512EF1BD72D3E00E62355 /* SwiftRegex.swift */,
+				4DA69FC81C0EA2530020554E /* SwiftRegex.swift */,
 				4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */,
 				4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */,
 				4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */,
@@ -590,6 +590,7 @@
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
+				4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */,
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */,
 				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
@@ -602,7 +603,6 @@
 				4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */,
 				4DC512F31BD7374A00E62355 /* String+NSString.swift in Sources */,
 				4D7CBBAA1AA8272E00638C5C /* WikiViewController.swift in Sources */,
-				4DC512F01BD72D3E00E62355 /* SwiftRegex.swift in Sources */,
 				4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */,
 				4D664BA21BAA8ACB00EFC998 /* available_in_dropbox.md in Sources */,
 				4D7CBBAC1AA8291E00638C5C /* home.md in Sources */,
@@ -626,6 +626,7 @@
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,
 				4D3D8E281BB4A1CF000C53EE /* acknowledgements.md in Sources */,
+				4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */,
 				4D3D8E291BB4A1CF000C53EE /* Constants.swift in Sources */,
 				4D3D8E2A1BB4A1CF000C53EE /* working_with_pages.md in Sources */,
 				4D3D8E2B1BB4A1CF000C53EE /* Hoedown.m in Sources */,
@@ -638,7 +639,6 @@
 				4D3D8E321BB4A1CF000C53EE /* AddPageViewController.swift in Sources */,
 				4DC512F41BD7374A00E62355 /* String+NSString.swift in Sources */,
 				4D3D8E331BB4A1CF000C53EE /* WikiViewController.swift in Sources */,
-				4DC512F11BD72D3E00E62355 /* SwiftRegex.swift in Sources */,
 				4D3D8E341BB4A1CF000C53EE /* ExternalLinkViewController.swift in Sources */,
 				4D3D8E351BB4A1CF000C53EE /* available_in_dropbox.md in Sources */,
 				4D3D8E361BB4A1CF000C53EE /* home.md in Sources */,
