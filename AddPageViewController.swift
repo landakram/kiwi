@@ -7,14 +7,14 @@
 //
 
 import UIKit
-import RFMarkdownTextView
 import ViewUtils
+import RFMarkdownTextView
 
 class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var textViewHeightConstraint: NSLayoutConstraint!
     
-    var textView: RFMarkdownTextView!
+    var textView: MarkdownTextView!
     var page: Page?
     var wiki: Wiki!
     
@@ -25,7 +25,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView = RFMarkdownTextView(frame: self.view.bounds)
+        textView = MarkdownTextView(frame: self.view.bounds)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
         

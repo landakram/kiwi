@@ -69,6 +69,8 @@
 		4D44273C1B1D7C8B00B35C01 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273B1B1D7C8B00B35C01 /* prism.css */; };
 		4D44273E1B1D7C9000B35C01 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273D1B1D7C9000B35C01 /* prism.js */; };
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
+		4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
+		4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
 		4D5F93DD1AB00F5900D92886 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93DC1AB00F5900D92886 /* green@2x.png */; };
 		4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93E01AB02A3F00D92886 /* menu@2x.png */; };
@@ -138,6 +140,7 @@
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
+		4D5829911C587CE50053C65A /* MarkdownTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -257,6 +260,7 @@
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
 				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
+				4D5829911C587CE50053C65A /* MarkdownTextView.swift */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -585,6 +589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
@@ -621,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
