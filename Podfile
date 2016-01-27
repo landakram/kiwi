@@ -9,7 +9,7 @@ pod 'IDMPhotoBrowser'
 pod "STKWebKitViewController"
 pod 'TUSafariActivity', '~> 1.0'
 pod 'RESideMenu'
-pod 'Async', :git => 'https://github.com/JohnCoates/Async.git'
+pod 'AsyncSwift'
 pod 'MRProgress'
 pod 'ViewUtils', '~> 1.1'
 pod 'AMScrollingNavbar', '2.0.1'

@@ -80,15 +80,15 @@
 		4D7CBBB11AA8304200638C5C /* article.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB01AA8304200638C5C /* article.mustache */; };
 		4D7CBBB31AA833E200638C5C /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB21AA833E200638C5C /* screen.css */; };
 		4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */; };
-		4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
-		4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; settings = {ASSET_TAGS = (); }; };
+		4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; };
+		4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; };
 		4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DBE60841AA5527A003D3F34 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60831AA5527A003D3F34 /* Page.swift */; };
 		4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60871AA5542A003D3F34 /* Wiki.swift */; };
 		4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */; };
-		4DC512F31BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; settings = {ASSET_TAGS = (); }; };
-		4DC512F41BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; settings = {ASSET_TAGS = (); }; };
+		4DC512F31BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; };
+		4DC512F41BD7374A00E62355 /* String+NSString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC512F21BD7374A00E62355 /* String+NSString.swift */; };
 		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
 		4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
 		4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
@@ -695,6 +695,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -743,6 +744,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -770,8 +772,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -779,7 +781,8 @@
 				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "46cfe35d-9140-4a40-8e82-7d4867057083";
+				"PROVISIONING_PROFILE[sdk=*]" = "46cfe35d-9140-4a40-8e82-7d4867057083";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -791,8 +794,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -800,7 +803,7 @@
 				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "46cfe35d-9140-4a40-8e82-7d4867057083";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 			};
 			name = Release;

@@ -9,6 +9,7 @@
 import UIKit
 import Async
 import YapDatabase
+import YapDatabase.YapDatabaseFullTextSearch
 
 class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     var wiki: Wiki!
@@ -176,7 +177,8 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
             let searchTerms = components.joinWithSeparator(" ")
             self.filteredFiles.removeAll(keepCapacity: true)
             Yap.sharedInstance.newConnection().readWithBlock { (transaction) in
-                transaction.ext("fts").enumerateKeysMatching(searchTerms, usingBlock: { (collection, key, stop) in
+                let t = transaction.ext("fts") as! YapDatabaseFullTextSearchTransaction
+                t.enumerateKeysMatching(searchTerms, usingBlock: { (collection, key, stop) in
                     self.filteredFiles.append(key)
                 })
             }

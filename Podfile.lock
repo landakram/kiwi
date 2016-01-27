@@ -1,34 +1,13 @@
 PODS:
-  - AFNetworking (2.6.1):
-    - AFNetworking/NSURLConnection (= 2.6.1)
-    - AFNetworking/NSURLSession (= 2.6.1)
-    - AFNetworking/Reachability (= 2.6.1)
-    - AFNetworking/Security (= 2.6.1)
-    - AFNetworking/Serialization (= 2.6.1)
-    - AFNetworking/UIKit (= 2.6.1)
-  - AFNetworking/NSURLConnection (2.6.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.1)
-  - AFNetworking/Security (2.6.1)
-  - AFNetworking/Serialization (2.6.1)
-  - AFNetworking/UIKit (2.6.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - AMScrollingNavbar (2.0.1)
-  - Async (1.3.1)
-  - CocoaLumberjack (2.0.3):
-    - CocoaLumberjack/Default (= 2.0.3)
-    - CocoaLumberjack/Extensions (= 2.0.3)
-  - CocoaLumberjack/Core (2.0.3)
-  - CocoaLumberjack/Default (2.0.3):
+  - AsyncSwift (1.6.4)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.3):
+  - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
   - DACircularProgress (2.3.1)
   - Dropbox-Sync-API-SDK (3.1.2)
@@ -37,10 +16,10 @@ PODS:
   - hoedown (3.0.3):
     - hoedown/standard (= 3.0.3)
   - hoedown/standard (3.0.3)
-  - IDMPhotoBrowser (1.7):
-    - AFNetworking
+  - IDMPhotoBrowser (1.8.1):
     - DACircularProgress
     - pop
+    - SDWebImage
   - JRSwizzle (1.0)
   - MRProgress (0.8.2):
     - MRProgress/ActivityIndicator (= 0.8.2)
@@ -75,17 +54,20 @@ PODS:
   - RFKeyboardToolbar (1.3)
   - RFMarkdownTextView (1.4):
     - RFKeyboardToolbar (~> 1.3)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - STKWebKitViewController (0.5.0)
   - TUSafariActivity (1.0.4)
   - ViewUtils (1.1.2)
-  - YapDatabase (2.7.3):
-    - YapDatabase/standard (= 2.7.3)
-  - YapDatabase/standard (2.7.3):
+  - YapDatabase (2.7.7):
+    - YapDatabase/standard (= 2.7.7)
+  - YapDatabase/standard (2.7.7):
     - CocoaLumberjack (~> 2)
 
 DEPENDENCIES:
   - AMScrollingNavbar (= 2.0.1)
-  - Async (from `https://github.com/JohnCoates/Async.git`)
+  - AsyncSwift
   - Dropbox-Sync-API-SDK (~> 3.1)
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
   - hoedown
@@ -99,17 +81,12 @@ DEPENDENCIES:
   - YapDatabase (~> 2.5)
 
 EXTERNAL SOURCES:
-  Async:
-    :git: https://github.com/JohnCoates/Async.git
   GRMustache:
     :git: https://github.com/landakram/GRMustache.git
   RFMarkdownTextView:
     :git: https://github.com/landakram/RFMarkdownTextView.git
 
 CHECKOUT OPTIONS:
-  Async:
-    :commit: 23d9de3675f8357e7ad7d4c8b8b7d7caf9b73570
-    :git: https://github.com/JohnCoates/Async.git
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
@@ -118,24 +95,24 @@ CHECKOUT OPTIONS:
     :git: https://github.com/landakram/RFMarkdownTextView.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
   AMScrollingNavbar: 263999c6884bd0c93d1eed6295fb45a30edff64c
-  Async: 2aaa4263645846a8ea1c5829067fb2f8e694af36
-  CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
+  AsyncSwift: 3c90beed237324f1b57e1f1c414dc5501985d208
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Dropbox-Sync-API-SDK: 92652bd663984740f963ba228864542711eda148
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
   hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
-  IDMPhotoBrowser: 1155caa03f8705b7943c074c26b55aadd43d71da
+  IDMPhotoBrowser: 99eccfe6431e182f64e2fe57ac654316fbf81576
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
   MRProgress: f4cfe862082418e8f542f077772283f425d6c699
   pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   RFKeyboardToolbar: c96a7d9458564d1fedc8ef6844b6c467934aade2
   RFMarkdownTextView: 07713b785f1b9285eda1d8a3ab70a361ea8eb259
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   STKWebKitViewController: 1371f39e5f697de11aa091064eeed6eb515a2511
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
-  YapDatabase: 6d6a30e97face6c3158830823c27614afe83e1e0
+  YapDatabase: a7a1ae3e0f89c319e3b22615c2351987fbbdbded
 
 COCOAPODS: 0.37.1
