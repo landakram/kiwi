@@ -41,9 +41,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You companion for thoughts, feelings and journeys. Edit, rearrange, and link your ideas together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JR1-i5-mOU">
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.468057753164557" green="0.468057753164557" blue="0.468057753164557" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JR1-i5-mOU">
+                                <attributedString key="attributedText">
+                                    <fragment content="Your personal wiki. Edit, rearrange, and link your ideas together. Use for thoughts, feelings, and journeys.">
+                                        <attributes>
+                                            <color key="NSColor" red="0.468057753164557" green="0.468057753164557" blue="0.468057753164557" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kiwi" translatesAutoresizingMaskIntoConstraints="NO" id="7KB-Ah-WHf">
@@ -78,14 +85,14 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Ox6-k0-wpx"/>
-                                <exclude reference="v7U-NU-Hr7"/>
-                                <exclude reference="PCf-mx-7R3"/>
-                                <exclude reference="u6r-Ry-ByC"/>
-                                <exclude reference="2aH-La-hkW"/>
-                                <exclude reference="gKu-pj-Ujn"/>
                                 <exclude reference="7zC-2K-S2Q"/>
                                 <exclude reference="si9-7Y-LJm"/>
+                                <exclude reference="Ox6-k0-wpx"/>
+                                <exclude reference="v7U-NU-Hr7"/>
+                                <exclude reference="2aH-La-hkW"/>
+                                <exclude reference="gKu-pj-Ujn"/>
+                                <exclude reference="PCf-mx-7R3"/>
+                                <exclude reference="u6r-Ry-ByC"/>
                             </mask>
                         </variation>
                     </view>

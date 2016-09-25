@@ -4,11 +4,11 @@
 
 ## The home page
 
-The [[Home]] page (the one you just came from) is your jumping-off point. You can always get back home by tapping the title of the page you're on and then tapping the cool "house" icon. This is the only page you can't delete from the app (but pressing the "Trash" icon while editing will clear it completely).
+The [[Home]] page (the one you just came from) is your jumping-off point. **You can always get back home by tapping the title of the page you're on and then tapping the cool "house" icon**. This is the only page you can't delete from the app (but pressing the "Trash" icon while editing will clear it completely). Feel free to make it your own.
 
 ## Editing pages
 
-To edit a page, tap the "Edit" button in the top left. 
+To edit a page, **tap the "Edit" button in the top left**. 
 
 Try doing that now and typing something after this sentence. Then, press the checkmark to save.
 
@@ -25,6 +25,4 @@ To link a page, use the square brackets. I have a handy toolbar when you're writ
 
 ## Searching pages
 
-You can view pages chronologically and search them by tapping the title of the current page like so:
-
-![ ](https://s3.amazonaws.com/com.markhudnall.kiwi/searching.gif)
+You can view pages chronologically and search them by **tapping the title of the current page** in the navigation bar. You may need to scroll up to see the navigation bar.
