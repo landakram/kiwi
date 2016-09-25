@@ -11,7 +11,7 @@ Kiwi is a personal wiki app for iOS. A short list of features:
 
 ## Getting started
 
-Are you interested in **using it**? Consider supporting me by buying the app in
+Are you interested in **using the app**? Consider supporting me by buying it in
 the App Store.
 
 If not, here are the instructions for getting started with development:
