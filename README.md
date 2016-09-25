@@ -24,7 +24,7 @@ If not, here are the instructions for getting started with development:
    `Keys.development.xcconfig` and `Keys.production.xcconfig`. These files will
    both have the same structure, which looks like this: 
 
-       DROPBOX_APP_KEY = your_dropbox_app_key
-       DROPBOX_SECRET_KEY = your_dropbox_secret_key
+        DROPBOX_APP_KEY = your_dropbox_app_key
+        DROPBOX_SECRET_KEY = your_dropbox_secret_key
 
    You'll need to create a Dropbox "App" integration to get those keys.
