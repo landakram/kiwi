@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.
 //
 
-import UIKit    
+import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
+        Fabric.with([Crashlytics.self])
         
         let accountManager = DBAccountManager(appKey: DropboxAppKey, secret: DropboxSecretKey)
         DBAccountManager.setShared(accountManager)

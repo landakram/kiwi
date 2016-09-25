@@ -342,6 +342,7 @@
 				4D2AAC181A9DA30300E0904B /* Resources */,
 				05F70F702DC93D7797BCC9ED /* [CP] Embed Pods Frameworks */,
 				8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */,
+				4DAD4E971D97963400B33065 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -380,6 +381,7 @@
 				4D3D8E391BB4A1CF000C53EE /* Resources */,
 				E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */,
 				1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */,
+				4DAD4E961D9795B300B33065 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -556,6 +558,32 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4DAD4E961D9795B300B33065 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c4";
+		};
+		4DAD4E971D97963400B33065 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c47";
 		};
 		8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

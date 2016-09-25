@@ -13,6 +13,8 @@ def app_pods
     pod 'AsyncSwift'
     pod 'MRProgress'
     pod 'ViewUtils'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end
 
 target 'Kiwi' do

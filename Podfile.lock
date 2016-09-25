@@ -8,8 +8,11 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.4.0):
     - CocoaLumberjack/Default
+  - Crashlytics (3.8.2):
+    - Fabric (~> 1.6.3)
   - DACircularProgress (2.3.1)
   - Dropbox-Sync-API-SDK (3.1.2)
+  - Fabric (1.6.8)
   - GRMustache (7.3.2):
     - JRSwizzle (~> 1.0)
   - hoedown (3.0.3):
@@ -113,7 +116,9 @@ PODS:
 
 DEPENDENCIES:
   - AsyncSwift
+  - Crashlytics
   - Dropbox-Sync-API-SDK
+  - Fabric
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
   - hoedown
   - IDMPhotoBrowser
@@ -139,8 +144,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AsyncSwift: 6ba6ed9ecb51344458063f7c86fe447ab824e313
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Dropbox-Sync-API-SDK: 92652bd663984740f963ba228864542711eda148
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
   hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
   IDMPhotoBrowser: b574fe3229754e701f32df271afbc4ac7e4e1997
@@ -157,6 +164,6 @@ SPEC CHECKSUMS:
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: abf9d432a5ca1b039b699e4a7db3b846e46f367a
+PODFILE CHECKSUM: 0ddd93e201e0867ed47b6943040d3bf13a86b1d6
 
 COCOAPODS: 1.0.1
