@@ -54,5 +54,21 @@
 	<array>
 		<string>dbapi-2</string>
 	</array>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>543ab8602070ec5673eb17de7821aac352a9ee04</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To add a photo from your camera roll to your wiki, I need to access your photos.</string>
 </dict>
 </plist>
