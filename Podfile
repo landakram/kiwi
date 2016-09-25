@@ -9,7 +9,6 @@ def app_pods
     pod 'IDMPhotoBrowser'
     pod "STKWebKitViewController"
     pod 'TUSafariActivity'
-    pod 'RESideMenu'
     pod 'AsyncSwift'
     pod 'MRProgress'
     pod 'ViewUtils'

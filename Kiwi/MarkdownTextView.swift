@@ -48,7 +48,7 @@ class MarkdownTextView: RFMarkdownTextView {
                 let block: ImageBlock = { (filename: String?) -> Void in
                     var range = self.selectedRange
                     range.location += 2
-                    self.insertText("![](img/\(filename)")
+                    self.insertText("![](img/\(filename!))")
                     self.setSelectionRange(range)
                 }
                 self.imagePickerDelegate?.textViewWantsImage(self, completion: block)

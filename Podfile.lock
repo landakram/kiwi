@@ -53,7 +53,6 @@ PODS:
     - MRProgress/Helper
   - pop (1.0.9)
   - Reachability (3.2)
-  - RESideMenu (4.0.7)
   - RFKeyboardToolbar (1.3)
   - RFMarkdownTextView (1.4):
     - RFKeyboardToolbar
@@ -123,7 +122,6 @@ DEPENDENCIES:
   - hoedown
   - IDMPhotoBrowser
   - MRProgress
-  - RESideMenu
   - RFMarkdownTextView (from `~/Documents/code/Memex/RFMarkdownTextView`)
   - STKWebKitViewController
   - TUSafariActivity
@@ -155,7 +153,6 @@ SPEC CHECKSUMS:
   MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   RFKeyboardToolbar: c96a7d9458564d1fedc8ef6844b6c467934aade2
   RFMarkdownTextView: 390e011bedf4b4296a3510aa8b89895d642cd9e8
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
@@ -164,6 +161,6 @@ SPEC CHECKSUMS:
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: 0ddd93e201e0867ed47b6943040d3bf13a86b1d6
+PODFILE CHECKSUM: ff478e9c4eb1c5ec46004a1f977fb774d0604396
 
 COCOAPODS: 1.0.1
