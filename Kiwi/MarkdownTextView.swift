@@ -10,26 +10,26 @@ import Foundation
 import RFMarkdownTextView
 
 class MarkdownTextView: RFMarkdownTextView {
-    override func buttons() -> [AnyObject]! {
+    override func buttons() -> [Any]! {
         return [
-            self.createButtonWithTitle("#", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "#", andEventHandler: { () -> Void in
                 self.insertText("#")
             }),
-            self.createButtonWithTitle("*", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "*", andEventHandler: { () -> Void in
                 if (self.selectedRange.length > 0) {
-                    self.wrapSelectedRangeWithString("*")
+                    self.wrapSelectedRange(with: "*")
                 } else {
                     self.insertText("*")
                 }
             }),
-            self.createButtonWithTitle("Indent", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "Indent", andEventHandler: { () -> Void in
                 self.insertText("  ")
             }),
-            self.createButtonWithTitle("Wiki Link", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "Wiki Link", andEventHandler: { () -> Void in
                 if (self.selectedRange.length > 0) {
-                    self.wrapSelectedRangeWithStartString("[[", endString: "]]")
-                    let linkName = self.textInRange(self.selectedTextRange!)
-                    self.replaceRange(self.selectedTextRange!, withText: linkName!.capitalizedString)
+                    self.wrapSelectedRange(withStart: "[[", end: "]]")
+                    let linkName = self.text(in: self.selectedTextRange!)
+                    self.replace(self.selectedTextRange!, withText: linkName!.capitalized)
                 } else {
                     var range = self.selectedRange
                     range.location += 2
@@ -37,31 +37,30 @@ class MarkdownTextView: RFMarkdownTextView {
                     self.setSelectionRange(range)
                 }
             }),
-            self.createButtonWithTitle("`", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "`", andEventHandler: { () -> Void in
                 if (self.selectedRange.length > 0) {
-                    self.wrapSelectedRangeWithString("`")
+                    self.wrapSelectedRange(with: "`")
                 } else {
                     self.insertText("`")
                 }
             }),
-            self.createButtonWithTitle("Photo", andEventHandler: { () -> Void in
-                let block: ImageBlock = { (filename: String!) -> Void in
+            self.createButton(withTitle: "Photo", andEventHandler: { () -> Void in
+                let block: ImageBlock = { (filename: String?) -> Void in
                     var range = self.selectedRange
                     range.location += 2
                     self.insertText("![](img/\(filename)")
                     self.setSelectionRange(range)
                 }
-                
                 self.imagePickerDelegate?.textViewWantsImage(self, completion: block)
             }),
-            self.createButtonWithTitle("Link", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "Link", andEventHandler: { () -> Void in
                 var range = self.selectedRange
                 range.location += 1
                 self.insertText("[]()")
                 self.setSelectionRange(range)
                 
             }),
-            self.createButtonWithTitle("Quote", andEventHandler: { () -> Void in
+            self.createButton(withTitle: "Quote", andEventHandler: { () -> Void in
                 var range = self.selectedRange
                 range.location += 3
                 self.insertText(self.text.characters.count == 0 ? "> " : "\n> ")

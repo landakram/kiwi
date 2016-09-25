@@ -1,3 +1,4 @@
 #include "Keys.production.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS=$(inherited) DROPBOX_APP_KEY=@\"$(DROPBOX_APP_KEY)\" DROPBOX_SECRET_KEY=@\"$(DROPBOX_SECRET_KEY)\"
+#include "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.release.xcconfig"
 
+GCC_PREPROCESSOR_DEFINITIONS=$(inherited) DROPBOX_APP_KEY=@\"$(DROPBOX_APP_KEY)\" DROPBOX_SECRET_KEY=@\"$(DROPBOX_SECRET_KEY)\" COCOAPODS=1

@@ -1,6 +1,6 @@
 //
 //  AllPagesViewController.swift
-//  Memex
+//  Kiwi
 //
 //  Created by Mark Hudnall on 3/10/15.
 //  Copyright (c) 2015 Mark Hudnall. All rights reserved.
@@ -34,9 +34,9 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "home"),
-            style: UIBarButtonItemStyle.Plain,
+            style: UIBarButtonItemStyle.plain,
             target: self,
-            action: Selector("navigateToHomePage")
+            action: #selector(AllPagesViewController.navigateToHomePage)
         )
         
         self.yapConnection = Yap.sharedInstance.newConnection()
@@ -50,12 +50,12 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.filteredFiles.count
         } else {
@@ -64,47 +64,45 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell
         var files = self.files
         if tableView == self.searchDisplayController!.searchResultsTableView {
             files = self.filteredFiles
-            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell")!
+            cell = self.tableView.dequeueReusableCell(withIdentifier: "pageCell")!
         } else {
-            cell = self.tableView.dequeueReusableCellWithIdentifier("pageCell", forIndexPath: indexPath) 
+            cell = self.tableView.dequeueReusableCell(withIdentifier: "pageCell", for: indexPath) 
         }
-        let fileName = (files[indexPath.row] as NSString).stringByDeletingPathExtension
+        let fileName = (files?[(indexPath as NSIndexPath).row])?.stringByDeletingPathExtension
         if let titleLabel = cell.viewWithTag(100) as? UILabel {
-            titleLabel.text = Page.permalinkToName(fileName)
+            titleLabel.text = Page.permalinkToName(permalink: fileName!)
         }
         if let detailLabel = cell.viewWithTag(101) as? UILabel {
             detailLabel.text = nil;
         }
         
-        self.yapConnection.readWithBlock({ (transaction) in
-            if let page = transaction.objectForKey(fileName, inCollection: "pages") as? Page {
-                let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-                if let components = page.rawContent?.componentsSeparatedByCharactersInSet(characterSet) {
-                    let length = min(components.count, 30)
-                    let firstWords = components[0..<length].joinWithSeparator(" ")
-                    if let detailLabel = cell.viewWithTag(101) as? UILabel {
-                        detailLabel.text = firstWords;
-                    }
+        self.yapConnection.read({ (transaction) in
+            if let pageCoder = transaction.object(forKey: fileName!, inCollection: "pages") as? PageCoder {
+                let page = pageCoder.page
+                let characterSet = CharacterSet.whitespacesAndNewlines
+                let components = page.rawContent.components(separatedBy: characterSet)
+                let length = min(components.count, 30)
+                let firstWords = components[0..<length].joined(separator: " ")
+                if let detailLabel = cell.viewWithTag(101) as? UILabel {
+                    detailLabel.text = firstWords;
                 }
             }
-            
-            
         })
         // Configure the cell...
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedPermalink = self.files[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedPermalink = self.files[(indexPath as NSIndexPath).row]
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 105.0;
     }
     
@@ -147,16 +145,16 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     // MARK: - Navigation
     
     func navigateToHomePage() {
-        self.performSegueWithIdentifier("NavigateToSelectedPage", sender: self)
+        self.performSegue(withIdentifier: "NavigateToSelectedPage", sender: self)
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "NavigateToSelectedPage" {
             self.searchBar.resignFirstResponder()
             if let cell = sender as? UITableViewCell {
                 if let textLabel = cell.viewWithTag(100) as? UILabel {
-                self.selectedPermalink = Page.nameToPermalink(textLabel.text!)   
+                self.selectedPermalink = Page.nameToPermalink(name: textLabel.text!)   
                 }
             } else {
                 self.selectedPermalink = "home"
@@ -168,24 +166,24 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     
     // MARK: - Search
     
-    func searchPages(searchText: String) {
+    func searchPages(_ searchText: String) {
         if searchText.characters.count >= 2 {
-            let characterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-            let components = searchText.componentsSeparatedByCharactersInSet(characterSet).map( { (word) in
+            let characterSet = CharacterSet.whitespacesAndNewlines
+            let components = searchText.components(separatedBy: characterSet).map( { (word) in
                 word + "*"
             })
-            let searchTerms = components.joinWithSeparator(" ")
-            self.filteredFiles.removeAll(keepCapacity: true)
-            Yap.sharedInstance.newConnection().readWithBlock { (transaction) in
+            let searchTerms = components.joined(separator: " ")
+            self.filteredFiles.removeAll(keepingCapacity: true)
+            Yap.sharedInstance.newConnection().read { (transaction) in
                 let t = transaction.ext("fts") as! YapDatabaseFullTextSearchTransaction
-                t.enumerateKeysMatching(searchTerms, usingBlock: { (collection, key, stop) in
+                t.enumerateKeys(matching: searchTerms, using: { (collection, key, stop) in
                     self.filteredFiles.append(key)
                 })
             }
         }
     }
     
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
+    func searchDisplayController(_ controller: UISearchDisplayController, shouldReloadTableForSearch searchString: String?) -> Bool {
         if let str = searchString {
             self.searchPages(str)
         }

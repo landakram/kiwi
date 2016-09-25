@@ -11,7 +11,7 @@ import WebKit
 
 class ExternalLinkViewController: UIViewController {
     
-    var url: NSURL!
+    var url: URL!
     var webView: WKWebView!
 
     override func viewDidLoad() {
@@ -26,13 +26,13 @@ class ExternalLinkViewController: UIViewController {
 //        self.webView.navigationDelegate = self;
         self.view.addSubview(self.webView)
         
-        var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-0-[webView(view)]-0-|",
+        let horizontalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "view": self.view])
-        var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-0-[webView(view)]-0-|",
+        let verticalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "view": self.view])
@@ -40,7 +40,7 @@ class ExternalLinkViewController: UIViewController {
         self.view.addConstraints(horizontalConstraints)
         self.view.addConstraints(verticalConstraints)
         
-        self.webView.loadRequest(NSURLRequest(URL: self.url))
+        self.webView.load(URLRequest(url: self.url))
     }
 
     override func didReceiveMemoryWarning() {

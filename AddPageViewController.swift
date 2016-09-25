@@ -18,7 +18,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     var page: Page?
     var wiki: Wiki!
     
-    var imageBlock: ImageBlock!
+    var imageBlock: ImageBlock! 
     
     var bottommostVisibleText: String?
     
@@ -32,21 +32,21 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(textView)
         
-        var dict = ["textView": textView]
-        var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-0-[textView]-0-|",
+        let dict = ["textView": textView!]
+        let horizontalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-0-[textView]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: dict)
-        var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-0-[textView]-0-|",
+        let verticalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-0-[textView]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["textView" : textView])
+            views: ["textView" : textView!])
         view.addConstraints(verticalConstraints)
         view.addConstraints(horizontalConstraints)
         
-        textView.scrollEnabled = true
+        textView.isScrollEnabled = true
         textView.imagePickerDelegate = self
         textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.y + self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
@@ -55,23 +55,24 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         let availableWidth = self.navigationController!.navigationBar.frame.size.width - 200
         let titleField = UITextField(frame: CGRect(x: 0, y: 0, width: availableWidth, height: self.navigationController!.navigationBar.frame.size.height))
         titleField.placeholder = "Title"
-        titleField.autocapitalizationType = .Words
-        titleField.returnKeyType = .Next
+        titleField.autocapitalizationType = .words
+        titleField.returnKeyType = .next
         titleField.delegate = self
-        titleField.textAlignment = .Center
+        titleField.textAlignment = .center
         titleField.restorationIdentifier = "EditPageTitleView"
 
         self.navigationItem.titleView = titleField
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "checkmark"),
-            style: UIBarButtonItemStyle.Plain,
+            style: UIBarButtonItemStyle.plain,
             target: self,
-            action: Selector("save")
+            action: #selector(AddPageViewController.save)
         )
         
-        if self.editing {
+        if self.isEditing {
             if let page = self.page {
-                let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: Selector("deletePage"))
+                let trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(AddPageViewController.deletePage))
+                titleField.isUserInteractionEnabled = false
                 self.navigationItem.rightBarButtonItems?.append(trashButton)
             }
         }
@@ -84,19 +85,19 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             titleField.text = ""
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
-            selector: Selector("textFieldDidChange"),
-            name: UITextFieldTextDidChangeNotification,
+            selector: #selector(AddPageViewController.textFieldDidChange),
+            name: NSNotification.Name.UITextFieldTextDidChange,
             object: nil
         )
         
         if let visibleText = (self.bottommostVisibleText as NSString?) {
-            var searchText: NSString = visibleText.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) as NSString
+            var searchText: NSString = visibleText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
             let start = min(1, searchText.length)
             let end = min(15, searchText.length)
-            searchText = searchText.substringWithRange(NSMakeRange(start, end - start))
-            let range = (textView.text as NSString).rangeOfString(searchText as String)
+            searchText = searchText.substring(with: NSMakeRange(start, end - start)) as NSString
+            let range = (textView.text as NSString).range(of: searchText as String)
             if range.location != NSNotFound {
                 textView.scrollRangeToVisible(range)
                 var contentOffset = textView.contentOffset
@@ -107,7 +108,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         }
         
         if titleField.text!.isEmpty {
-            self.navigationItem.rightBarButtonItem?.enabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             titleField.becomeFirstResponder()
         } else {
             textView.becomeFirstResponder()
@@ -115,7 +116,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,46 +127,47 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     // MARK: - Navigation
     
     func save() {
-        if shouldPerformSegueWithIdentifier("SavePage", sender: self) {
-            self.performSegueWithIdentifier("SavePage", sender: self)
+        if shouldPerformSegue(withIdentifier: "SavePage", sender: self) {
+            self.performSegue(withIdentifier: "SavePage", sender: self)
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let titleField = self.navigationItem.titleView as! UITextField
         titleField.resignFirstResponder()
         textView.resignFirstResponder()
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "SavePage" {
-            if !self.editing {
+            if !self.isEditing {
                 let titleField = self.navigationItem.titleView as! UITextField
-                self.page = Page(rawContent: textView.text, name: titleField.text!, modifiedTime: NSDate(), wiki: self.wiki)
+                let name = titleField.text!
+                self.page = Page(rawContent: textView.text, permalink: Page.nameToPermalink(name: name), name: name, modifiedTime: Date(), createdTime: Date(), isDirty: true)
             } else {
                 self.page?.rawContent = textView.text
             }
             
-            switch self.wiki.save(page!, overwrite: editing) {
-                case SaveResult.Success:
+            switch self.wiki.save(page!, overwrite: isEditing) {
+                case SaveResult.success:
                     break
-                case SaveResult.FileExists:
+                case SaveResult.fileExists:
                     let alertController = UIAlertController(
                         title: "That page already exists",
                         message: nil,
-                        preferredStyle: .ActionSheet)
+                        preferredStyle: .actionSheet)
                     
-                    let overwriteAction = UIAlertAction(title: "Overwrite it", style: .Destructive, handler: { (action) in
+                    let overwriteAction = UIAlertAction(title: "Overwrite it", style: .destructive, handler: { (action) in
                         self.wiki.save(self.page!, overwrite: true)
-                        self.performSegueWithIdentifier(identifier, sender: sender)
+                        self.performSegue(withIdentifier: identifier, sender: sender)
                     })
                     
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                     
                     alertController.addAction(overwriteAction)
                     alertController.addAction(cancelAction)
                     
-                    presentViewController(alertController, animated: true, completion: nil)
+                    present(alertController, animated: true, completion: nil)
                     return false
             }
         }
@@ -173,7 +175,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     }
     
     func deletePage() {
-        if let actualPage = self.page {
+        if var actualPage = self.page {
             var titleText = "Are you sure you want to delete this page?"
             if actualPage.permalink == "home" {
                 titleText = "Are you sure you want to clear this page?"
@@ -184,77 +186,80 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             let alertController = UIAlertController(
                 title: titleText,
                 message: nil,
-                preferredStyle: .ActionSheet)
+                preferredStyle: .actionSheet)
             
-            let overwriteAction = UIAlertAction(title: overwriteActionTitle, style: .Destructive, handler: { (action) in
+            let overwriteAction = UIAlertAction(title: overwriteActionTitle, style: .destructive, handler: { (action) in
                 if actualPage.permalink == "home" {
                     actualPage.rawContent = ""
                     self.wiki.save(actualPage, overwrite: true)
-                    self.performSegueWithIdentifier("SavePage", sender: self)
+                    self.performSegue(withIdentifier: "SavePage", sender: self)
                 } else {
                     self.wiki.delete(actualPage)
-                    self.performSegueWithIdentifier("DeletePage", sender: self)
+                    self.performSegue(withIdentifier: "DeletePage", sender: self)
                 }
             })
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             
             alertController.addAction(overwriteAction)
             alertController.addAction(cancelAction)
             
-            presentViewController(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
     }
     
-    func textViewWantsImage(textView: RFMarkdownTextView!, completion imageBlock: ImageBlock!) {
-        var picker: UIImagePickerController = UIImagePickerController()
+    func textViewWantsImage(_ textView: RFMarkdownTextView!, completion imageBlock: ImageBlock!) {
+        let picker: UIImagePickerController = UIImagePickerController()
         picker.allowsEditing = false
-        picker.sourceType = .PhotoLibrary
-        picker.modalPresentationStyle = .Popover
+        picker.sourceType = .photoLibrary
+        picker.modalPresentationStyle = .popover
         picker.delegate = self
         
         self.imageBlock = imageBlock
         picker.popoverPresentationController?.sourceView = textView
-        picker.popoverPresentationController?.sourceRect = textView.caretRectForPosition((textView.selectedTextRange?.start)!)
-        self.presentViewController(picker, animated: true, completion: nil)
+        picker.popoverPresentationController?.sourceRect = textView.caretRect(for: (textView.selectedTextRange?.start)!)
+        self.present(picker, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
         
-        var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        var imageFileName = self.wiki.saveImage(chosenImage)
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let imageFileName = self.wiki.saveImage(chosenImage)
         
         imageBlock(imageFileName)
     }
     
     func textFieldDidChange() {
         let textField = self.navigationItem.titleView as! UITextField
-        self.navigationItem.rightBarButtonItem?.enabled = !textField.text!.isEmpty
+        self.navigationItem.rightBarButtonItem?.isEnabled = !textField.text!.isEmpty
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.textView.becomeFirstResponder()
         return true
     }
     
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
-        super.encodeRestorableStateWithCoder(coder)
-        coder.encodeObject(self.textView.text, forKey: "editedText")
-        coder.encodeObject(self.page, forKey: "page")
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        coder.encode(self.textView.text, forKey: "editedText")
+        if let page = self.page {
+            coder.encode(PageCoder(page: page), forKey: "page")
+        }
         
         let titleField = self.navigationItem.titleView as! UITextField
-        coder.encodeObject(titleField.text, forKey: "titleText")
+        coder.encode(titleField.text, forKey: "titleText")
     }
     
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-        super.decodeRestorableStateWithCoder(coder)
-        self.page = coder.decodeObjectForKey("page") as? Page
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        let pageCoder = coder.decodeObject(forKey: "page") as? PageCoder
+        self.page = pageCoder?.page
         self.wiki = Wiki()
-        self.textView.insertText(coder.decodeObjectForKey("editedText") as! String)
+        self.textView.insertText(coder.decodeObject(forKey: "editedText") as! String)
         
         let titleField = self.navigationItem.titleView as! UITextField
-        titleField.text = coder.decodeObjectForKey("titleText") as! String
+        titleField.text = coder.decodeObject(forKey: "titleText") as! String
         textFieldDidChange()
     }
 }

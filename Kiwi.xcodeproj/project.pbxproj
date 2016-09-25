@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04EF104C94000844A71F9864 /* Pods_Kiwi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */; };
 		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
 		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
@@ -40,7 +41,6 @@
 		4D3D8E341BB4A1CF000C53EE /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
 		4D3D8E351BB4A1CF000C53EE /* available_in_dropbox.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D664BA11BAA8ACB00EFC998 /* available_in_dropbox.md */; };
 		4D3D8E361BB4A1CF000C53EE /* home.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D7CBBAB1AA8291E00638C5C /* home.md */; };
-		4D3D8E381BB4A1CF000C53EE /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF991A60A24FCEA7388DC87 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4D3D8E3A1BB4A1CF000C53EE /* available_in_dropbox.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4D3D8E3B1BB4A1CF000C53EE /* working_with_pages.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
 		4D3D8E3C1BB4A1CF000C53EE /* acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE25D1B9E52EA00462786 /* acknowledgements.md */; };
@@ -68,6 +68,8 @@
 		4D44273A1B1D710000B35C01 /* auto-render-latex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D4427391B1D710000B35C01 /* auto-render-latex.min.js */; };
 		4D44273C1B1D7C8B00B35C01 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273B1B1D7C8B00B35C01 /* prism.css */; };
 		4D44273E1B1D7C9000B35C01 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273D1B1D7C9000B35C01 /* prism.js */; };
+		4D4582731D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
+		4D4582741D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
 		4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
 		4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
@@ -82,8 +84,6 @@
 		4D7CBBB11AA8304200638C5C /* article.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB01AA8304200638C5C /* article.mustache */; };
 		4D7CBBB31AA833E200638C5C /* screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D7CBBB21AA833E200638C5C /* screen.css */; };
 		4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */; };
-		4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; };
-		4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA69FC81C0EA2530020554E /* SwiftRegex.swift */; };
 		4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */; };
 		4DBE60841AA5527A003D3F34 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE60831AA5527A003D3F34 /* Page.swift */; };
@@ -101,7 +101,7 @@
 		4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE25D1B9E52EA00462786 /* acknowledgements.md */; };
 		4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
 		4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
-		55A5204191484C3917AE43A7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF991A60A24FCEA7388DC87 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		82C4C0DD4BF97EB1E02A4495 /* Pods_Kiwi_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +115,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.release.xcconfig"; sourceTree = "<group>"; };
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
 		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 2; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
@@ -138,6 +139,8 @@
 		4D4427391B1D710000B35C01 /* auto-render-latex.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "auto-render-latex.min.js"; sourceTree = "<group>"; };
 		4D44273B1B1D7C8B00B35C01 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
+		4D4582721D94963E00EBEDD8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		4D4582751D94964D00EBEDD8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
 		4D5829911C587CE50053C65A /* MarkdownTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
@@ -150,8 +153,8 @@
 		4D7CBBAE1AA82F4300638C5C /* layout.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.mustache; sourceTree = "<group>"; };
 		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
 		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
+		4D8842CF1C7C3AEA00C70A17 /* Kiwi.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Kiwi.playground; sourceTree = "<group>"; };
 		4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
-		4DA69FC81C0EA2530020554E /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = available_in_dropbox.md; sourceTree = "<group>"; };
 		4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiwi-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Page.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -169,8 +172,11 @@
 		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AddPageViewController.swift; path = ../AddPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DEFE25D1B9E52EA00462786 /* acknowledgements.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = acknowledgements.md; sourceTree = "<group>"; };
 		4DEFE2601B9FF06A00462786 /* working_with_pages.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = working_with_pages.md; sourceTree = "<group>"; };
-		72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5F8A4805B80474123335ADE1 /* Pods-Kiwi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.debug.xcconfig"; sourceTree = "<group>"; };
+		70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.debug.xcconfig"; sourceTree = "<group>"; };
+		949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.release.xcconfig"; sourceTree = "<group>"; };
+		AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55A5204191484C3917AE43A7 /* Pods.framework in Frameworks */,
+				04EF104C94000844A71F9864 /* Pods_Kiwi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3D8E381BB4A1CF000C53EE /* Pods.framework in Frameworks */,
+				82C4C0DD4BF97EB1E02A4495 /* Pods_Kiwi_Development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +212,8 @@
 				4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */,
 				4DE39A521B2CDF840099E757 /* libxml2.dylib */,
 				3EF991A60A24FCEA7388DC87 /* Pods.framework */,
+				AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */,
+				D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -219,9 +227,9 @@
 				4D2AAC1C1A9DA30300E0904B /* Kiwi */,
 				4D2AAC321A9DA30300E0904B /* KiwiTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
-				5AE65EF13EAABF3CEA7CA127 /* Pods */,
 				48924F7F2E83D886BAA39977 /* Frameworks */,
 				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
+				99AF236031C2442D5DF544F0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,7 +258,6 @@
 				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
 				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
 				4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */,
-				4DA69FC81C0EA2530020554E /* SwiftRegex.swift */,
 				4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */,
 				4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */,
 				4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */,
@@ -261,6 +268,9 @@
 				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
 				4D5829911C587CE50053C65A /* MarkdownTextView.swift */,
+				4D8842CF1C7C3AEA00C70A17 /* Kiwi.playground */,
+				4D4582721D94963E00EBEDD8 /* Constants.m */,
+				4D4582751D94964D00EBEDD8 /* Constants.h */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -308,11 +318,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5AE65EF13EAABF3CEA7CA127 /* Pods */ = {
+		99AF236031C2442D5DF544F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */,
-				CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */,
+				5F8A4805B80474123335ADE1 /* Pods-Kiwi.debug.xcconfig */,
+				39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */,
+				70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */,
+				949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -324,12 +336,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D2AAC391A9DA30300E0904B /* Build configuration list for PBXNativeTarget "Kiwi" */;
 			buildPhases = (
-				8B74CDFD524C9C5543CFD790 /* Check Pods Manifest.lock */,
+				1D317F7B999FCA0624F03BAB /* [CP] Check Pods Manifest.lock */,
 				4D2AAC161A9DA30300E0904B /* Sources */,
 				4D2AAC171A9DA30300E0904B /* Frameworks */,
 				4D2AAC181A9DA30300E0904B /* Resources */,
-				391825FF31A3EA8BC3A72A1E /* Copy Pods Resources */,
-				675EB49C365B75C1965EC386 /* Embed Pods Frameworks */,
+				05F70F702DC93D7797BCC9ED /* [CP] Embed Pods Frameworks */,
+				8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -362,12 +374,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D3D8E541BB4A1CF000C53EE /* Build configuration list for PBXNativeTarget "Kiwi Development" */;
 			buildPhases = (
-				4D3D8E211BB4A1CF000C53EE /* Check Pods Manifest.lock */,
+				DD979AE2B596B69CF82B17E5 /* [CP] Check Pods Manifest.lock */,
 				4D3D8E221BB4A1CF000C53EE /* Sources */,
 				4D3D8E371BB4A1CF000C53EE /* Frameworks */,
 				4D3D8E391BB4A1CF000C53EE /* Resources */,
-				4D3D8E521BB4A1CF000C53EE /* Copy Pods Resources */,
-				4D3D8E531BB4A1CF000C53EE /* Embed Pods Frameworks */,
+				E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */,
+				1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,10 +404,18 @@
 					4D2AAC191A9DA30300E0904B = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 8E96ZSV3N3;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					4D2AAC2E1A9DA30300E0904B = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 8E96ZSV3N3;
 						TestTargetID = 4D2AAC191A9DA30300E0904B;
+					};
+					4D3D8E201BB4A1CF000C53EE = {
+						DevelopmentTeam = 8E96ZSV3N3;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -492,29 +512,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		391825FF31A3EA8BC3A72A1E /* Copy Pods Resources */ = {
+		05F70F702DC93D7797BCC9ED /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4D3D8E211BB4A1CF000C53EE /* Check Pods Manifest.lock */ = {
+		1D317F7B999FCA0624F03BAB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,64 +542,64 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		4D3D8E521BB4A1CF000C53EE /* Copy Pods Resources */ = {
+		1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4D3D8E531BB4A1CF000C53EE /* Embed Pods Frameworks */ = {
+		8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		675EB49C365B75C1965EC386 /* Embed Pods Frameworks */ = {
+		DD979AE2B596B69CF82B17E5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B74CDFD524C9C5543CFD790 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -595,12 +615,12 @@
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
-				4DA69FC91C0EA2530020554E /* SwiftRegex.swift in Sources */,
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */,
 				4DBE608F1AA5BDA8003D3F34 /* Hoedown.m in Sources */,
 				4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */,
 				4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */,
+				4D4582731D94963E00EBEDD8 /* Constants.m in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
 				4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */,
 				4DBE60841AA5527A003D3F34 /* Page.swift in Sources */,
@@ -632,12 +652,12 @@
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,
 				4D3D8E281BB4A1CF000C53EE /* acknowledgements.md in Sources */,
-				4DA69FCA1C0EA2530020554E /* SwiftRegex.swift in Sources */,
 				4D3D8E291BB4A1CF000C53EE /* Constants.swift in Sources */,
 				4D3D8E2A1BB4A1CF000C53EE /* working_with_pages.md in Sources */,
 				4D3D8E2B1BB4A1CF000C53EE /* Hoedown.m in Sources */,
 				4D3D8E2C1BB4A1CF000C53EE /* writing_with_kiwi.md in Sources */,
 				4D3D8E2D1BB4A1CF000C53EE /* BaseNavigationController.swift in Sources */,
+				4D4582741D94963E00EBEDD8 /* Constants.m in Sources */,
 				4D3D8E2E1BB4A1CF000C53EE /* AppDelegate.swift in Sources */,
 				4D3D8E2F1BB4A1CF000C53EE /* YapDatabase.swift in Sources */,
 				4D3D8E301BB4A1CF000C53EE /* Page.swift in Sources */,
@@ -701,6 +721,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -750,6 +771,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -774,12 +796,13 @@
 		};
 		4D2AAC3A1A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -787,21 +810,24 @@
 				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46cfe35d-9140-4a40-8e82-7d4867057083";
-				"PROVISIONING_PROFILE[sdk=*]" = "46cfe35d-9140-4a40-8e82-7d4867057083";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		4D2AAC3B1A9DA30300E0904B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -809,8 +835,10 @@
 				INFOPLIST_FILE = Kiwi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46cfe35d-9140-4a40-8e82-7d4867057083";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -850,12 +878,13 @@
 		};
 		4D3D8E551BB4A1CF000C53EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72A6DFCF4E17497BA0149A3C /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -866,17 +895,19 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		4D3D8E561BB4A1CF000C53EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB5E5DBC24425A5117064EE3 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8E96ZSV3N3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
@@ -886,6 +917,7 @@
 				PRODUCT_NAME = KiwiDev;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -14,27 +14,28 @@ private var _sharedInstance: YapDatabase?
 class Yap {
     class var sharedInstance: YapDatabase {
         if _sharedInstance == nil {
-            let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-            _sharedInstance = YapDatabase(path: documentsURL.URLByAppendingPathComponent("wiki.sqlite").absoluteString)
+            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            _sharedInstance = YapDatabase(path: documentsURL.appendingPathComponent("wiki.sqlite").absoluteString)
             
-            var block: YapDatabaseFullTextSearchWithObjectBlock = {
-                (dict: NSMutableDictionary!, collection: String!, key: String!, object: AnyObject!) in
+            let block: YapDatabaseFullTextSearchWithObjectBlock = {
+                (dict: NSMutableDictionary, collection: String, key: String, object: Any) in
                 
-                if let page = object as? Page {
-                    dict.setObject(page.rawContent, forKey: "rawContent")
-                    dict.setObject(page.permalink, forKey: "permalink")
-                    dict.setObject(page.name, forKey: "name")
+                if let pageCoder = object as? PageCoder {
+                    let page = pageCoder.page
+                    dict.setObject(page.rawContent, forKey: "rawContent" as NSCopying)
+                    dict.setObject(page.permalink, forKey: "permalink" as NSCopying)
+                    dict.setObject(page.name, forKey: "name" as NSCopying)
                 }
             }
             
-            var propertiesToIndexForSearch = ["rawContent", "permalink", "name"]
+            let propertiesToIndexForSearch = ["rawContent", "permalink", "name"]
             
-            var fullTextSearch = YapDatabaseFullTextSearch(
+            let fullTextSearch = YapDatabaseFullTextSearch(
                 columnNames: propertiesToIndexForSearch,
                 handler: YapDatabaseFullTextSearchHandler.withObjectBlock(block)
             )
             
-            _sharedInstance?.registerExtension(fullTextSearch, withName: "fts")
+            _sharedInstance?.register(fullTextSearch, withName: "fts")
         }
         
         return _sharedInstance!

@@ -1,4 +1,4 @@
-    //
+//
 //  WikiViewController.swift
 //  Kiwi
 //
@@ -11,10 +11,10 @@ import WebKit
 import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
-import AMScrollingNavbar
 import TUSafariActivity
+import Async
 
-class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
+class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewContainer: UIView!
     
@@ -32,7 +32,7 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         set {
             super.title = newValue
             UIView.performWithoutAnimation { () -> Void in
-                self.titleView.setTitle(newValue, forState: UIControlState.Normal)
+                self.titleView.setTitle(newValue, for: UIControlState())
                 self.titleView.sizeToFit()
                 self.titleView.layoutIfNeeded()
             }
@@ -45,7 +45,8 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBarHidden = false;
+        self.navigationController?.hidesBarsOnSwipe = true
+        self.navigationController?.isNavigationBarHidden = false;
         
         self.setupWebView()
         
@@ -54,15 +55,10 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         self.renderPermalink("home")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.scrollingNavbarDelegate = self
-            navigationController.followScrollView(self.webView.scrollView, delay: 50.0)
-        }
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
 
@@ -71,20 +67,17 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         // Dispose of any resources that can be recreated.
     }
     
-    func scrollingNavigationController(controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
-    }
-    
     // Mark: - Setup
     
     func setupWebView() {
         let userContentController = WKUserContentController()
         let handler = NavigationScriptMessageHandler(delegate: self)
-        userContentController.addScriptMessageHandler(handler, name: NavigationScriptMessageHandler.name)
+        userContentController.add(handler, name: NavigationScriptMessageHandler.name)
         let imageHandler = ImageBrowserScriptHandler(delegate: self)
-        userContentController.addScriptMessageHandler(imageHandler, name: ImageBrowserScriptHandler.name)
+        userContentController.add(imageHandler, name: ImageBrowserScriptHandler.name)
         let checklistHandler = ChecklistScriptMessageHandler(delegate: self)
-        userContentController.addScriptMessageHandler(checklistHandler, name: ChecklistScriptMessageHandler.name)
-        userContentController.addScriptMessageHandler(checklistHandler, name: "loaded")
+        userContentController.add(checklistHandler, name: ChecklistScriptMessageHandler.name)
+        userContentController.add(checklistHandler, name: "loaded")
 
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = userContentController
@@ -93,17 +86,17 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         self.webView.restorationIdentifier = "WikiWebView"
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.allowsBackForwardNavigationGestures = true
-        self.webView.UIDelegate = self;
+        self.webView.uiDelegate = self;
         self.webView.navigationDelegate = self;
         self.webViewContainer.addSubview(self.webView)
         
-        var horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-0-[webView(webViewContainer)]-0-|",
+        var horizontalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-0-[webView(webViewContainer)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "webViewContainer": webViewContainer])
-        var verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-0-[webView(webViewContainer)]-0-|",
+        var verticalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-0-[webView(webViewContainer)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
             views: ["webView": webView, "webViewContainer": webViewContainer])
@@ -113,19 +106,19 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         
         var swipeGesture = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipeUp"))
         swipeGesture.numberOfTouchesRequired = 2
-        swipeGesture.direction = .Up
+        swipeGesture.direction = .up
         swipeGesture.delegate = self
         self.webView.scrollView.addGestureRecognizer(swipeGesture)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTitleTap"))
         
-        titleView = UIButton(type: .System)
+        titleView = UIButton(type: .system)
         titleView.sizeToFit()
-        titleView.titleLabel!.font = UIFont.systemFontOfSize(18)
+        titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
         titleView.showsTouchWhenHighlighted = true
-        titleView.userInteractionEnabled = true
-        titleView.addTarget(self, action: Selector("handleTitleTap"), forControlEvents: UIControlEvents.TouchUpInside)
-        titleView.setTitleColor(Constants.KiwiColor, forState: UIControlState.Normal)
+        titleView.isUserInteractionEnabled = true
+        titleView.addTarget(self, action: Selector("handleTitleTap"), for: UIControlEvents.touchUpInside)
+        titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())
         self.navigationController?.navigationItem.titleView = titleView
         
         self.navigationItem.titleView = titleView
@@ -135,108 +128,106 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
     // MARK: - Navigation
     
     func handleTitleTap() {
-        self.performSegueWithIdentifier("ShowAllPages", sender: self)
+        self.performSegue(withIdentifier: "ShowAllPages", sender: self)
     }
     
     func handleSwipeUp() {
-        self.performSegueWithIdentifier("ShowAllPages", sender: self)
+        self.performSegue(withIdentifier: "ShowAllPages", sender: self)
     }
 
-    @IBAction func editPage(sender: UIBarButtonItem) {
-        self.webView!.evaluateJavaScript("getBottommostVisibleText()", completionHandler: { (text: AnyObject?, error: NSError?) -> Void in
+    @IBAction func editPage(_ sender: UIBarButtonItem) {
+        self.webView!.evaluateJavaScript("getBottommostVisibleText()", completionHandler: { (text: Any?, error: Error?) -> Void in
             if let text = text as? String {
                 self.bottommostVisibleText = text
-                self.performSegueWithIdentifier("EditWikiPage", sender: sender)
+                self.performSegue(withIdentifier: "EditWikiPage", sender: sender)
             }
         });
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddWikiPage" {
-            let addPageViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AddPageViewController
+            let addPageViewController = (segue.destination as! UINavigationController).topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             if let name = pendingPageName {
-                addPageViewController.page = Page(rawContent: "", name: name, modifiedTime: NSDate(), wiki: self.wiki)
+                addPageViewController.page = Page(rawContent: "", permalink: Page.nameToPermalink(name: name), name: name, modifiedTime: Date(), createdTime: Date(), isDirty: true)
             }
         } else if segue.identifier == "EditWikiPage" {
-            let addPageViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AddPageViewController
+            let addPageViewController = (segue.destination as! UINavigationController).topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
             addPageViewController.page = self.currentPage
             addPageViewController.bottommostVisibleText = self.bottommostVisibleText
-            addPageViewController.editing = true
+            addPageViewController.isEditing = true
         } else if segue.identifier == "ShowAllPages" {
-            let allPagesViewController = (segue.destinationViewController as! UINavigationController).topViewController as! AllPagesViewController
+            let allPagesViewController = (segue.destination as! UINavigationController).topViewController as! AllPagesViewController
             allPagesViewController.wiki = self.wiki
         }
     }
     
-    func renderPage(page: Page) {
+    func renderPage(_ page: Page) {
         do {
-            let content = try GRMustacheTemplate.renderObject([
+            let variables: [String: String] = [
                 "title": page.name,
-                "content": page.content
-                ], fromResource: "layout", bundle: nil)
+                "content": page.toHTML()
+            ]
+            let content = try GRMustacheTemplate.renderObject(variables, fromResource: "layout", bundle: nil)
             let fileName = page.permalink + ".html"
             let path = self.wiki.writeLocalFile(fileName, content: content, overwrite: true)
-            self.webView.loadRequest(NSURLRequest(URL: NSURL.fileURLWithPath(path!)))
+            self.webView.load(URLRequest(url: URL(fileURLWithPath: path!)))
             self.currentPage = page
             self.title = self.currentPage.name
-            
-            if let navigationController = self.navigationController as? ScrollingNavigationController {
-                navigationController.showNavbar(animated: true)
-            }
+
         } catch {
             return
         }
     }
     
-    func renderPermalink(permalink: String, name: String? = nil) {
+    func renderPermalink(_ permalink: String, name: String? = nil) {
         if self.wiki.isPage(permalink) {
             self.renderPage(self.wiki.page(permalink)!)
         } else {
             self.pendingPageName = name
-            self.performSegueWithIdentifier("AddWikiPage", sender: self)
+            self.performSegue(withIdentifier: "AddWikiPage", sender: self)
         }
     }
     
     func webView(
-        webView: WKWebView,
+        _ webView: WKWebView,
         runJavaScriptAlertPanelWithMessage message: String,
         initiatedByFrame frame: WKFrameInfo,
-        completionHandler: () -> Void) {
+        completionHandler: @escaping () -> Void) {
             
-        var alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: {
+        var alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
             (action) in
             completionHandler()
         }))
     
-        self.presentViewController(alertController, animated: true, completion: nil);
+        self.present(alertController, animated: true, completion: nil);
     }
     
     
-    @IBAction func cancelToWikiViewController(segue: UIStoryboardSegue) {
+    @IBAction func cancelToWikiViewController(_ segue: UIStoryboardSegue) {
     }
     
-    @IBAction func savePage(segue: UIStoryboardSegue) {
-        let addPageViewController = segue.sourceViewController as! AddPageViewController
+    @IBAction func savePage(_ segue: UIStoryboardSegue) {
+        let addPageViewController = segue.source as! AddPageViewController
         if let page = addPageViewController.page {
             self.webView.reloadFromOrigin()
             self.renderPage(page)   
         }
     }
     
-    @IBAction func navigateToSelectedPage(segue: UIStoryboardSegue) {
-        let allPagesViewController = segue.sourceViewController as! AllPagesViewController
+    @IBAction func navigateToSelectedPage(_ segue: UIStoryboardSegue) {
+        let allPagesViewController = segue.source as! AllPagesViewController
         self.renderPermalink(allPagesViewController.selectedPermalink)
     }
     
-    @IBAction func deletePage(segue: UIStoryboardSegue) {
+    @IBAction func deletePage(_ segue: UIStoryboardSegue) {
         self.webView.goBack()
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        if let permalink : String = webView.URL!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let permalink : String = webView.url!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
             if permalink != self.currentPage.permalink {
                 if let page = wiki.page(permalink) {
                     self.currentPage = page
@@ -246,31 +237,30 @@ class WikiViewController: ScrollingNavigationViewController, WKUIDelegate, WKNav
         }
     }
     
-    func showImageBrowser(path: String, sources: [String], index: UInt) {
+    func showImageBrowser(_ path: String, sources: [String], index: UInt) {
         let photos = sources.map({ (src: String) -> IDMPhoto in
-            if src.rangeOfString("file://") != nil {
+            if src.range(of: "file://") != nil {
                 return IDMPhoto(filePath: self.wiki.localImagePath(src.lastPathComponent))
             } else {
-                return IDMPhoto(URL: NSURL(string: src))
+                return IDMPhoto(url: URL(string: src))
             }
         })
         let browser = IDMPhotoBrowser(photos: photos)
-        browser.usePopAnimation = false
-        browser.displayActionButton = false
-        browser.setInitialPageIndex(index)
-        self.presentViewController(browser, animated: true, completion: nil)
+        browser?.usePopAnimation = false
+        browser?.displayActionButton = false
+        browser?.setInitialPageIndex(index)
+        self.present(browser!, animated: true, completion: nil)
     }
     
-    override func encodeRestorableStateWithCoder(coder: NSCoder) {
-        super.encodeRestorableStateWithCoder(coder)
-        coder.encodeObject(self.currentPage, forKey: "page")
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        coder.encode(PageCoder(page: self.currentPage), forKey: "page")
     }
     
-    override func decodeRestorableStateWithCoder(coder: NSCoder) {
-        super.decodeRestorableStateWithCoder(coder)
-        self.currentPage = coder.decodeObjectForKey("page") as? Page
-        self.currentPage.wiki = self.wiki
-        self.currentPage.content = self.currentPage.renderHTML(self.currentPage.rawContent)
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        let pageCoder = coder.decodeObject(forKey: "page") as? PageCoder
+        self.currentPage = pageCoder?.page
         if let page = self.currentPage {
             self.renderPage(page)
         }
@@ -283,18 +273,18 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
     init(delegate: WikiViewController) {
         self.delegate = delegate
     }
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == NavigationScriptMessageHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let path = body.objectForKey("page") as! String
-                let name = body.objectForKey("name") as! String
-                let isInternal = body.objectForKey("isInternal") as! Bool
+                let path = body.object(forKey: "page") as! String
+                let name = body.object(forKey: "name") as! String
+                let isInternal = body.object(forKey: "isInternal") as! Bool
                 if isInternal {
                     delegate?.renderPermalink(path.lastPathComponent, name: name)
                 } else {
                     let webViewController = STKWebKitModalViewController(address: path)
-                    webViewController.webKitViewController.applicationActivities = [TUSafariActivity()]
-                    delegate?.presentViewController(webViewController, animated: true, completion: nil)
+                    webViewController?.webKitViewController.applicationActivities = [TUSafariActivity()]
+                    delegate?.present(webViewController!, animated: true, completion: nil)
                 }
             }
         }
@@ -307,16 +297,16 @@ class ChecklistScriptMessageHandler: NSObject, WKScriptMessageHandler {
     init(delegate: WikiViewController) {
         self.delegate = delegate
     }
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == ChecklistScriptMessageHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let rawContent = body.objectForKey("content") as! String
+                let rawContent = body.object(forKey: "content") as! String
                 delegate?.currentPage.rawContent = rawContent
                 delegate?.wiki.save(delegate!.currentPage!, overwrite: true)
             }
         } else if message.name == "loaded" {
             if let string = delegate?.currentPage.rawContent {
-                let js = "injectRawMarkdown(\"\(string.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)\")"
+                let js = "injectRawMarkdown(\"\(string.addingPercentEscapes(using: String.Encoding.utf8)!)\")"
                 delegate?.webView.evaluateJavaScript(js, completionHandler: nil)
             }
         }
@@ -330,12 +320,12 @@ class ImageBrowserScriptHandler: NSObject, WKScriptMessageHandler {
     init(delegate: WikiViewController) {
         self.delegate = delegate
     }
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == ImageBrowserScriptHandler.name {
             if let body: NSDictionary = message.body as? NSDictionary {
-                let src = (body.objectForKey("src") as! String)
-                let index = (body.objectForKey("index") as! UInt)
-                let sources: [String] = (body.objectForKey("images") as! [String])
+                let src = (body.object(forKey: "src") as! String)
+                let index = (body.object(forKey: "index") as! UInt)
+                let sources: [String] = (body.object(forKey: "images") as! [String])
                 delegate?.showImageBrowser(src, sources: sources, index: index)
             }
         }

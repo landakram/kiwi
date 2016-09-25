@@ -7,6 +7,7 @@
 //
 
 #include "hoedown_html_patch.h"
+#include <string.h>
 
 #define USE_TASK_LIST(opt) (opt->flags & HOEDOWN_HTML_USE_TASK_LIST)
 #define USE_XHTML(opt) (opt->flags & HOEDOWN_HTML_USE_XHTML)

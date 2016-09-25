@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import AMScrollingNavbar
 
-class BaseNavigationController: ScrollingNavigationController {
+
+class BaseNavigationController: UINavigationController {
     
 }

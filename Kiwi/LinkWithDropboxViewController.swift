@@ -16,11 +16,11 @@ class LinkWithDropboxViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBarHidden = true;
+        self.navigationController?.isNavigationBarHidden = true;
         
         linkWithDropboxButton.layer.borderWidth = 1
         linkWithDropboxButton.layer.cornerRadius = 5
-        linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.CGColor
+        linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.cgColor
         linkWithDropboxButton.layer.masksToBounds = true
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -30,62 +30,62 @@ class LinkWithDropboxViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didPressLinkWithDropbox(sender: AnyObject) {
-        
-        DBAccountManager.sharedManager().addObserver(self, block: {
-            (account: DBAccount!) in
-            if account.linked {
-                DBAccountManager.sharedManager().removeObserver(self)
-                if DBFilesystem.sharedFilesystem() == nil {
+    @IBAction func didPressLinkWithDropbox(_ sender: AnyObject) {
+        DBAccountManager.shared().addObserver(self, block: {
+            (account: DBAccount?) in
+            guard let account = account else { return }
+            if account.isLinked {
+                DBAccountManager.shared().removeObserver(self)
+                if DBFilesystem.shared() == nil {
                     let filesystem = DBFilesystem(account: account)
-                    DBFilesystem.setSharedFilesystem(filesystem)
+                    DBFilesystem.setShared(filesystem)
                 }
-                if !DBFilesystem.sharedFilesystem().completedFirstSync {
-                    let spinner = MRProgressOverlayView.showOverlayAddedTo(self.view.window,
+                if !DBFilesystem.shared().completedFirstSync {
+                    let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
                         title: "Importing...",
-                        mode: .Indeterminate,
+                        mode: .indeterminate,
                         animated: true)
-                    spinner.setTintColor(Constants.KiwiColor)
-                    DBFilesystem.sharedFilesystem().addObserver(self, block: { () -> Void in
-                        if DBFilesystem.sharedFilesystem().completedFirstSync {
-                            DBFilesystem.sharedFilesystem().removeObserver(self)
+                    spinner?.setTintColor(Constants.KiwiColor)
+                    DBFilesystem.shared().addObserver(self, block: { () -> Void in
+                        if DBFilesystem.shared().completedFirstSync {
+                            DBFilesystem.shared().removeObserver(self)
                             
                             // Load the whole wiki from Dropbox, then move on
                             let wiki = Wiki()
                             Async.background {
                                 if let fileInfos = wiki.getAllFileInfos() {
                                     let total = Float(fileInfos.count)
-                                    for (index, info) in fileInfos.enumerate() {
-                                        if let file = DBFilesystem.sharedFilesystem().openFile(info.path, error: nil) {
+                                    for (index, info) in fileInfos.enumerated() {
+                                        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
                                             var error: DBError?
                                             file.readData(&error)
                                         }
                                         if index == 0 {
                                             Async.main {
-                                                spinner.mode = .DeterminateCircular;
+                                                spinner?.mode = .determinateCircular;
                                             }
                                         }
                                         Async.main {
-                                            spinner.setProgress(Float(index + 1) / total, animated: true)
+                                            spinner?.setProgress(Float(index + 1) / total, animated: true)
                                         }
                                     }
                                 }
                             }.main {
-                                spinner.mode = .Indeterminate
-                            }.background {
+                                spinner?.mode = .indeterminate
+                            }.background {_ in 
                                 wiki.syncUpdatedPagesToYapDatabase()
                             }.main {
-                                spinner.dismiss(true)
-                                self.performSegueWithIdentifier("LinkWithDropbox", sender: self)
+                                spinner?.dismiss(true)
+                                self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
                             }
                         }
                     })
                 } else {
-                    self.performSegueWithIdentifier("LinkWithDropbox", sender: self)
+                    self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
                 }
             }
         })
-        DBAccountManager.sharedManager().linkFromController(self)
+        DBAccountManager.shared().link(from: self)
     }
 
 }

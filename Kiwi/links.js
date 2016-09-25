@@ -46,9 +46,9 @@ function injectRawMarkdown(markdown) {
         var checkbox = el.children[0];
         checkbox.onclick = function(event) {
            var elem = event.currentTarget;
-           var newValue = elem.checked ? "[x]": "[ ]";
+           var newValue = elem.checked ? "- [x]": "- [ ]";
            var nth = -1;
-           var newRaw = rawMarkdown.replace(/\[([\ \_\-\x\*]?)\]/g, function(match) {
+           var newRaw = rawMarkdown.replace(/- ?\[([\ \_\-\x\*]?)\]/g, function(match) {
                 nth += 1;
                 console.log("matches?", nth == index);
                 console.log("using", nth == index ? newValue : match);
