@@ -167,6 +167,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
                     alertController.addAction(overwriteAction)
                     alertController.addAction(cancelAction)
                     
+                    alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+                    
                     present(alertController, animated: true, completion: nil)
                     return false
             }

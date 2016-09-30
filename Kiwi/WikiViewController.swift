@@ -151,6 +151,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             if let name = pendingPageName {
                 addPageViewController.page = Page(rawContent: "", permalink: Page.nameToPermalink(name: name), name: name, modifiedTime: Date(), createdTime: Date(), isDirty: true)
             }
+            self.pendingPageName = nil
         } else if segue.identifier == "EditWikiPage" {
             let addPageViewController = (segue.destination as! UINavigationController).topViewController as! AddPageViewController
             addPageViewController.wiki = self.wiki
