@@ -14,6 +14,8 @@ def app_pods
     pod 'ViewUtils'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'touch-modification-date'
+    pod 'EmitterKit', '~> 5.0.0'
 end
 
 target 'Kiwi' do

@@ -9,10 +9,65 @@
 import Foundation
 import YapDatabase
 import Async
+import FileKit
 
 enum SaveResult {
     case success
     case fileExists
+}
+
+
+protocol Upgrade {
+    func perform(wiki: Wiki)
+}
+
+struct FilesystemMigration: Upgrade {
+    func perform(wiki: Wiki) {
+        Async.background {
+            print("-------------------")
+            print("Starting migration to:")
+            print(Path.userDocuments)
+            print("-------------------")
+            self.migrateFolder(path: DBPath.root())
+        }
+    }
+    
+    func migrateFolder(path: DBPath) {
+        do {
+            try Filesystem.sharedInstance.mkdir(path: Path.userDocuments + path.stringValue())
+        }
+        catch {
+            print("errored trying to make /public");
+        }
+        self.migrateFiles(path: path)
+    }
+    
+    func migrateFiles(path: DBPath) {
+        if let files = DBFilesystem.shared().listFolder(path, error: nil) as? [DBFileInfo] {
+            for info in files {
+                print(info.path);
+                if info.isFolder {
+                    self.migrateFolder(path: info.path)
+                } else {
+                    self.migrateFile(info: info)
+                }
+            }
+        }
+    }
+    
+    func migrateFile(info: DBFileInfo) {
+        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
+            let path: Path = Path.userDocuments + info.path.stringValue()
+            let content = file.readData(nil)
+            let fsFile = File<Data>(path: path, contents: content! as Data)
+            do {
+                try Filesystem.sharedInstance.write(file: fsFile)
+                try Filesystem.sharedInstance.touch(path: fsFile.path, modificationDate: info.modifiedTime)
+            } catch {
+                print("errored on (\(path))")
+            }
+        }
+    }
 }
 
 class Wiki {
@@ -21,6 +76,8 @@ class Wiki {
     
     static let IMG_PATH = Wiki.STATIC_PATH.childPath("img")
     static let STYLES_PATH = Wiki.STATIC_PATH.childPath("css")
+    
+    let upgrades: [Upgrade] = [FilesystemMigration()]
     
     init() {
         let defaultFolderPaths = [
@@ -84,6 +141,10 @@ class Wiki {
                     }
                 }
             }
+        }
+        
+        for upgrade in self.upgrades {
+            upgrade.perform(wiki: self)
         }
     }
     

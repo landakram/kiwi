@@ -12,7 +12,9 @@ PODS:
     - Fabric (~> 1.6.3)
   - DACircularProgress (2.3.1)
   - Dropbox-Sync-API-SDK (3.1.2)
+  - EmitterKit (5.0.0)
   - Fabric (1.6.8)
+  - FileKit (4.0.0)
   - GRMustache (7.3.2):
     - JRSwizzle (~> 1.0)
   - hoedown (3.0.3):
@@ -117,7 +119,9 @@ DEPENDENCIES:
   - AsyncSwift
   - Crashlytics
   - Dropbox-Sync-API-SDK
+  - EmitterKit (~> 5.0.0)
   - Fabric
+  - FileKit (from `https://github.com/landakram/FileKit.git`, branch `touch-modification-date`)
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
   - hoedown
   - IDMPhotoBrowser
@@ -129,12 +133,18 @@ DEPENDENCIES:
   - YapDatabase
 
 EXTERNAL SOURCES:
+  FileKit:
+    :branch: touch-modification-date
+    :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :git: https://github.com/landakram/GRMustache.git
   RFMarkdownTextView:
     :path: ~/Documents/code/Memex/RFMarkdownTextView
 
 CHECKOUT OPTIONS:
+  FileKit:
+    :commit: ecbedacf0e9a0ab7393168ca7777b40fb1b0c3b9
+    :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
@@ -145,7 +155,9 @@ SPEC CHECKSUMS:
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Dropbox-Sync-API-SDK: 92652bd663984740f963ba228864542711eda148
+  EmitterKit: 0057b2086840f20987cb8d4445b4490b96c0bfd8
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  FileKit: 2589d0393b3bfdc599c2ba6e41419be6db4279e0
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
   hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
   IDMPhotoBrowser: b574fe3229754e701f32df271afbc4ac7e4e1997
@@ -161,6 +173,6 @@ SPEC CHECKSUMS:
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
-PODFILE CHECKSUM: ff478e9c4eb1c5ec46004a1f977fb774d0604396
+COCOAPODS: 1.1.1
 
-COCOAPODS: 1.0.1
+PODFILE CHECKSUM: d7e05fa3fcf51718e87033aba9db642b5df6d09c
