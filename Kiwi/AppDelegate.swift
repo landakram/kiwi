@@ -9,11 +9,15 @@
 import UIKit
 import Fabric
 import Crashlytics
+import FileKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var filesystem: Filesystem = Filesystem.sharedInstance
+    var syncEngine: SyncEngine = SyncEngine.sharedInstance
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -30,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if DBFilesystem.shared() == nil {
                 let filesystem = DBFilesystem(account: account)
                 DBFilesystem.setShared(filesystem)
+                DropboxRemote.sharedInstance.configure(filesystem: filesystem!)
+                DropboxRemote.sharedInstance.start()
             }
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]

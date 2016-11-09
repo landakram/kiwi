@@ -53,7 +53,7 @@ class LinkWithDropboxViewController: UIViewController {
                             // Load the whole wiki from Dropbox, then move on
                             let wiki = Wiki()
                             Async.background {
-                                if let fileInfos = wiki.getAllFileInfos() {
+                                if let fileInfos = DropboxRemote.sharedInstance.getAllFileInfos() {
                                     let total = Float(fileInfos.count)
                                     for (index, info) in fileInfos.enumerated() {
                                         if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
@@ -72,10 +72,13 @@ class LinkWithDropboxViewController: UIViewController {
                                 }
                             }.main {
                                 spinner?.mode = .indeterminate
-                            }.background {_ in 
-                                wiki.syncUpdatedPagesToYapDatabase()
+                            }.background {_ in
+                                DropboxRemote.sharedInstance.configure(filesystem: DBFilesystem.shared())
+                                DropboxRemote.sharedInstance.start()
+//                                wiki.syncUpdatedPagesToYapDatabase()
                             }.main {
                                 spinner?.dismiss(true)
+                                
                                 self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
                             }
                         }

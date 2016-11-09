@@ -22,11 +22,13 @@ protocol Upgrade {
 }
 
 struct FilesystemMigration: Upgrade {
+    let filesystem: Filesystem = Filesystem.sharedInstance
+    
     func perform(wiki: Wiki) {
         Async.background {
             print("-------------------")
             print("Starting migration to:")
-            print(Path.userDocuments)
+            print(self.filesystem.root)
             print("-------------------")
             self.migrateFolder(path: DBPath.root())
         }
@@ -34,7 +36,7 @@ struct FilesystemMigration: Upgrade {
     
     func migrateFolder(path: DBPath) {
         do {
-            try Filesystem.sharedInstance.mkdir(path: Path.userDocuments + path.stringValue())
+            try self.filesystem.mkdir(path: Path(path.stringValue()))
         }
         catch {
             print("errored trying to make /public");
@@ -57,12 +59,12 @@ struct FilesystemMigration: Upgrade {
     
     func migrateFile(info: DBFileInfo) {
         if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-            let path: Path = Path.userDocuments + info.path.stringValue()
+            let path: Path = Path(info.path.stringValue())
             let content = file.readData(nil)
             let fsFile = File<Data>(path: path, contents: content! as Data)
             do {
-                try Filesystem.sharedInstance.write(file: fsFile)
-                try Filesystem.sharedInstance.touch(path: fsFile.path, modificationDate: info.modifiedTime)
+                try self.filesystem.write(file: fsFile)
+                try self.filesystem.touch(path: fsFile.path, modificationDate: info.modifiedTime)
             } catch {
                 print("errored on (\(path))")
             }
@@ -71,13 +73,14 @@ struct FilesystemMigration: Upgrade {
 }
 
 class Wiki {
-    static let WIKI_PATH: DBPath! = DBPath.root().childPath("wiki")
-    static let STATIC_PATH: DBPath! = DBPath.root().childPath("public")
+    static let WIKI_PATH: Path = Path("wiki")
+    static let STATIC_PATH: Path = Path("public")
     
-    static let IMG_PATH = Wiki.STATIC_PATH.childPath("img")
-    static let STYLES_PATH = Wiki.STATIC_PATH.childPath("css")
+    static let IMG_PATH = Wiki.STATIC_PATH + Path("img")
+    static let STYLES_PATH = Wiki.STATIC_PATH + Path("css")
     
     let upgrades: [Upgrade] = [FilesystemMigration()]
+    let filesystem: Filesystem = Filesystem.sharedInstance
     
     init() {
         let defaultFolderPaths = [
@@ -86,70 +89,23 @@ class Wiki {
             Wiki.IMG_PATH,
             Wiki.STYLES_PATH
         ]
+        
         for folderPath in defaultFolderPaths {
-            Wiki.createFolder(folderPath!)
+            try? self.filesystem.mkdir(path: folderPath)
         }
         
-        // Write default files if they don't already exist
         if (self.isLoadingForFirstTime()) {
-            let defaultPermalinks = [
-                "home",
-                "working_with_pages",
-                "writing_with_kiwi",
-                "acknowledgements",
-                "available_in_dropbox"
-            ]
-            for permalink in defaultPermalinks {
-                let wikiPath = Wiki.WIKI_PATH.childPath("\(permalink).md")
-                writeDefaultFile(permalink, ofType: "md", toPath: wikiPath!)
-            }
-            
+            self.writeDefaultFiles()
             self.setLoadedFirstTime()
         }
         
+        // TODO: these are related to actually rendering the wiki as HTML
         self.writeResouceFiles()
-        // Copy images to local cache if they aren't already copied
-        if let imgFiles = DBFilesystem.shared().listFolder(Wiki.IMG_PATH, error: nil) {
-            for fileInfo in imgFiles {
-                if let info = fileInfo as? DBFileInfo {
-                    let filename = info.path.stringValue()
-                    if !self.localImageExists(filename!) {
-                        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                            if !file.status.cached {
-                                // Weeee
-                                file.addObserver(self, block: { () -> Void in
-                                    if file.status.cached {
-                                        file.removeObserver(self)
-                                        self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
-                                    }
-                                })
-                            } else {
-                                self.writeLocalImage(info.path.stringValue().lastPathComponent, data: file.readData(nil))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        // Persist files to YapDatabase for search
-        Async.main(after: 0.5) { () -> Void in
-            DBFilesystem.shared().addObserver(self, forPathAndDescendants: Wiki.WIKI_PATH) {
-                if !DBFilesystem.shared().status.download.inProgress {
-                    Async.background {
-                        self.syncUpdatedPagesToYapDatabase()
-                    }
-                }
-            }
-        }
-        
+        self.copyImagesToLocalCache()
+
         for upgrade in self.upgrades {
             upgrade.perform(wiki: self)
         }
-    }
-    
-    deinit {
-        DBFilesystem.shared().removeObserver(self)
     }
     
     func isLoadingForFirstTime() -> Bool {
@@ -180,82 +136,36 @@ class Wiki {
         }
     }
     
-    func getAllFileInfos() -> [DBFileInfo]? {
-        return DBFilesystem.shared().listFolder(Wiki.WIKI_PATH, error: nil) as? [DBFileInfo]
-    }
-    
-    func syncUpdatedPagesToYapDatabase() {
-        if let wikiFiles = getAllFileInfos() {
-            for info in wikiFiles {
-                if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                    if !file.status.cached {
-                        file.addObserver(self, block: {
-                            if file.status.cached {
-                                file.removeObserver(self)
-                                self.persistToYapDatabase(file)
-                            }
-                        })
-                    } else {
-                        self.persistToYapDatabase(file)
-                    }
-                }
-            }
-        }
-    }
-    
-    func persistToYapDatabase(_ file: DBFile) {
-        if let page = self.page(file) {
-            let connection = Yap.sharedInstance.newConnection()
-            connection.readWrite({ (transaction: YapDatabaseReadWriteTransaction!) in
-                let pageCoder = transaction.object(forKey: page.permalink, inCollection: "pages") as? PageCoder
-                if pageCoder == nil || pageCoder!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
-                    transaction.setObject(PageCoder(page: page), forKey: page.permalink, inCollection: "pages")
-                }
-            })
-        }
-    }
-    
-    class func createFolder(_ folderPath: DBPath) {
-        let fileInfo = DBFilesystem.shared().fileInfo(for: folderPath, error: nil)
-        if fileInfo == nil {
-            DBFilesystem.shared().createFolder(folderPath, error: nil)
-        }
-    }
-    
-    func writeDefaultFile(_ name: String, ofType: String = "md", toPath: DBPath) {
-        var error : DBError?
-        if DBFilesystem.shared().openFile(toPath, error: &error) == nil {
-            let defaultFilePath = Bundle.main.path(forResource: name, ofType: ofType)
-            let defaultFileContents = try? NSString(contentsOfFile: defaultFilePath!, encoding: String.Encoding.utf8.rawValue)
-            let homeFile = DBFilesystem.shared().createFile(toPath, error: nil)
-            homeFile?.write(defaultFileContents as! String, error: nil)
-        }
-    }
-    
+//    func persistToYapDatabase(_ file: DBFile) {
+//        if let page = self.page(file) {
+//            let connection = Yap.sharedInstance.newConnection()
+//            connection.readWrite({ (transaction: YapDatabaseReadWriteTransaction!) in
+//                let pageCoder = transaction.object(forKey: page.permalink, inCollection: "pages") as? PageCoder
+//                if pageCoder == nil || pageCoder!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
+//                    transaction.setObject(PageCoder(page: page), forKey: page.permalink, inCollection: "pages")
+//                }
+//            })
+//        }
+//    }
+
     func files() -> [String] {
-        var maybeError: DBError?
-        if let files = DBFilesystem.shared().listFolder(Wiki.WIKI_PATH, error: &maybeError) as? [DBFileInfo] {
-            let fileNames = files.filter({ (f: DBFileInfo) -> Bool in
-                return !f.isFolder
-            }).sorted(by: { (f1: DBFileInfo, f2: DBFileInfo) -> Bool in
-                return f1.modifiedTime > f2.modifiedTime
-            }).map {
-                (fileInfo: DBFileInfo) -> String in
-                return fileInfo.path.name()
+        let files = self.filesystem.list(path: Wiki.WIKI_PATH)
+        return files.filter({ (path: Path) -> Bool in
+            return !path.isDirectory
+        }).sorted(by: { (path1, path2) -> Bool in
+            if path1.modificationDate == nil || path2.modificationDate == nil {
+                return true
+            } else {
+                return path1.modificationDate! > path2.modificationDate!
             }
-            return fileNames
-        } else if let error = maybeError {
-            print(error.localizedDescription)
-        }
-        return []
+        }).map({ (path: Path) -> String in
+            return path.fileName
+        })
     }
     
     static func isPage(_ permalink: String) -> Bool {
-        let filePath = Wiki.WIKI_PATH.childPath(permalink + ".md")
-        if let fileInfo = DBFilesystem.shared().fileInfo(for: filePath, error: nil) {
-            return true
-        }
-        return false
+        let filePath = Wiki.WIKI_PATH + Path(permalink + ".md")
+        return Filesystem.sharedInstance.exists(path: filePath)
     }
     
     func isPage(_ permalink: String) -> Bool {
@@ -263,50 +173,44 @@ class Wiki {
     }
     
     func page(_ permalink: String) -> Page? {
-        let filePath = Wiki.WIKI_PATH.childPath(permalink + ".md")
-        var maybeError: DBError?
-        if let file = DBFilesystem.shared().openFile(filePath, error: &maybeError) {
+        let path = Wiki.WIKI_PATH  + Path(permalink + ".md")
+        if let file: File<String> = try? self.filesystem.read(path: path) {
             return page(file)
-        } else if let error = maybeError {
-            print(error.localizedDescription)
+        } else {
+            return nil
         }
-        return nil
     }
     
-    func page(_ file: DBFile) -> Page? {
-        let permalink = file.info.path.stringValue().lastPathComponent.stringByDeletingPathExtension
-        var content = file.readString(nil)
-        if content == nil {
-            content = ""
-        }
-        let page = Page(rawContent: content!,
+    func page(_ file: File<String>) -> Page? {
+        let permalink = file.path.fileName.stringByDeletingPathExtension
+        var content = file.contents
+        let page = Page(rawContent: content,
                         permalink: permalink,
                         name: Page.permalinkToName(permalink: permalink),
-                        modifiedTime: file.info.modifiedTime,
-                        createdTime: file.info.modifiedTime,
+                        modifiedTime: file.path.modificationDate!,
+                        createdTime: file.path.modificationDate!,
                         isDirty: false)
         return page
     }
     
     func delete(_ page: Page) {
-        self.deleteFileFromDropbox(Wiki.WIKI_PATH.childPath(page.permalink + ".md"))
-        self.deleteLocalFile(page.permalink + ".html")
+        let path = Wiki.WIKI_PATH + Path(page.permalink + ".md")
+        try? self.filesystem.delete(path: path)
     }
     
     func save(_ page: Page, overwrite: Bool = false) -> SaveResult {
-        let path = Wiki.WIKI_PATH.childPath(page.permalink + ".md")
-        if let file = DBFilesystem.shared().createFile(path, error: nil) {
-            file.write(page.rawContent, error: nil)
-            self.persistToYapDatabase(file)
-            return SaveResult.success
-        } else if overwrite {
-            if let file = DBFilesystem.shared().openFile(path, error: nil) {
-                file.write(page.rawContent, error: nil)
-                self.persistToYapDatabase(file)
+        let path = Wiki.WIKI_PATH + Path(page.permalink + ".md")
+        if !self.filesystem.exists(path: path) || overwrite {
+            let file: File<String> = File(path: path, contents: page.rawContent)
+            do {
+                try self.filesystem.write(file: file)
+                return .success
+            } catch {
+                // TODO: really this should be some other unknown error
+                return .fileExists
             }
-            return SaveResult.success
         } else {
-            return SaveResult.fileExists
+            return .fileExists
         }
     }
     
@@ -315,7 +219,7 @@ class Wiki {
         let imageFileName = imageName + ".jpg"
         let imageData = UIImageJPEGRepresentation(image, 0.5)
         
-        self.writeImageToDropbox(imageFileName, data: imageData!)
+        self.writeImageToFilesystem(imageFileName, data: imageData!)
         self.writeLocalImage(imageFileName, data: imageData!)
         
         return imageFileName
@@ -337,17 +241,15 @@ class Wiki {
         return randomString
     }
     
-    func deleteFileFromDropbox(_ filePath: DBPath) {
-        DBFilesystem.shared().delete(filePath, error: nil)
-    }
-    
-    func writeImageToDropbox(_ fileName: String, data: Data) {
-        let imgFolderPath = Wiki.STATIC_PATH.childPath("img")
-        DBFilesystem.shared().createFolder(imgFolderPath, error: nil)
+    func writeImageToFilesystem(_ fileName: String, data: Data) {
+        let imgFolderPath = Wiki.STATIC_PATH + Path("img")
+        if !self.filesystem.exists(path: imgFolderPath) {
+            try! self.filesystem.mkdir(path: imgFolderPath)
+        }
         
-        let imgPath = imgFolderPath?.childPath(fileName)
-        let file: DBFile = DBFilesystem.shared().createFile(imgPath, error: nil)
-        file.write(data, error: nil)
+        let imgPath = imgFolderPath + Path(fileName)
+        let file: File<Data> = File(path: imgPath, contents: data)
+        try! self.filesystem.write(file: file)
     }
 
     func localImagePath(_ imageFileName: String) -> String {
@@ -470,5 +372,33 @@ class Wiki {
     
     func writeLocalImage(_ fileName: String, data: Data) -> String? {
         return self.writeLocalFile(fileName, data: data, subfolder: "img")
+    }
+    
+    func writeDefaultFiles() {
+        let defaultPages = [
+            "home",
+            "working_with_pages",
+            "writing_with_kiwi",
+            "acknowledgements",
+            "available_in_dropbox"
+        ]
+        for pageName in defaultPages {
+            let path = Wiki.WIKI_PATH + Path(pageName + ".md")
+            if !self.filesystem.exists(path: path) {
+                let defaultFilePath = Bundle.main.path(forResource: pageName, ofType: "md")
+                let defaultFileContents = try! NSString(contentsOfFile: defaultFilePath!, encoding: String.Encoding.utf8.rawValue) as String
+                let defaultFile = File(path: path, contents: defaultFileContents)
+                try? self.filesystem.write(file: defaultFile)
+            }
+        }
+    }
+    
+    func copyImagesToLocalCache() {
+        let imgFiles = self.filesystem.list(path: Wiki.IMG_PATH)
+        for path in imgFiles {
+            let filename = path.fileName
+            let file: File<Data> = try! self.filesystem.read(path: path)
+            self.writeLocalImage(filename, data: file.contents)
+        }
     }
 }

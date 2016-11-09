@@ -12,17 +12,48 @@ import EmitterKit
 
 typealias Path = FileKit.Path
 
+
 struct Filesystem {
     static let sharedInstance = Filesystem()
     
     let event: Event<FilesystemEvent> = Event();
+    let root: Path
+    
+    init(root: Path = Path.userDocuments) {
+        self.root = root
+    }
+    
+    private func fromRoot(_ path: Path) -> Path {
+        // If root is the common ancestor, then the path has already been resolved
+        if (self.root.commonAncestor(path) == self.root) {
+            return path
+        }
+        return self.root + path
+    }
+    
+    func list(path: Path) -> [Path] {
+        let path = fromRoot(path)
+        return path.children()
+    }
+    
+    func read<T: ReadableWritable>(path: Path) throws -> File<T> {
+        let realFile = FileKit.File<T>(path: fromRoot(path))
+        let contents = try realFile.read()
+        return File(path: fromRoot(path), contents: contents)
+    }
     
     func mkdir(path: Path) throws {
-        try path.createDirectory()
+        print("mkdir \(path)")
+        try fromRoot(path).createDirectory()
+    }
+    
+    func exists(path: Path) -> Bool {
+        return fromRoot(path).exists
     }
     
     func write<T: ReadableWritable>(file: File<T>) throws {
-        let realFile = FileKit.File<T>(path: file.path)
+        print("write \(file.path)")
+        let realFile = FileKit.File<T>(path: fromRoot(file.path))
         try realFile.write(file.contents)
         event.emit(.write(path: file.path))
     }
@@ -32,12 +63,14 @@ struct Filesystem {
     }
     
     func delete(path: Path) throws {
-        try path.deleteFile()
+        print("delete \(path)")
+        try fromRoot(path).deleteFile()
         event.emit(.delete(path: path))
     }
     
     func touch(path: Path, modificationDate: Date = Date()) throws {
-        try path.touch(modificationDate: modificationDate)
+        print("touch \(path)")
+        try fromRoot(path).touch(modificationDate: modificationDate)
     }
 }
 

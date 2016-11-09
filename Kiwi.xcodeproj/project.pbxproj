@@ -22,6 +22,8 @@
 		4D2AAC361A9DA30300E0904B /* KiwiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC351A9DA30300E0904B /* KiwiTests.swift */; };
 		4D36BA621DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
 		4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
+		4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
+		4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
 		4D3D8E1E1BB4A064000C53EE /* Config.development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */; };
 		4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */; };
 		4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
@@ -135,6 +137,7 @@
 		4D2AAC341A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D36BA611DD1980E00C9408F /* Filesystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filesystem.swift; sourceTree = "<group>"; };
+		4D36BA641DD1B7F800C9408F /* SyncEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
 		4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.development.xcconfig; sourceTree = "<group>"; };
 		4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.production.xcconfig; sourceTree = "<group>"; };
 		4D3D8E571BB4A1CF000C53EE /* KiwiDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiwiDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +278,7 @@
 				4D4582721D94963E00EBEDD8 /* Constants.m */,
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
 				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
+				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -655,6 +659,7 @@
 				4D4582731D94963E00EBEDD8 /* Constants.m in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
 				4D36BA621DD1980E00C9408F /* Filesystem.swift in Sources */,
+				4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */,
 				4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */,
 				4DBE60841AA5527A003D3F34 /* Page.swift in Sources */,
 				4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */,
@@ -693,6 +698,7 @@
 				4D4582741D94963E00EBEDD8 /* Constants.m in Sources */,
 				4D3D8E2E1BB4A1CF000C53EE /* AppDelegate.swift in Sources */,
 				4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */,
+				4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */,
 				4D3D8E2F1BB4A1CF000C53EE /* YapDatabase.swift in Sources */,
 				4D3D8E301BB4A1CF000C53EE /* Page.swift in Sources */,
 				4D3D8E311BB4A1CF000C53EE /* available_in_dropbox.md in Sources */,
