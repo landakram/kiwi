@@ -52,6 +52,15 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
         self.wiki = Wiki()
         
+        if (self.isLoadingForFirstTime()) {
+            self.wiki.writeDefaultFiles()
+            self.setLoadedFirstTime()
+        }
+        
+        // TODO: these are related to actually rendering the wiki as HTML and should be encapsulated
+        self.wiki.writeResouceFiles()
+        self.wiki.copyImagesToLocalCache()
+        
         self.renderPermalink("home")
     }
     
@@ -60,6 +69,15 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    
+    func isLoadingForFirstTime() -> Bool {
+        return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
+    }
+    
+    func setLoadedFirstTime() {
+        UserDefaults.standard.set(true, forKey: "didLoadFirstTime")
     }
 
     override func didReceiveMemoryWarning() {
@@ -160,7 +178,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             addPageViewController.isEditing = true
         } else if segue.identifier == "ShowAllPages" {
             let allPagesViewController = (segue.destination as! UINavigationController).topViewController as! AllPagesViewController
-            allPagesViewController.wiki = self.wiki
+            allPagesViewController.files = self.wiki.files()
+            allPagesViewController.indexer = self.wiki.indexer
         }
     }
     
@@ -230,7 +249,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if let permalink : String = webView.url!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
             if permalink != self.currentPage.permalink {
-                if let page = wiki.page(permalink) {
+                if let page = self.wiki.page(permalink) {
                     self.currentPage = page
                     self.title = self.currentPage.name
                 }

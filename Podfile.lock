@@ -121,7 +121,7 @@ DEPENDENCIES:
   - Dropbox-Sync-API-SDK
   - EmitterKit (~> 5.0.0)
   - Fabric
-  - FileKit (from `https://github.com/landakram/FileKit.git`, branch `touch-modification-date`)
+  - FileKit (from `https://github.com/landakram/FileKit.git`, branch `set-modification-date`)
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
   - hoedown
   - IDMPhotoBrowser
@@ -134,7 +134,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   FileKit:
-    :branch: touch-modification-date
+    :branch: set-modification-date
     :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :git: https://github.com/landakram/GRMustache.git
@@ -143,7 +143,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FileKit:
-    :commit: ecbedacf0e9a0ab7393168ca7777b40fb1b0c3b9
+    :commit: 3485db024534aaa8a2db9ba0f57d5cfda91b3daa
     :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
@@ -175,4 +175,4 @@ SPEC CHECKSUMS:
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: d7e05fa3fcf51718e87033aba9db642b5df6d09c
+PODFILE CHECKSUM: 541837369966a6596296d9011db4b30caa9efbb9

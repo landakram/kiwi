@@ -79,10 +79,26 @@ class Wiki {
     static let IMG_PATH = Wiki.STATIC_PATH + Path("img")
     static let STYLES_PATH = Wiki.STATIC_PATH + Path("css")
     
-    let upgrades: [Upgrade] = [FilesystemMigration()]
-    let filesystem: Filesystem = Filesystem.sharedInstance
+//    let upgrades: [Upgrade] = [FilesystemMigration()]
+    let upgrades: [Upgrade] = []
+    let filesystem: Filesystem
+    let indexer: Indexer
     
-    init() {
+    init(filesystem: Filesystem = Filesystem.sharedInstance, indexer: Indexer = Indexer.sharedInstance) {
+        self.filesystem = filesystem
+        self.indexer = indexer
+        
+        print("-------------------")
+        print("Wiki location:")
+        print(self.filesystem.root)
+        print("-------------------")
+
+        for upgrade in self.upgrades {
+            upgrade.perform(wiki: self)
+        }
+    }
+    
+    func scaffold() {
         let defaultFolderPaths = [
             Wiki.WIKI_PATH,
             Wiki.STATIC_PATH,
@@ -93,27 +109,6 @@ class Wiki {
         for folderPath in defaultFolderPaths {
             try? self.filesystem.mkdir(path: folderPath)
         }
-        
-        if (self.isLoadingForFirstTime()) {
-            self.writeDefaultFiles()
-            self.setLoadedFirstTime()
-        }
-        
-        // TODO: these are related to actually rendering the wiki as HTML
-        self.writeResouceFiles()
-        self.copyImagesToLocalCache()
-
-        for upgrade in self.upgrades {
-            upgrade.perform(wiki: self)
-        }
-    }
-    
-    func isLoadingForFirstTime() -> Bool {
-        return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
-    }
-    
-    func setLoadedFirstTime() {
-        UserDefaults.standard.set(true, forKey: "didLoadFirstTime")
     }
     
     func writeResouceFiles() {
@@ -135,18 +130,6 @@ class Wiki {
             copyFileToLocal(Bundle.main.path(forResource: filename, ofType: "css")!)
         }
     }
-    
-//    func persistToYapDatabase(_ file: DBFile) {
-//        if let page = self.page(file) {
-//            let connection = Yap.sharedInstance.newConnection()
-//            connection.readWrite({ (transaction: YapDatabaseReadWriteTransaction!) in
-//                let pageCoder = transaction.object(forKey: page.permalink, inCollection: "pages") as? PageCoder
-//                if pageCoder == nil || pageCoder!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
-//                    transaction.setObject(PageCoder(page: page), forKey: page.permalink, inCollection: "pages")
-//                }
-//            })
-//        }
-//    }
 
     func files() -> [String] {
         let files = self.filesystem.list(path: Wiki.WIKI_PATH)
@@ -175,22 +158,10 @@ class Wiki {
     func page(_ permalink: String) -> Page? {
         let path = Wiki.WIKI_PATH  + Path(permalink + ".md")
         if let file: File<String> = try? self.filesystem.read(path: path) {
-            return page(file)
+            return toPage(file)
         } else {
             return nil
         }
-    }
-    
-    func page(_ file: File<String>) -> Page? {
-        let permalink = file.path.fileName.stringByDeletingPathExtension
-        var content = file.contents
-        let page = Page(rawContent: content,
-                        permalink: permalink,
-                        name: Page.permalinkToName(permalink: permalink),
-                        modifiedTime: file.path.modificationDate!,
-                        createdTime: file.path.modificationDate!,
-                        isDirty: false)
-        return page
     }
     
     func delete(_ page: Page) {
@@ -401,4 +372,17 @@ class Wiki {
             self.writeLocalImage(filename, data: file.contents)
         }
     }
+}
+
+
+func toPage(_ file: File<String>) -> Page? {
+    let permalink = file.path.fileName.stringByDeletingPathExtension
+    var content = file.contents
+    let page = Page(rawContent: content,
+                    permalink: permalink,
+                    name: Page.permalinkToName(permalink: permalink),
+                    modifiedTime: file.path.modificationDate!,
+                    createdTime: file.path.modificationDate!,
+                    isDirty: false)
+    return page
 }

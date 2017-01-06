@@ -40,50 +40,25 @@ class LinkWithDropboxViewController: UIViewController {
                     let filesystem = DBFilesystem(account: account)
                     DBFilesystem.setShared(filesystem)
                 }
-                if !DBFilesystem.shared().completedFirstSync {
-                    let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
-                        title: "Importing...",
-                        mode: .indeterminate,
-                        animated: true)
-                    spinner?.setTintColor(Constants.KiwiColor)
-                    DBFilesystem.shared().addObserver(self, block: { () -> Void in
-                        if DBFilesystem.shared().completedFirstSync {
-                            DBFilesystem.shared().removeObserver(self)
-                            
-                            // Load the whole wiki from Dropbox, then move on
-                            let wiki = Wiki()
-                            Async.background {
-                                if let fileInfos = DropboxRemote.sharedInstance.getAllFileInfos() {
-                                    let total = Float(fileInfos.count)
-                                    for (index, info) in fileInfos.enumerated() {
-                                        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                                            var error: DBError?
-                                            file.readData(&error)
-                                        }
-                                        if index == 0 {
-                                            Async.main {
-                                                spinner?.mode = .determinateCircular;
-                                            }
-                                        }
-                                        Async.main {
-                                            spinner?.setProgress(Float(index + 1) / total, animated: true)
-                                        }
-                                    }
-                                }
-                            }.main {
-                                spinner?.mode = .indeterminate
-                            }.background {_ in
-                                DropboxRemote.sharedInstance.configure(filesystem: DBFilesystem.shared())
-                                DropboxRemote.sharedInstance.start()
-//                                wiki.syncUpdatedPagesToYapDatabase()
-                            }.main {
-                                spinner?.dismiss(true)
-                                
-                                self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
-                            }
-                        }
-                    })
-                } else {
+                let remote = DropboxRemote.sharedInstance
+                remote.configure(filesystem: DBFilesystem.shared())
+                
+                let wiki = Wiki()
+                wiki.scaffold()
+                
+                let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
+                                                                     title: "Importing...",
+                                                                     mode: .indeterminate,
+                                                                     animated: true)
+                spinner?.setTintColor(Constants.KiwiColor)
+                
+                Async.background {
+                    print("--- Starting crawl")
+                    remote.crawl()
+//                    print("--- Starting regular observation")
+                    remote.start()
+                }.main {
+                    spinner?.dismiss(true)
                     self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
                 }
             }

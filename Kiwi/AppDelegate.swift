@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var filesystem: Filesystem = Filesystem.sharedInstance
     var syncEngine: SyncEngine = SyncEngine.sharedInstance
+    var indexer: Indexer = Indexer.sharedInstance
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)

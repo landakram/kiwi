@@ -39,7 +39,8 @@ struct Filesystem {
     func read<T: ReadableWritable>(path: Path) throws -> File<T> {
         let realFile = FileKit.File<T>(path: fromRoot(path))
         let contents = try realFile.read()
-        return File(path: fromRoot(path), contents: contents)
+        let absPath = fromRoot(path)
+        return File(path: absPath, modifiedDate: absPath.modificationDate, contents: contents)
     }
     
     func mkdir(path: Path) throws {
@@ -55,6 +56,9 @@ struct Filesystem {
         print("write \(file.path)")
         let realFile = FileKit.File<T>(path: fromRoot(file.path))
         try realFile.write(file.contents)
+        if ((file.modifiedDate) != nil) {
+            realFile.path.modificationDate = file.modifiedDate   
+        }
         event.emit(.write(path: file.path))
     }
     
@@ -75,8 +79,26 @@ struct Filesystem {
 }
 
 struct File<T: ReadableWritable> {
-    let path: Path
+    var path: Path
+    var _modifiedDate: Date?
+    var modifiedDate: Date? {
+        get {
+            return _modifiedDate
+        }
+        set {
+            _modifiedDate = newValue
+            if (_modifiedDate != nil) {
+                path.modificationDate = _modifiedDate
+            }
+        }
+    }
     var contents: T
+    
+    init(path: Path, modifiedDate: Date? = nil, contents: T) {
+        self.path = path
+        self.contents = contents
+        self.modifiedDate = modifiedDate
+    }
 }
 
 enum FilesystemEvent {

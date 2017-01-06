@@ -8,17 +8,13 @@
 
 import UIKit
 import Async
-import YapDatabase
-import YapDatabase.YapDatabaseFullTextSearch
 
 class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
-    var wiki: Wiki!
+    var indexer: Indexer!
     var files: [String]!
     var filteredFiles: [String] = []
     
     var selectedPermalink: String!
-    
-    var yapConnection: YapDatabaseConnection!
     
     @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
@@ -30,17 +26,12 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.files = self.wiki.files()
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "home"),
             style: UIBarButtonItemStyle.plain,
             target: self,
             action: #selector(AllPagesViewController.navigateToHomePage)
         )
-        
-        self.yapConnection = Yap.sharedInstance.newConnection()
-        self.yapConnection.beginLongLivedReadTransaction()
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,18 +72,16 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
             detailLabel.text = nil;
         }
         
-        self.yapConnection.read({ (transaction) in
-            if let pageCoder = transaction.object(forKey: fileName!, inCollection: "pages") as? PageCoder {
-                let page = pageCoder.page
-                let characterSet = CharacterSet.whitespacesAndNewlines
-                let components = page.rawContent.components(separatedBy: characterSet)
-                let length = min(components.count, 30)
-                let firstWords = components[0..<length].joined(separator: " ")
-                if let detailLabel = cell.viewWithTag(101) as? UILabel {
-                    detailLabel.text = firstWords;
-                }
+        if let page = self.indexer.get(permalink: fileName!) {
+            let characterSet = CharacterSet.whitespacesAndNewlines
+            let components = page.rawContent.components(separatedBy: characterSet)
+            let length = min(components.count, 30)
+            let firstWords = components[0..<length].joined(separator: " ")
+            if let detailLabel = cell.viewWithTag(101) as? UILabel {
+                detailLabel.text = firstWords;
             }
-        })
+        }
+
         // Configure the cell...
 
         return cell
@@ -174,12 +163,9 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
             })
             let searchTerms = components.joined(separator: " ")
             self.filteredFiles.removeAll(keepingCapacity: true)
-            Yap.sharedInstance.newConnection().read { (transaction) in
-                let t = transaction.ext("fts") as! YapDatabaseFullTextSearchTransaction
-                t.enumerateKeys(matching: searchTerms, using: { (collection, key, stop) in
-                    self.filteredFiles.append(key)
-                })
-            }
+            
+            let matches = self.indexer.find(snippet: searchTerms)
+            self.filteredFiles += matches
         }
     }
     

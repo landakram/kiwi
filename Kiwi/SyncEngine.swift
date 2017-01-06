@@ -57,6 +57,7 @@ class SyncEngine {
         }
     
         self.remoteEventListener = self.remote.event.on { (event: FilesystemEvent) in
+            print("remote event: \(event)")
             self.pull(event: event)
         }
     }
@@ -89,11 +90,11 @@ class SyncEngine {
         switch event {
         case .delete(let path):
             // TODO: handle conflicts.
-            // Right now, this always prefers our version.
+            // Right now, this always prefers their version.
             try! self.local.delete(path: path)
         case .write(let path):
             // TODO: handle conflicts.
-            // Right now, this always prefers our version.
+            // Right now, this always prefers their version.
             let file: File<Data> = try! self.remote.read(path: path)
             guard let localFile: File<Data> = try? self.local.read(path: path) else {
                 try! self.local.write(file: file)
@@ -176,7 +177,7 @@ class DropboxRemote {
         self.filesystem.addObserver(self, forPathAndDescendants: self.rootPath) {
             if !DBFilesystem.shared().status.download.inProgress {
                 Async.background {
-                    self.syncUpdatedPages()
+                    self.syncUpdatedFiles(path: self.rootPath!)
                 }
             }
         }
@@ -206,30 +207,51 @@ class DropboxRemote {
         let remotePath = DBPath(string: path.rawValue)
         if let file = DBFilesystem.shared().openFile(remotePath, error: nil) {
             let content = file.readData(nil)
-            let fsFile = File<Data>(path: path, contents: content! as Data)
+            let fsFile = File<Data>(path: path, modifiedDate: file.info.modifiedTime, contents: content! as Data)
             return fsFile
         }
         throw RemoteError.ReadError(path: path)
     }
     
-    
-    public func getAllFileInfos() -> [DBFileInfo]? {
-        return DBFilesystem.shared().listFolder(self.rootPath, error: nil) as? [DBFileInfo]
+    func list(path: Path) -> [Path] {
+        let path = DBPath(string: path.rawValue)
+        if let fileInfos = DBFilesystem.shared().listFolder(path, error: nil) as? [DBFileInfo] {
+            let filePaths = fileInfos.map({ (fileInfo) -> Path in
+                return Path(fileInfo.path.stringValue())
+            })
+            return filePaths
+        } else {
+            return []
+        }
     }
     
-    func syncUpdatedPages() {
-        if let files = getAllFileInfos() {
+    func crawl() {
+        
+        self.syncUpdatedFiles(path: self.rootPath!, read: true)
+    }
+    
+    func syncUpdatedFiles(path: DBPath, read: Bool = false) {
+        if let files = self.filesystem.listFolder(path, error: nil) as? [DBFileInfo] {
             for info in files {
-                if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                    if !file.status.cached {
-                        file.addObserver(self, block: {
-                            if file.status.cached {
-                                file.removeObserver(self)
-                                self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
-                            }
-                        })
-                    } else {
-                        self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
+                if info.isFolder {
+                    self.syncUpdatedFiles(path: info.path, read: read)
+                } else {
+                    if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
+                        if read {
+                            file.readHandle(nil)
+                        }
+                        if !file.status.cached {
+                            file.addObserver(self, block: {
+                                if file.status.cached {
+                                    file.removeObserver(self)
+                                    file.close()
+                                    self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
+                                }
+                            })
+                        } else {
+                            file.close()
+                            self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
+                        }
                     }
                 }
             }

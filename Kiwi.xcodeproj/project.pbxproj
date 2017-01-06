@@ -75,6 +75,8 @@
 		4D4582731D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
 		4D4582741D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
+		4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
+		4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
 		4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
 		4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
@@ -149,6 +151,7 @@
 		4D4582751D94964D00EBEDD8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
+		4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indexer.swift; sourceTree = "<group>"; };
 		4D5829911C587CE50053C65A /* MarkdownTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
@@ -279,6 +282,7 @@
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
 				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
 				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
+				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -657,6 +661,7 @@
 				4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */,
 				4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */,
 				4D4582731D94963E00EBEDD8 /* Constants.m in Sources */,
+				4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
 				4D36BA621DD1980E00C9408F /* Filesystem.swift in Sources */,
 				4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */,
@@ -684,6 +689,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */,
 				4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
