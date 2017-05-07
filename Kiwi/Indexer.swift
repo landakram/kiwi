@@ -72,9 +72,9 @@ class Indexer {
     func index(page: Page) {
         let connection = self.backingStore.newConnection()
         connection.readWrite({ (transaction: YapDatabaseReadWriteTransaction!) in
-            let pageCoder = transaction.object(forKey: page.permalink, inCollection: "pages") as? PageCoder
-            if pageCoder == nil || pageCoder!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
-                transaction.setObject(PageCoder(page: page), forKey: page.permalink, inCollection: "pages")
+            let encodablePage = transaction.object(forKey: page.permalink, inCollection: "pages") as? EncodablePage
+            if encodablePage == nil || encodablePage!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
+                transaction.setObject(EncodablePage(page: page), forKey: page.permalink, inCollection: "pages")
             }
         })
     }
@@ -85,8 +85,8 @@ class Indexer {
         // TODO: previously, this used `beginLongLivedReadTransaction` but I removed it here.
         // Does that matter?
         self.backingStore.newConnection().read({ (transaction) in
-            if let pageCoder = transaction.object(forKey: permalink, inCollection: "pages") as? PageCoder {
-                page = pageCoder.page
+            if let encodablePage = transaction.object(forKey: permalink, inCollection: "pages") as? EncodablePage {
+                page = encodablePage.page
             }
         })
         
@@ -107,7 +107,7 @@ class Indexer {
     }
 }
 
-class PageCoder: NSObject, NSCoding {
+class EncodablePage: NSObject, NSCoding {
     let page: Page
     
     init(page: Page) {

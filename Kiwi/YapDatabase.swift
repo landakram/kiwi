@@ -20,8 +20,8 @@ class Yap {
             let block: YapDatabaseFullTextSearchWithObjectBlock = {
                 (dict: NSMutableDictionary, collection: String, key: String, object: Any) in
                 
-                if let pageCoder = object as? PageCoder {
-                    let page = pageCoder.page
+                if let encodablePage = object as? EncodablePage {
+                    let page = encodablePage.page
                     dict.setObject(page.rawContent, forKey: "rawContent" as NSCopying)
                     dict.setObject(page.permalink, forKey: "permalink" as NSCopying)
                     dict.setObject(page.name, forKey: "name" as NSCopying)

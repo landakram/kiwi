@@ -246,7 +246,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         super.encodeRestorableState(with: coder)
         coder.encode(self.textView.text, forKey: "editedText")
         if let page = self.page {
-            coder.encode(PageCoder(page: page), forKey: "page")
+            coder.encode(EncodablePage(page: page), forKey: "page")
         }
         
         let titleField = self.navigationItem.titleView as! UITextField
@@ -255,8 +255,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
-        let pageCoder = coder.decodeObject(forKey: "page") as? PageCoder
-        self.page = pageCoder?.page
+        let encodablePage = coder.decodeObject(forKey: "page") as? EncodablePage
+        self.page = encodablePage?.page
         self.wiki = Wiki()
         self.textView.insertText(coder.decodeObject(forKey: "editedText") as! String)
         

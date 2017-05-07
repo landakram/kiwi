@@ -274,13 +274,13 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
-        coder.encode(PageCoder(page: self.currentPage), forKey: "page")
+        coder.encode(EncodablePage(page: self.currentPage), forKey: "page")
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
-        let pageCoder = coder.decodeObject(forKey: "page") as? PageCoder
-        self.currentPage = pageCoder?.page
+        let encodablePage = coder.decodeObject(forKey: "page") as? EncodablePage
+        self.currentPage = encodablePage?.page
         if let page = self.currentPage {
             self.renderPage(page)
         }
