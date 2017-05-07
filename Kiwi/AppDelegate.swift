@@ -10,6 +10,7 @@ import UIKit
 import Fabric
 import Crashlytics
 import FileKit
+import SwiftyDropbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,20 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         Fabric.with([Crashlytics.self])
         
-        let accountManager = DBAccountManager(appKey: DropboxAppKey, secret: DropboxSecretKey)
-        DBAccountManager.setShared(accountManager)
+        DropboxClientsManager.setupWithAppKey(DropboxAppKey)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? BaseNavigationController
         
-        let maybeAccount = DBAccountManager.shared().linkedAccount
-        if maybeAccount != nil && maybeAccount!.isLinked {
-            let account = maybeAccount!
-            if DBFilesystem.shared() == nil {
-                let filesystem = DBFilesystem(account: account)
-                DBFilesystem.setShared(filesystem)
-                DropboxRemote.sharedInstance.configure(filesystem: filesystem!)
-                DropboxRemote.sharedInstance.start()
-            }
+        let maybeClient = DropboxClientsManager.authorizedClient
+        if maybeClient != nil {
+            // FIXME
+//            DropboxRemote.sharedInstance.configure(client: maybeClient!)
+//            DropboxRemote.sharedInstance.start()
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]
         } else {
@@ -82,13 +79,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        let account = DBAccountManager.shared().handleOpen(url)
-        if (account != nil) {
-            print("App linked successfully!")
-            return true
+        if let authResult = DropboxClientsManager.handleRedirectURL(url) {
+            switch authResult {
+            case .success:
+                print("Success! User is logged into Dropbox.")
+            case .cancel:
+                print("Authorization flow was manually canceled by user!")
+            case .error(_, let description):
+                print("Error: \(description)")
+            }
         }
-        
-        return false
+        return true
     }
 
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {

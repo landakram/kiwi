@@ -237,7 +237,6 @@
 				4D2AAC321A9DA30300E0904B /* KiwiTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
 				48924F7F2E83D886BAA39977 /* Frameworks */,
-				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
 				99AF236031C2442D5DF544F0 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -302,6 +301,7 @@
 				4DEFE2601B9FF06A00462786 /* working_with_pages.md */,
 				4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */,
 				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
+				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
 				4D7CBBB21AA833E200638C5C /* screen.css */,
 				4D44273B1B1D7C8B00B35C01 /* prism.css */,
 				4D7CBBAE1AA82F4300638C5C /* layout.mustache */,
@@ -788,7 +788,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -832,7 +832,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

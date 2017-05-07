@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.4.0)
   - AsyncSwift (2.0.0)
   - CocoaLumberjack (2.4.0):
     - CocoaLumberjack/Default (= 2.4.0)
@@ -62,6 +63,8 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - STKWebKitViewController (0.5.0)
+  - SwiftyDropbox (4.1.1):
+    - Alamofire (~> 4.4.0)
   - TUSafariActivity (1.0.4)
   - ViewUtils (1.1.2)
   - YapDatabase (2.9.2):
@@ -128,6 +131,7 @@ DEPENDENCIES:
   - MRProgress
   - RFMarkdownTextView (from `~/Documents/code/Memex/RFMarkdownTextView`)
   - STKWebKitViewController
+  - SwiftyDropbox (from `https://github.com/dropbox/SwiftyDropbox.git`, branch `master`)
   - TUSafariActivity
   - ViewUtils
   - YapDatabase
@@ -140,6 +144,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/landakram/GRMustache.git
   RFMarkdownTextView:
     :path: ~/Documents/code/Memex/RFMarkdownTextView
+  SwiftyDropbox:
+    :branch: master
+    :git: https://github.com/dropbox/SwiftyDropbox.git
 
 CHECKOUT OPTIONS:
   FileKit:
@@ -148,8 +155,12 @@ CHECKOUT OPTIONS:
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
+  SwiftyDropbox:
+    :commit: 5a1b8d01b9195fc8c638029e5c9c4f46442d9c18
+    :git: https://github.com/dropbox/SwiftyDropbox.git
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AsyncSwift: 6ba6ed9ecb51344458063f7c86fe447ab824e313
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
@@ -169,10 +180,11 @@ SPEC CHECKSUMS:
   RFMarkdownTextView: 390e011bedf4b4296a3510aa8b89895d642cd9e8
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   STKWebKitViewController: 1371f39e5f697de11aa091064eeed6eb515a2511
+  SwiftyDropbox: 5b48d40e51265659ce5478f311a5d0a10f14c32f
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 541837369966a6596296d9011db4b30caa9efbb9
+PODFILE CHECKSUM: 7ac4ec45312207901d8660d8d82a77d206ef21fc

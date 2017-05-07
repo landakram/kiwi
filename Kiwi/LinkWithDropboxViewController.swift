@@ -9,6 +9,7 @@
 import UIKit
 import MRProgress
 import Async
+import SwiftyDropbox
 
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
@@ -31,39 +32,43 @@ class LinkWithDropboxViewController: UIViewController {
     }
     
     @IBAction func didPressLinkWithDropbox(_ sender: AnyObject) {
-        DBAccountManager.shared().addObserver(self, block: {
-            (account: DBAccount?) in
-            guard let account = account else { return }
-            if account.isLinked {
-                DBAccountManager.shared().removeObserver(self)
-                if DBFilesystem.shared() == nil {
-                    let filesystem = DBFilesystem(account: account)
-                    DBFilesystem.setShared(filesystem)
-                }
-                let remote = DropboxRemote.sharedInstance
-                remote.configure(filesystem: DBFilesystem.shared())
-                
-                let wiki = Wiki()
-                wiki.scaffold()
-                
-                let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
-                                                                     title: "Importing...",
-                                                                     mode: .indeterminate,
-                                                                     animated: true)
-                spinner?.setTintColor(Constants.KiwiColor)
-                
-                Async.background {
-                    print("--- Starting crawl")
-                    remote.crawl()
-//                    print("--- Starting regular observation")
-                    remote.start()
-                }.main {
-                    spinner?.dismiss(true)
-                    self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
-                }
-            }
+        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) in
+            UIApplication.shared.openURL(url);
         })
-        DBAccountManager.shared().link(from: self)
+        
+//        DBAccountManager.shared().addObserver(self, block: {
+//            (account: DBAccount?) in
+//            guard let account = account else { return }
+//            if account.isLinked {
+//                DBAccountManager.shared().removeObserver(self)
+//                if DBFilesystem.shared() == nil {
+//                    let filesystem = DBFilesystem(account: account)
+//                    DBFilesystem.setShared(filesystem)
+//                }
+//                let remote = DropboxRemote.sharedInstance
+//                remote.configure(filesystem: DBFilesystem.shared())
+//                
+//                let wiki = Wiki()
+//                wiki.scaffold()
+//                
+//                let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
+//                                                                     title: "Importing...",
+//                                                                     mode: .indeterminate,
+//                                                                     animated: true)
+//                spinner?.setTintColor(Constants.KiwiColor)
+//                
+//                Async.background {
+//                    print("--- Starting crawl")
+//                    remote.crawl()
+////                    print("--- Starting regular observation")
+//                    remote.start()
+//                }.main {
+//                    spinner?.dismiss(true)
+//                    self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
+//                }
+//            }
+//        })
+//        DBAccountManager.shared().link(from: self)
     }
 
 }
