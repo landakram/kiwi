@@ -16,62 +16,6 @@ enum SaveResult {
     case fileExists
 }
 
-
-protocol Upgrade {
-    func perform(wiki: Wiki)
-}
-
-struct FilesystemMigration: Upgrade {
-    let filesystem: Filesystem = Filesystem.sharedInstance
-    
-    func perform(wiki: Wiki) {
-        Async.background {
-            print("-------------------")
-            print("Starting migration to:")
-            print(self.filesystem.root)
-            print("-------------------")
-            self.migrateFolder(path: DBPath.root())
-        }
-    }
-    
-    func migrateFolder(path: DBPath) {
-        do {
-            try self.filesystem.mkdir(path: Path(path.stringValue()))
-        }
-        catch {
-            print("errored trying to make /public");
-        }
-        self.migrateFiles(path: path)
-    }
-    
-    func migrateFiles(path: DBPath) {
-        if let files = DBFilesystem.shared().listFolder(path, error: nil) as? [DBFileInfo] {
-            for info in files {
-                print(info.path);
-                if info.isFolder {
-                    self.migrateFolder(path: info.path)
-                } else {
-                    self.migrateFile(info: info)
-                }
-            }
-        }
-    }
-    
-    func migrateFile(info: DBFileInfo) {
-        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-            let path: Path = Path(info.path.stringValue())
-            let content = file.readData(nil)
-            let fsFile = File<Data>(path: path, contents: content! as Data)
-            do {
-                try self.filesystem.write(file: fsFile)
-                try self.filesystem.touch(path: fsFile.path, modificationDate: info.modifiedTime)
-            } catch {
-                print("errored on (\(path))")
-            }
-        }
-    }
-}
-
 class Wiki {
     static let WIKI_PATH: Path = Path("wiki")
     static let STATIC_PATH: Path = Path("public")
@@ -79,8 +23,6 @@ class Wiki {
     static let IMG_PATH = Wiki.STATIC_PATH + Path("img")
     static let STYLES_PATH = Wiki.STATIC_PATH + Path("css")
     
-//    let upgrades: [Upgrade] = [FilesystemMigration()]
-    let upgrades: [Upgrade] = []
     let filesystem: Filesystem
     let indexer: Indexer
     
@@ -92,10 +34,6 @@ class Wiki {
         print("Wiki location:")
         print(self.filesystem.root)
         print("-------------------")
-
-        for upgrade in self.upgrades {
-            upgrade.perform(wiki: self)
-        }
     }
     
     func scaffold() {

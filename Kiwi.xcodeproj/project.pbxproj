@@ -12,6 +12,8 @@
 		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
+		4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
+		4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
 		4D26DBBA1ABD4002007CE00E /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D26DBB91ABD4002007CE00E /* home@2x.png */; };
 		4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */; };
@@ -100,6 +102,10 @@
 		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
 		4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
 		4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
+		4DCBB2891EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
+		4DCBB28A1EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
+		4DCBB2921EC4101B00EFF3FE /* Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2911EC4101B00EFF3FE /* Retry.swift */; };
+		4DCBB2931EC4101B00EFF3FE /* Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2911EC4101B00EFF3FE /* Retry.swift */; };
 		4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */; };
 		4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */; };
 		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
@@ -126,6 +132,7 @@
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
 		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 2; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4D22D8441EC02CFA0037D2CE /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = YapDatabase.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		4D2AAC1A1A9DA30300E0904B /* Kiwi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +181,8 @@
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExternalLinkViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxRemote.swift; sourceTree = "<group>"; };
+		4DCBB2911EC4101B00EFF3FE /* Retry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Retry.swift; sourceTree = "<group>"; };
 		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BaseNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hoedown_html_patch.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hoedown_html_patch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -282,6 +291,9 @@
 				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
 				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
 				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
+				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
+				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
+				4DCBB2911EC4101B00EFF3FE /* Retry.swift */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -652,8 +664,10 @@
 				4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
+				4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
+				4DCBB2921EC4101B00EFF3FE /* Retry.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */,
@@ -673,6 +687,7 @@
 				4D7CBBAA1AA8272E00638C5C /* WikiViewController.swift in Sources */,
 				4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */,
 				4D664BA21BAA8ACB00EFC998 /* available_in_dropbox.md in Sources */,
+				4DCBB2891EC4023500EFF3FE /* DropboxRemote.swift in Sources */,
 				4D7CBBAC1AA8291E00638C5C /* home.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -692,8 +707,10 @@
 				4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */,
 				4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
+				4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
+				4DCBB2931EC4101B00EFF3FE /* Retry.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,
 				4D3D8E281BB4A1CF000C53EE /* acknowledgements.md in Sources */,
 				4D3D8E291BB4A1CF000C53EE /* Constants.swift in Sources */,
@@ -713,6 +730,7 @@
 				4D3D8E331BB4A1CF000C53EE /* WikiViewController.swift in Sources */,
 				4D3D8E341BB4A1CF000C53EE /* ExternalLinkViewController.swift in Sources */,
 				4D3D8E351BB4A1CF000C53EE /* available_in_dropbox.md in Sources */,
+				4DCBB28A1EC4023500EFF3FE /* DropboxRemote.swift in Sources */,
 				4D3D8E361BB4A1CF000C53EE /* home.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,18 +29,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? BaseNavigationController
+
+        let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+        rootNavigationController?.viewControllers = [rootViewController!]
         
-        let maybeClient = DropboxClientsManager.authorizedClient
-        if maybeClient != nil {
-            // FIXME
-//            DropboxRemote.sharedInstance.configure(client: maybeClient!)
-//            DropboxRemote.sharedInstance.start()
-            let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
-            rootNavigationController?.viewControllers = [rootViewController!]
-        } else {
-            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
-            rootNavigationController?.viewControllers = [rootViewController!]
-        }
+//        let maybeClient = DropboxClientsManager.authorizedClient
+//        if maybeClient != nil {
+//            // FIXME
+////            DropboxRemote.sharedInstance.configure(client: maybeClient!)
+////            DropboxRemote.sharedInstance.start()
+//            let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
+//            rootNavigationController?.viewControllers = [rootViewController!]
+//        } else {
+//            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+//            rootNavigationController?.viewControllers = [rootViewController!]
+//        }
+        
         self.window?.rootViewController = rootNavigationController
         self.window?.makeKeyAndVisible()
         let kiwiColor = Constants.KiwiColor
@@ -78,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         if let authResult = DropboxClientsManager.handleRedirectURL(url) {
             switch authResult {
             case .success:
@@ -88,7 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .error(_, let description):
                 print("Error: \(description)")
             }
+            
+            EventBus.sharedInstance.accountLinkEvents.emit(.AccountLinked(authResult: authResult))
         }
+        
         return true
     }
 
@@ -99,6 +106,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
     }
-
 }
 

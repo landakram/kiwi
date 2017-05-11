@@ -1,6 +1,8 @@
 PODS:
   - Alamofire (4.4.0)
   - AsyncSwift (2.0.0)
+  - BrightFutures (5.2.0):
+    - Result (~> 3.2)
   - CocoaLumberjack (2.4.0):
     - CocoaLumberjack/Default (= 2.4.0)
     - CocoaLumberjack/Extensions (= 2.4.0)
@@ -12,7 +14,6 @@ PODS:
   - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
   - DACircularProgress (2.3.1)
-  - Dropbox-Sync-API-SDK (3.1.2)
   - EmitterKit (5.0.0)
   - Fabric (1.6.8)
   - FileKit (4.0.0)
@@ -56,6 +57,7 @@ PODS:
     - MRProgress/Helper
   - pop (1.0.9)
   - Reachability (3.2)
+  - Result (3.2.1)
   - RFKeyboardToolbar (1.3)
   - RFMarkdownTextView (1.4):
     - RFKeyboardToolbar
@@ -120,8 +122,8 @@ PODS:
 
 DEPENDENCIES:
   - AsyncSwift
+  - BrightFutures
   - Crashlytics
-  - Dropbox-Sync-API-SDK
   - EmitterKit (~> 5.0.0)
   - Fabric
   - FileKit (from `https://github.com/landakram/FileKit.git`, branch `set-modification-date`)
@@ -162,10 +164,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AsyncSwift: 6ba6ed9ecb51344458063f7c86fe447ab824e313
+  BrightFutures: 8681dbb9fa831b69b6e7dc4a498b9e081d5daeb5
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  Dropbox-Sync-API-SDK: 92652bd663984740f963ba228864542711eda148
   EmitterKit: 0057b2086840f20987cb8d4445b4490b96c0bfd8
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FileKit: 2589d0393b3bfdc599c2ba6e41419be6db4279e0
@@ -176,6 +178,7 @@ SPEC CHECKSUMS:
   MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
   RFKeyboardToolbar: c96a7d9458564d1fedc8ef6844b6c467934aade2
   RFMarkdownTextView: 390e011bedf4b4296a3510aa8b89895d642cd9e8
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
@@ -187,4 +190,4 @@ SPEC CHECKSUMS:
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 7ac4ec45312207901d8660d8d82a77d206ef21fc
+PODFILE CHECKSUM: 1079e92d2708b34d7799e51b4d233f28864a50f6

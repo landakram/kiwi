@@ -52,24 +52,28 @@ struct Filesystem {
         return fromRoot(path).exists
     }
     
-    func write<T: ReadableWritable>(file: File<T>) throws {
+    func write<T: ReadableWritable>(file: File<T>, emit: Bool = true) throws {
         print("write \(file.path)")
         let realFile = FileKit.File<T>(path: fromRoot(file.path))
         try realFile.write(file.contents)
         if ((file.modifiedDate) != nil) {
             realFile.path.modificationDate = file.modifiedDate   
         }
-        event.emit(.write(path: file.path))
+        if emit {
+            event.emit(.write(path: file.path))
+        }
     }
     
-    func delete<T: ReadableWritable>(file: File<T>) throws {
-        try self.delete(path: file.path)
+    func delete<T: ReadableWritable>(file: File<T>, emit: Bool = true) throws {
+        try self.delete(path: file.path, emit: emit)
     }
     
-    func delete(path: Path) throws {
+    func delete(path: Path, emit: Bool = true) throws {
         print("delete \(path)")
         try fromRoot(path).deleteFile()
-        event.emit(.delete(path: path))
+        if emit {
+            event.emit(.delete(path: path))
+        }
     }
     
     func touch(path: Path, modificationDate: Date = Date()) throws {

@@ -10,6 +10,9 @@ import Foundation
 import EmitterKit
 import FileKit
 import Async
+import SwiftyDropbox
+import BrightFutures
+import Result
 
 class SyncEngine {
     static let sharedInstance = SyncEngine()
@@ -38,23 +41,23 @@ class SyncEngine {
                 // where /usr/docs/ is specific to this platform.
                 let relativePath = path.relativeTo(self.local.root)
                 self.dirtyStore.add(path: relativePath)
-                do {
-                    try self.push(event: .delete(path: relativePath))
+                self.push(event: .delete(path: relativePath)).onSuccess(callback: { (_) in
                     self.dirtyStore.remove(path: path)
-                } catch {
-                    
-                }
+                })
+                // TODO: Do I need to do error handling of the above?
             case .write(let path):
                 let relativePath = path.relativeTo(self.local.root)
                 self.dirtyStore.add(path: path)
-                do {
-                    try self.push(event: .write(path: relativePath))
+                self.push(event: .write(path: relativePath)).onSuccess(callback: { (_) in
                     self.dirtyStore.remove(path: path)
-                } catch {
-                    
-                }
+                })
+                // TODO: Do I need to do error handling of the above?
             }
         }
+        
+//        self.remoteEventListener = self.remote.bufferredEvents.on { (events: Array<FilesystemEvent>) in
+//            events.map(self.pull)
+//        }
     
         self.remoteEventListener = self.remote.event.on { (event: FilesystemEvent) in
             print("remote event: \(event)")
@@ -67,12 +70,12 @@ class SyncEngine {
         self.remoteEventListener.isListening = false
     }
     
-    func push(event: FilesystemEvent) throws {
+    func push(event: FilesystemEvent) -> Future<Path, RemoteError> {
         switch event {
         case .delete(let path):
             // TODO: handle conflicts.
             // Right now, this always prefers our version.
-            try self.remote.delete(path: path)
+            return self.remote.delete(path: path)
         case .write(let path):
             // TODO: handle conflicts.
             // Right now, this always prefers our version.
@@ -82,47 +85,56 @@ class SyncEngine {
             //
             // i.e. it might be /usr/docs/wiki/page.md
             // where /usr/docs/ is specific to this platform.
-            try self.remote.write(file: File(path: file.path.relativeTo(self.local.root), contents: file.contents))
+            return self.remote.write(file: File(path: file.path.relativeTo(self.local.root), contents: file.contents))
         }
     }
     
-    func pull(event: FilesystemEvent) {
+    func pull(event: FilesystemEvent) -> Future<Path, RemoteError> {
         switch event {
         case .delete(let path):
             // TODO: handle conflicts.
             // Right now, this always prefers their version.
             try! self.local.delete(path: path)
+            return Future(value: path)
         case .write(let path):
             // TODO: handle conflicts.
             // Right now, this always prefers their version.
-            let file: File<Data> = try! self.remote.read(path: path)
-            guard let localFile: File<Data> = try? self.local.read(path: path) else {
-                try! self.local.write(file: file)
-                return
-            }
-            if file.contents != localFile.contents {
-                try! self.local.write(file: file)
-            }
+            return self.readRemoteAndWrite(path: path).map({ (_) -> Path in
+                return path
+            })
         }
+    }
+    
+    func readRemoteAndWrite(path: Path) -> Future<File<Data>, RemoteError> {
+        return Retry(maxAttempts: 3) {
+            return self.remote.read(path: path).onSuccess(callback: { (file: File<Data>) in
+                guard let localFile: File<Data> = try? self.local.read(path: path) else {
+                    try! self.local.write(file: file)
+                    return
+                }
+                if file.contents != localFile.contents {
+                    try! self.local.write(file: file)
+                }
+            })
+            
+        }.start().future
     }
     
     func sweep() {
         for path in self.dirtyStore.all() {
             if self.local.exists(path: path) {
                 do {
-                    let file: File<Data> = try self.local.read(path: path)
-                    try self.push(event: .write(path: path))
-                    self.dirtyStore.remove(path: path)
+                    let _: File<Data> = try self.local.read(path: path)
+                    self.push(event: .write(path: path)).onSuccess(callback: { (_) in
+                        self.dirtyStore.remove(path: path)
+                    })
                 } catch {
                     
                 }
             } else {
-                do {
-                    try self.push(event: .delete(path: path))
+                self.push(event: .delete(path: path)).onSuccess(callback: { (_) in
                     self.dirtyStore.remove(path: path)
-                } catch {
-                    
-                }
+                })
             }
         }
     }
@@ -150,112 +162,6 @@ struct DirtyStore {
         return self.backingSet.sorted(by: { (first: Path, second: Path) -> Bool in
             return true
         })
-    }
-}
-
-enum RemoteError: Error {
-    case WriteError(file: File<Data>)
-    case ReadError(path: Path)
-}
-
-class DropboxRemote {
-    static let sharedInstance = DropboxRemote()
-    let event: Event<FilesystemEvent> = Event();
-    
-    let rootPath = DBPath.root()
-    var filesystem: DBFilesystem!
-    
-    init(filesystem: DBFilesystem? = nil) {
-        self.filesystem = filesystem
-    }
-    
-    func configure(filesystem: DBFilesystem) {
-        self.filesystem = filesystem
-    }
-    
-    func start() {
-        self.filesystem.addObserver(self, forPathAndDescendants: self.rootPath) {
-            if !DBFilesystem.shared().status.download.inProgress {
-                Async.background {
-                    self.syncUpdatedFiles(path: self.rootPath!)
-                }
-            }
-        }
-    }
-    
-    func write(file: File<Data>) throws {
-        let path = DBPath(string: file.path.rawValue)
-        if let remoteFile = self.filesystem.createFile(path, error: nil) {
-            remoteFile.write(file.contents, error: nil)
-        } else if let remoteFile = self.filesystem.openFile(path, error: nil) {
-            remoteFile.write(file.contents, error: nil)
-        } else {
-            throw RemoteError.WriteError(file: file)
-        }
-    }
-    
-    func delete<T: ReadableWritable>(file: File<T>) throws {
-        try self.delete(path: file.path)
-    }
-    
-    func delete(path: Path) throws {
-        let path = DBPath(string: path.rawValue)
-        self.filesystem.delete(path, error: nil)
-    }
-    
-    func read(path: Path) throws -> File<Data> {
-        let remotePath = DBPath(string: path.rawValue)
-        if let file = DBFilesystem.shared().openFile(remotePath, error: nil) {
-            let content = file.readData(nil)
-            let fsFile = File<Data>(path: path, modifiedDate: file.info.modifiedTime, contents: content! as Data)
-            return fsFile
-        }
-        throw RemoteError.ReadError(path: path)
-    }
-    
-    func list(path: Path) -> [Path] {
-        let path = DBPath(string: path.rawValue)
-        if let fileInfos = DBFilesystem.shared().listFolder(path, error: nil) as? [DBFileInfo] {
-            let filePaths = fileInfos.map({ (fileInfo) -> Path in
-                return Path(fileInfo.path.stringValue())
-            })
-            return filePaths
-        } else {
-            return []
-        }
-    }
-    
-    func crawl() {
-        
-        self.syncUpdatedFiles(path: self.rootPath!, read: true)
-    }
-    
-    func syncUpdatedFiles(path: DBPath, read: Bool = false) {
-        if let files = self.filesystem.listFolder(path, error: nil) as? [DBFileInfo] {
-            for info in files {
-                if info.isFolder {
-                    self.syncUpdatedFiles(path: info.path, read: read)
-                } else {
-                    if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                        if read {
-                            file.readHandle(nil)
-                        }
-                        if !file.status.cached {
-                            file.addObserver(self, block: {
-                                if file.status.cached {
-                                    file.removeObserver(self)
-                                    file.close()
-                                    self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
-                                }
-                            })
-                        } else {
-                            file.close()
-                            self.event.emit(FilesystemEvent.write(path: Path(info.path.stringValue())))
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
