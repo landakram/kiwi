@@ -13,6 +13,49 @@ import Async
 import SwiftyDropbox
 import BrightFutures
 import Result
+import RxSwift
+
+enum Either<T, U> {
+    case left(_ : T)
+    case right(_ : U)
+    
+    func isRight() -> Bool {
+        switch self {
+        case .left(let t):
+            return false
+        case .right(let u):
+            return true
+        }
+    }
+    
+    func mapLeft<X>(_ f: (T) -> X) -> Either<X, U> {
+        switch self {
+        case .left(let t):
+            return .left(f(t))
+        case .right(let u):
+            return .right(u)
+        }
+    }
+    
+    func mapRight<Y>(_ f: (U) -> Y) -> Either<T, Y> {
+        switch self {
+        case .left(let t):
+            return .left(t)
+        case .right(let u):
+            return .right(f(u))
+        }
+    }
+}
+
+enum Operations {
+    case PullOperation(operation: PullOperation)
+}
+
+protocol Operation {
+    associatedtype Result
+    var stream: Observable<Either<Progress, Result>> { get }
+    func execute() -> Observable<Either<Progress, Result>>
+}
 
 class SyncEngine {
     static let sharedInstance = SyncEngine()
@@ -21,8 +64,16 @@ class SyncEngine {
     let remote: DropboxRemote
     var dirtyStore: DirtyStore = DirtyStore()
     
+    let disposeBag: DisposeBag = DisposeBag()
+    
     var localEventListener: EventListener<FilesystemEvent>!
-    var remoteEventListener: EventListener<FilesystemEvent>!
+    
+    var events: Observable<Operations> {
+        get {
+            return self.subject
+        }
+    }
+    var subject: ReplaySubject<Operations> = ReplaySubject.createUnbounded()
     
     init(local: Filesystem = Filesystem.sharedInstance, remote: DropboxRemote = DropboxRemote.sharedInstance) {
         self.local = local
@@ -55,19 +106,13 @@ class SyncEngine {
             }
         }
         
-//        self.remoteEventListener = self.remote.bufferredEvents.on { (events: Array<FilesystemEvent>) in
-//            events.map(self.pull)
-//        }
-    
-        self.remoteEventListener = self.remote.event.on { (event: FilesystemEvent) in
-            print("remote event: \(event)")
+        self.remote.observable.subscribe(onNext: { (event: FilesystemEvent) in
             self.pull(event: event)
-        }
+        }).disposed(by: disposeBag)
     }
     
     func stop() {
         self.localEventListener.isListening = false
-        self.remoteEventListener.isListening = false
     }
     
     func push(event: FilesystemEvent) -> Future<Path, RemoteError> {
@@ -89,36 +134,12 @@ class SyncEngine {
         }
     }
     
-    func pull(event: FilesystemEvent) -> Future<Path, RemoteError> {
-        switch event {
-        case .delete(let path):
-            // TODO: handle conflicts.
-            // Right now, this always prefers their version.
-            try! self.local.delete(path: path)
-            return Future(value: path)
-        case .write(let path):
-            // TODO: handle conflicts.
-            // Right now, this always prefers their version.
-            return self.readRemoteAndWrite(path: path).map({ (_) -> Path in
-                return path
-            })
-        }
+    func pull(event: FilesystemEvent) -> Observable<Either<Progress, Path>> {
+        let operation = PullOperation(event: event, local: self.local, remote: self.remote)
+        self.subject.onNext(.PullOperation(operation: operation))
+        return operation.execute()
     }
-    
-    func readRemoteAndWrite(path: Path) -> Future<File<Data>, RemoteError> {
-        return Retry(maxAttempts: 3) {
-            return self.remote.read(path: path).onSuccess(callback: { (file: File<Data>) in
-                guard let localFile: File<Data> = try? self.local.read(path: path) else {
-                    try! self.local.write(file: file)
-                    return
-                }
-                if file.contents != localFile.contents {
-                    try! self.local.write(file: file)
-                }
-            })
-            
-        }.start().future
-    }
+
     
     func sweep() {
         for path in self.dirtyStore.all() {
@@ -161,6 +182,58 @@ struct DirtyStore {
     func all() -> [Path] {
         return self.backingSet.sorted(by: { (first: Path, second: Path) -> Bool in
             return true
+        })
+    }
+}
+
+class PullOperation: Operation {
+    func execute() -> Observable<Either<Progress, Path>> {
+        switch event {
+        case .delete(let path):
+            // TODO: handle conflicts.
+            // Right now, this always prefers their version.
+            try! self.local.delete(path: path)
+            self.subject.onNext(.right(path))
+            return self.stream
+        case .write(let path):
+            // TODO: handle conflicts.
+            // Right now, this always prefers their version.
+            self.readRemoteAndWrite(path: path).map({ (e: Either<Progress, File<Data>>) in
+                return e.mapRight { _ in path }
+            }).subscribe(self.subject)
+            return self.stream
+        }
+    }
+
+    let event: FilesystemEvent
+    let local: Filesystem
+    let remote: DropboxRemote
+    
+    var stream: Observable<Either<Progress, Path>> {
+        get {
+            return self.subject
+        }
+    }
+    private var subject: ReplaySubject<Either<Progress, Path>> = ReplaySubject.createUnbounded()
+    
+    init(event: FilesystemEvent, local: Filesystem, remote: DropboxRemote) {
+        self.event = event
+        self.local = local
+        self.remote = remote
+    }
+    
+    func readRemoteAndWrite(path: Path) -> Observable<Either<Progress, File<Data>>> {
+        return self.remote.read(path: path).map({ (e: Either<Progress, File<Data>>) in
+            return e.mapRight({ (file: File<Data>) -> File<Data> in
+                guard let localFile: File<Data> = try? self.local.read(path: path) else {
+                    try! self.local.write(file: file)
+                    return file
+                }
+                if file.contents != localFile.contents {
+                    try! self.local.write(file: file)
+                }
+                return file
+            })
         })
     }
 }

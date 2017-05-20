@@ -61,6 +61,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.wiki.writeResouceFiles()
         self.wiki.copyImagesToLocalCache()
         
+        
         self.renderPermalink("home")
     }
     

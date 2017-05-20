@@ -26,6 +26,7 @@ class Wiki {
     let filesystem: Filesystem
     let indexer: Indexer
     
+    
     init(filesystem: Filesystem = Filesystem.sharedInstance, indexer: Indexer = Indexer.sharedInstance) {
         self.filesystem = filesystem
         self.indexer = indexer

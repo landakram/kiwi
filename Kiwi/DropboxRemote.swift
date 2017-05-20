@@ -11,16 +11,12 @@ import EmitterKit
 import BrightFutures
 import FileKit
 import Result
+import RxSwift
+import RxSwiftExt
 
 enum RemoteError: Error {
     case WriteError(path: Path)
     case ReadError(path: Path)
-}
-
-enum DropboxError: Error {
-    case ListFolderError(error: CallError<Files.ListFolderError>)
-    case ListFolderLongpollError(error: CallError<Files.ListFolderLongpollError>)
-    case ListFolderContinueError(error: CallError<Files.ListFolderContinueError>)
 }
 
 struct Changeset {
@@ -34,73 +30,49 @@ struct Changeset {
 
 class DropboxRemote {
     static let sharedInstance = DropboxRemote()
-    let event: Event<FilesystemEvent> = Event()
-    let bufferredEvents: Event<Array<FilesystemEvent>> = Event()
+    let event: EmitterKit.Event<FilesystemEvent> = Event()
+    let  bufferredEvents: EmitterKit.Event<Array<FilesystemEvent>> = Event()
     
     let root = Path("/")
     var client: DropboxClient!
     
     let localStorage: UserDefaults = UserDefaults.standard
     
+    public let forcePollCommand: ReplaySubject<Int> = ReplaySubject.createUnbounded()
+    
+    var changesets: Observable<Changeset>!
+    var observable: ConnectableObservable<FilesystemEvent>!
+    
     init(client: DropboxClient? = nil) {
         self.client = client
-    }
-    
-    private func fromRoot(_ path: Path) -> Path {
-        return self.root + path
-    }
-    
-    func configure(client: DropboxClient) {
-        self.client = client
-    }
-    
-    func start() -> Future<Void, DropboxError> {
+        
+        let scheduler = SerialDispatchQueueScheduler(qos: .default)
+        
+        let pollLoop = Observable.merge([Observable<Int>.interval(5, scheduler: scheduler), forcePollCommand]).startWith(0)
+            .flatMapFirst { (counter) -> Observable<Changeset> in
+            return self.longpollAndPull().do(onNext: { (changeset: Changeset) in
+                self.localStorage.set(changeset.cursor, forKey: "DropboxCursor")
+            })
+        }
+        
         let cursor: String? = self.localStorage.string(forKey: "DropboxCursor")
-        var initialSync: Future<Void, DropboxError>
+        
+        var changes: Observable<Changeset>
+        
         if cursor == nil {
-            initialSync = doInitialSync()
+            changes = self.pullAll().do(onNext: { (c: Changeset) in
+                self.localStorage.set(c.cursor, forKey: "DropboxCursor")
+            }).concat(pollLoop)
         } else {
-            initialSync = Future(result: .success())
+            changes = pollLoop.startWith(Changeset(entries: [], cursor: cursor!))
         }
         
-        initialSync.onSuccess { () in
-            self.startGradualSync()
-        }
+        self.changesets = changes
         
-        // TODO: handle error above?
-        
-        return initialSync
-    }
-    
-    private func startGradualSync() {
-        DispatchQueue.global().async(execute: syncTask)
-    }
-    
-    private func syncTask() {
-        // Start long polling with cursor stored in local storage
-        let cursor: String = self.localStorage.string(forKey: "DropboxCursor")!
-        self.awaitChanges(cursor: cursor).flatMap { (changes: Bool) -> Future<Changeset, DropboxError>  in
-            if changes {
-                return self.pullChanges(cursor: cursor)
-            } else {
-                return Future(value: Changeset(entries: Array(), cursor: cursor))
-            }
-            }.onSuccess(callback: reconcileChanges).andThen { (result: Result<Changeset, DropboxError>) in
-                // Continue long polling
-                DispatchQueue.global().async(execute: self.syncTask)
-        }
-    }
-    
-    private func reconcileChanges(changeset: Changeset) {
-        // When results are received, emit the events
-        self.emitFilesystemEvents(entries: changeset.entries)
-        
-        // Save the new cursor
-        self.localStorage.set(changeset.cursor, forKey: "DropboxCursor")
-    }
-    
-    private func emitFilesystemEvents(entries: Array<Files.Metadata>) {
-        let events: Array<FilesystemEvent> = entries.flatMap({ (metadata: Files.Metadata) in
+        self.observable =
+            self.changesets
+            .flatMap({ Observable.from($0.entries) })
+            .map { (metadata: Files.Metadata) -> FilesystemEvent? in
             let path = Path(metadata.pathDisplay!)
             switch metadata {
             case _ as Files.DeletedMetadata:
@@ -110,96 +82,130 @@ class DropboxRemote {
             default:
                 return nil
             }
-        })
-        
-        self.bufferredEvents.emit(events)
-        events.forEach { (event) in
-            self.event.emit(event)
-        }
+        }.unwrap().publish()
     }
     
-    private func doInitialSync() -> Future<Void, DropboxError> {
-        return self.pullAll().onSuccess(callback: reconcileChanges).map { (_) -> Void in
+    private func longpollAndPull() -> Observable<Changeset> {
+        return longpoll().flatMap { (cursor: String) -> Observable<Changeset> in
+            return self.pullChanges(cursor: cursor)
+        }
+
+    }
+    
+    private func longpoll() -> Observable<String> {
+        return Observable.create { (observer: AnyObserver<String>) -> Disposable in
+            let cursor: String = self.localStorage.string(forKey: "DropboxCursor")!
+            print("Longpolling ")
+            let request = self.client.files.listFolderLongpoll(cursor: cursor).response { (result: Files.ListFolderLongpollResult?, error: CallError<(Files.ListFolderLongpollError)>?) in
+                print("LongPoll result \(result)")
+                if result != nil {
+                    if result!.changes {
+                        observer.onNext(cursor)
+                    }
+                    observer.onCompleted()
+                } else {
+                    observer.onCompleted()
+                    // TODO: need to reconcile Dropbox error type with Error
+//                    observer.onError(error as! Error)
+                }
+            }
             
+            let cancel = Disposables.create {
+                request.cancel()
+            }
+            return cancel
         }
     }
     
-    private func pullAll() -> Future<Changeset, DropboxError> {
-        return self.pullFirstPage(path: "").flatMap { (result: Files.ListFolderResult) -> Future<Changeset, DropboxError> in
+    
+    private func pullAll() -> Observable<Changeset> {
+        return self.pullFirstPage(path: "").flatMap { (result: Files.ListFolderResult) -> Observable<Changeset> in
             let changeset: Changeset = Changeset(entries: result.entries, cursor: result.cursor)
             
             if result.hasMore {
                 return self.pullChangeset(changeset: changeset)
             } else {
-                return Future(value: changeset)
+                return Observable.just(changeset)
             }
         }
     }
     
-    private func pullFirstPage(path: String) -> Future<Files.ListFolderResult, DropboxError> {
-        return Future<Files.ListFolderResult, DropboxError> { complete in
-            self.client.files.listFolder(path: path, recursive: true).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderError)>?) in
+    private func pullFirstPage(path: String) -> Observable<Files.ListFolderResult> {
+        return Observable<Files.ListFolderResult>.create { observer in
+            let request = self.client.files.listFolder(path: path, recursive: true).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderError)>?) in
                 guard let result = maybeResult else {
-                    complete(.failure(DropboxError.ListFolderError(error: error!)))
+                    observer.onError(error! as! Error)
                     return
                 }
                 
-                complete(.success(result))
+                observer.onNext(result)
+                observer.onCompleted()
             })
+            
+            let cancel = Disposables.create {
+                request.cancel()
+            }
+            return cancel
         }
     }
     
-    private func pullChanges(cursor: String) -> Future<Changeset, DropboxError> {
+    private func pullChanges(cursor: String) -> Observable<Changeset> {
         let initialChangeset: Changeset = Changeset(entries: Array(), cursor: cursor)
         return self.pullChangeset(changeset: initialChangeset)
     }
     
-    private func pullChangeset(changeset: Changeset) -> Future<Changeset, DropboxError> {
+    private func pullChangeset(changeset: Changeset) -> Observable<Changeset> {
         let cursor = changeset.cursor
-        return self.pullChangesetPage(cursor: cursor).flatMap { (result: Files.ListFolderResult) -> Future<Changeset, DropboxError> in
+        
+        return self.pullChangesetPage(cursor: cursor).flatMap({ (result: Files.ListFolderResult) -> Observable<Changeset> in
+            print("Pulling resulted in \(result.cursor)")
             let newChanges = changeset.merge(other: Changeset(entries: result.entries, cursor: result.cursor))
             if result.hasMore {
                 return self.pullChangeset(changeset: newChanges)
             } else {
-                return Future(value: newChanges)
+                return Observable.just(newChanges)
             }
-        }
+        })
     }
     
-    private func pullChangesetPage(cursor: String) -> Future<Files.ListFolderResult, DropboxError> {
-        return Future<Files.ListFolderResult, DropboxError> { complete in
-            self.client.files.listFolderContinue(cursor: cursor).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderContinueError)>?) in
+    private func pullChangesetPage(cursor: String) -> Observable<Files.ListFolderResult> {
+        return Observable.create({ (observer: AnyObserver<Files.ListFolderResult>) -> Disposable in
+            let request = self.client.files.listFolderContinue(cursor: cursor)
+            request.response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderContinueError)>?) in
                 guard let result = maybeResult else {
-                    complete(.failure(DropboxError.ListFolderContinueError(error: error!)))
+                    observer.onError(error! as! Error)
                     return
                 }
                 
-                complete(.success(result))
+                observer.onNext(result)
+                observer.onCompleted()
             })
-        }
-    }
-    
-    private func awaitChanges(cursor: String) -> Future<Bool, DropboxError> {
-        return Future<Bool, DropboxError> { complete in
-            self.client.files.listFolderLongpoll(cursor: cursor).response { (result: Files.ListFolderLongpollResult?, error: CallError<(Files.ListFolderLongpollError)>?) in
-                if result != nil {
-                    complete(.success(result!.changes))
-                } else {
-                    complete(.failure(DropboxError.ListFolderLongpollError(error: error!)))
-                }
+            
+            let cancel = Disposables.create {
+                request.cancel()
             }
-        }
+            return cancel
+        })
     }
     
+    private func fromRoot(_ path: Path) -> Path {
+        return self.root + path
+    }
+    
+    func configure(client: DropboxClient) {
+        self.client = client
+        self.observable.connect() // Start emitting events
+    }
+        
     func write(file: File<Data>) -> Future<Path, RemoteError> {
         let request = self.client.files.upload(path: fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
         return Future<Path, RemoteError> { complete in
             request.response { (metadata: Files.FileMetadata?, error: CallError<(Files.UploadError)>?) in
                 if error == nil {
-                    print("remote write \(file.path.rawValue)")
+                    print("write to remote \(file.path.rawValue)")
                     complete(.success(file.path))
                 } else {
-                    print("remote write \(file.path.rawValue) failure: \(error!)")
+                    print("write to remote \(file.path.rawValue) failure: \(error!)")
                     
                     complete(.failure(RemoteError.WriteError(path: file.path)))
                 }
@@ -224,20 +230,26 @@ class DropboxRemote {
         }
     }
     
-    func read(path: Path) -> Future<File<Data>, RemoteError> {
-        return Future<File<Data>, RemoteError> { complete in
-            let request = self.client.files.download(path: fromRoot(path).rawValue)
+    func read(path: Path) -> Observable<Either<Progress, File<Data>>> {
+        return Observable.create { observer in
+            let request = self.client.files.download(path: self.fromRoot(path).rawValue)
             request.progress({ (p: Progress) in
-                
+                observer.onNext(.left(p))
             })
             request.response(completionHandler: { (file: (Files.FileMetadata, Data)?, error: CallError<(Files.DownloadError)>?) in
                 if error != nil {
-                    complete(.failure(RemoteError.ReadError(path: path)))
+                    observer.onError(RemoteError.ReadError(path: path))
                 } else {
                     let f = File<Data>(path: path, modifiedDate: file!.0.serverModified,  contents: file!.1)
-                    complete(.success(f))
+                    observer.onNext(.right(f))
+                    observer.onCompleted()
                 }
             })
+            
+            let cancel = Disposables.create {
+                request.cancel()
+            }
+            return cancel
         }
     }
 }

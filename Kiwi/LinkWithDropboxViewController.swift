@@ -13,11 +13,14 @@ import SwiftyDropbox
 import EmitterKit
 import BrightFutures
 import Result
+import RxSwift
 
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
     var eventBus: EventBus = EventBus.sharedInstance
     var listener: EventListener<AccountLinkEvent>!
+    var disposeBag: DisposeBag = DisposeBag()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,22 +53,54 @@ class LinkWithDropboxViewController: UIViewController {
     func maybeOpenWiki() {
         if let client = DropboxClientsManager.authorizedClient {
             let remote = DropboxRemote.sharedInstance
-            remote.configure(client: client)
             
             let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
                                                                  title: "Importing...",
                                                                  mode: .indeterminate,
                                                                  animated: true)
             spinner?.setTintColor(Constants.KiwiColor)
+        
+            let wiki = Wiki()
+            wiki.scaffold()
             
+            // Take the initial sync, and see if the changeset contains the home page
+            let homeChangeset = remote.changesets
+                .take(1)
+                .filter({ (c: Changeset) -> Bool in
+                return c.entries.filter({ $0.pathDisplay?.lastPathComponent == "home.md" }).count > 0
+            })
             
-            remote.start().onSuccess {
-                let wiki = Wiki()
-                wiki.scaffold()
+            // If it does, then wait for it to sync
+            homeChangeset.flatMap({ (c: Changeset) in
+                return self.awaitHomeSync().filter({ $0.isRight() }).take(1)
+            }).subscribe(onCompleted: {
+                // And finally, move to the wiki view
+                // We let the rest of the pages just download in the background.
                 spinner?.dismiss(true)
                 self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
-            }
+            }).disposed(by: self.disposeBag)
+            
+            remote.configure(client: client)
         }
+    }
+    
+    func awaitHomeSync(syncEngine: SyncEngine = SyncEngine.sharedInstance) -> Observable<Either<Progress, Path>> {
+        return syncEngine.events.filter { (o: Operations) -> Bool in
+            switch o {
+            case .PullOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    return path.fileName == "home.md"
+                default: return false
+                }
+            }
+        }.flatMap({ (o: Operations) -> Observable<Either<Progress, Path>> in
+            print("found home pull operation")
+            switch o {
+            case .PullOperation(let operation):
+                return operation.stream
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {

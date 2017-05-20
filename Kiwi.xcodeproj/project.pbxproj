@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04EF104C94000844A71F9864 /* Pods_Kiwi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */; };
+		10777C616A6AEA0E94907290 /* Pods_KiwiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */; };
 		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
 		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
@@ -127,6 +128,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiwiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.release.xcconfig"; sourceTree = "<group>"; };
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
@@ -194,7 +196,9 @@
 		70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.debug.xcconfig"; sourceTree = "<group>"; };
 		949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.release.xcconfig"; sourceTree = "<group>"; };
 		AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.release.xcconfig"; sourceTree = "<group>"; };
 		D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10777C616A6AEA0E94907290 /* Pods_KiwiTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +237,7 @@
 				3EF991A60A24FCEA7388DC87 /* Pods.framework */,
 				AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */,
 				D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */,
+				2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -349,6 +355,8 @@
 				39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */,
 				70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */,
 				949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */,
+				E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */,
+				B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -381,9 +389,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "KiwiTests" */;
 			buildPhases = (
+				3A70CC6C38C597DA98C8600F /* [CP] Check Pods Manifest.lock */,
 				4D2AAC2B1A9DA30300E0904B /* Sources */,
 				4D2AAC2C1A9DA30300E0904B /* Frameworks */,
 				4D2AAC2D1A9DA30300E0904B /* Resources */,
+				E09245AFDF928DDA8D628D29 /* [CP] Embed Pods Frameworks */,
+				7255D64617AD13ACBF4A82BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -583,6 +594,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3A70CC6C38C597DA98C8600F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		4DAD4E961D9795B300B33065 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -608,6 +634,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c47";
+		};
+		7255D64617AD13ACBF4A82BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -637,6 +678,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E09245AFDF928DDA8D628D29 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */ = {
@@ -908,6 +964,7 @@
 		};
 		4D2AAC3D1A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -927,6 +984,7 @@
 		};
 		4D2AAC3E1A9DA30300E0904B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

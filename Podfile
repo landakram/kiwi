@@ -17,6 +17,9 @@ def app_pods
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
     pod 'EmitterKit', '~> 5.0.0'
+    pod 'RxSwift',    '~> 3.0'
+    pod "RxSwiftExt"
+    pod 'RxCocoa',    '~> 3.0'
 end
 
 target 'Kiwi' do
@@ -25,4 +28,11 @@ end
 
 target 'Kiwi Development' do
     app_pods
+end
+
+target 'KiwiTests' do
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'RxBlocking', '~> 3.0'
+    pod 'RxTest',     '~> 3.0'
 end
