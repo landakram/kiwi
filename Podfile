@@ -2,7 +2,6 @@ use_frameworks!
 
 def app_pods
     pod 'SwiftyDropbox', :git => 'https://github.com/dropbox/SwiftyDropbox.git', :branch => 'master'
-    pod 'BrightFutures'
     pod 'hoedown'
     pod 'YapDatabase'
     pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'
@@ -10,7 +9,6 @@ def app_pods
     pod 'IDMPhotoBrowser'
     pod "STKWebKitViewController"
     pod 'TUSafariActivity'
-    pod 'AsyncSwift'
     pod 'MRProgress'
     pod 'ViewUtils'
     pod 'Fabric'

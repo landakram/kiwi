@@ -8,7 +8,6 @@
 
 import Foundation
 import YapDatabase
-import Async
 import FileKit
 import RxSwift
 

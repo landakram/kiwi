@@ -105,8 +105,6 @@
 		4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
 		4DCBB2891EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
 		4DCBB28A1EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
-		4DCBB2921EC4101B00EFF3FE /* Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2911EC4101B00EFF3FE /* Retry.swift */; };
-		4DCBB2931EC4101B00EFF3FE /* Retry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2911EC4101B00EFF3FE /* Retry.swift */; };
 		4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */; };
 		4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */; };
 		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
@@ -184,7 +182,6 @@
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExternalLinkViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxRemote.swift; sourceTree = "<group>"; };
-		4DCBB2911EC4101B00EFF3FE /* Retry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Retry.swift; sourceTree = "<group>"; };
 		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BaseNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hoedown_html_patch.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hoedown_html_patch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -299,7 +296,6 @@
 				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
 				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
 				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
-				4DCBB2911EC4101B00EFF3FE /* Retry.swift */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -723,7 +719,6 @@
 				4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
-				4DCBB2921EC4101B00EFF3FE /* Retry.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
 				4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */,
 				4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */,
@@ -766,7 +761,6 @@
 				4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
-				4DCBB2931EC4101B00EFF3FE /* Retry.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,
 				4D3D8E281BB4A1CF000C53EE /* acknowledgements.md in Sources */,
 				4D3D8E291BB4A1CF000C53EE /* Constants.swift in Sources */,

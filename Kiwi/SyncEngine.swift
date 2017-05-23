@@ -8,10 +8,7 @@
 
 import Foundation
 import FileKit
-import Async
 import SwiftyDropbox
-import BrightFutures
-import Result
 import RxSwift
 
 enum Either<T, U> {
@@ -89,16 +86,16 @@ class SyncEngine {
                 // where /usr/docs/ is specific to this platform.
                 let relativePath = path.relativeTo(self.local.root)
                 self.dirtyStore.add(path: relativePath)
-                self.push(event: .delete(path: relativePath)).onSuccess(callback: { (_) in
+                self.push(event: .delete(path: relativePath)).subscribe(onNext: { (_) in
                     self.dirtyStore.remove(path: path)
-                })
+                }).disposed(by: self.disposeBag)
             // TODO: Do I need to do error handling of the above?
             case .write(let path):
                 let relativePath = path.relativeTo(self.local.root)
                 self.dirtyStore.add(path: path)
-                self.push(event: .write(path: relativePath)).onSuccess(callback: { (_) in
+                self.push(event: .write(path: relativePath)).subscribe(onNext: { (_) in
                     self.dirtyStore.remove(path: path)
-                })
+                }).disposed(by: self.disposeBag)
                 // TODO: Do I need to do error handling of the above?
             }
         }).disposed(by: disposeBag)
@@ -108,7 +105,7 @@ class SyncEngine {
         }).disposed(by: disposeBag)
     }
     
-    func push(event: FilesystemEvent) -> Future<Path, RemoteError> {
+    func push(event: FilesystemEvent) -> Observable<Path> {
         switch event {
         case .delete(let path):
             // TODO: handle conflicts.
@@ -139,16 +136,16 @@ class SyncEngine {
             if self.local.exists(path: path) {
                 do {
                     let _: File<Data> = try self.local.read(path: path)
-                    self.push(event: .write(path: path)).onSuccess(callback: { (_) in
+                    self.push(event: .write(path: path)).subscribe(onNext: { (_) in
                         self.dirtyStore.remove(path: path)
-                    })
+                    }).disposed(by: self.disposeBag)
                 } catch {
                     
                 }
             } else {
-                self.push(event: .delete(path: path)).onSuccess(callback: { (_) in
+                self.push(event: .delete(path: path)).subscribe(onNext: { (_) in
                     self.dirtyStore.remove(path: path)
-                })
+                }).disposed(by: self.disposeBag)
             }
         }
     }

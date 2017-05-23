@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Async
 
 class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     var indexer: Indexer!

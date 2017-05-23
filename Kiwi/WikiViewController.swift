@@ -12,7 +12,6 @@ import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
 import TUSafariActivity
-import Async
 import Whisper
 import RxSwift
 

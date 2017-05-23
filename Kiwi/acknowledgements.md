@@ -16,7 +16,6 @@ I'm thankful to have been built with open-source software and, in turn, so thank
 * [RFMarkdownTextView](https://github.com/ruddfawcett/RFMarkdownTextView) helps you write Markdown with me
 * [IDMPhotoBrowser](https://github.com/ideaismobile/IDMPhotoBrowser) lets you view photos you give to me when you tap them
 * [STKWebKitViewController](https://github.com/sticksen/STKWebKitViewController) lets you open external web pages
-* [Async](https://github.com/duemunk/Async) lets me do stuff in the background really easily
 * [MRProgress](https://github.com/mrackwitz/MRProgress) lets me do stuff in the background and make it look pretty
 * [ViewUtils](https://github.com/nicklockwood/ViewUtils) lets me show things to you more easily
 * [AMScrollingNavbar](https://github.com/andreamazz/AMScrollingNavbar) lets my navigation bar show and hide in a snap (in Swift, no less)

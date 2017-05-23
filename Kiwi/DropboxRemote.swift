@@ -7,9 +7,7 @@
 //
 
 import SwiftyDropbox
-import BrightFutures
 import FileKit
-import Result
 import RxSwift
 import RxSwiftExt
 
@@ -191,40 +189,49 @@ class DropboxRemote {
     
     func configure(client: DropboxClient) {
         self.client = client
-        self.observable.connect() // Start emitting events
+        _ = self.observable.connect() // Start emitting events
     }
         
-    func write(file: File<Data>) -> Future<Path, RemoteError> {
-        let request = self.client.files.upload(path: fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
-        return Future<Path, RemoteError> { complete in
+    func write(file: File<Data>) -> Observable<Path> {
+        return Observable.create({ (observer: AnyObserver<Path>) -> Disposable in
+            let request = self.client.files.upload(path: self.fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
+            
             request.response { (metadata: Files.FileMetadata?, error: CallError<(Files.UploadError)>?) in
                 if error == nil {
                     print("write to remote \(file.path.rawValue)")
-                    complete(.success(file.path))
+                    observer.onNext(file.path)
                 } else {
                     print("write to remote \(file.path.rawValue) failure: \(error!)")
-                    
-                    complete(.failure(RemoteError.WriteError(path: file.path)))
+                    observer.onError(RemoteError.WriteError(path: file.path))
                 }
             }
-        }
+            
+            let cancel = Disposables.create {
+                request.cancel()
+            }
+            return cancel
+        })
     }
     
-    func delete<T: ReadableWritable>(file: File<T>) -> Future<Path, RemoteError> {
+    func delete<T: ReadableWritable>(file: File<T>) -> Observable<Path> {
         return self.delete(path: file.path)
     }
     
-    func delete(path: Path) -> Future<Path, RemoteError> {
-        let request = self.client.files.delete(path: fromRoot(path).rawValue)
-        return Future<Path, RemoteError> { complete in
+    func delete(path: Path) -> Observable<Path> {
+        return Observable.create({ (observer: AnyObserver<Path>) -> Disposable in
+            let request = self.client.files.delete(path: self.fromRoot(path).rawValue)
             request.response(completionHandler: { (metadata: Files.Metadata?, error: CallError<(Files.DeleteError)>?) in
                 if error == nil {
-                    complete(.success(path))
+                    observer.onNext(path)
                 } else {
-                    complete(.failure(RemoteError.WriteError(path: path)))
+                    observer.onError(RemoteError.WriteError(path: path))
                 }
             })
-        }
+            let cancel = Disposables.create {
+                request.cancel()
+            }
+            return cancel
+        })
     }
     
     func read(path: Path) -> Observable<Either<Progress, File<Data>>> {
