@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
         rootNavigationController?.viewControllers = [rootViewController!]
         
+        
         self.window?.rootViewController = rootNavigationController
         self.window?.makeKeyAndVisible()
         let kiwiColor = Constants.KiwiColor
@@ -49,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSForegroundColorAttributeName: UINavigationBar.appearance().tintColor,
             NSFontAttributeName: UIFont.systemFont(ofSize: 0),
         ]
+        
         return true
     }
 
@@ -85,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Error: \(description)")
             }
             
-            EventBus.sharedInstance.accountLinkEvents.emit(.AccountLinked(authResult: authResult))
+            EventBus.sharedInstance.publish(event: .AccountLinked(authResult: authResult))
         }
         
         return true

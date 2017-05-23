@@ -10,7 +10,6 @@ import UIKit
 import MRProgress
 import Async
 import SwiftyDropbox
-import EmitterKit
 import BrightFutures
 import Result
 import RxSwift
@@ -18,7 +17,6 @@ import RxSwift
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
     var eventBus: EventBus = EventBus.sharedInstance
-    var listener: EventListener<AccountLinkEvent>!
     var disposeBag: DisposeBag = DisposeBag()
 
     
@@ -31,23 +29,22 @@ class LinkWithDropboxViewController: UIViewController {
         linkWithDropboxButton.layer.cornerRadius = 5
         linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.cgColor
         linkWithDropboxButton.layer.masksToBounds = true
+        
+        eventBus.accountLinkEvents.subscribe(onNext: { (event: AccountLinkEvent) in
+            switch event {
+            case .AccountLinked(_):
+                self.maybeOpenWiki()
+            }
+        }).disposed(by: disposeBag)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.listener.isListening = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.maybeOpenWiki()
-        
-        self.listener = eventBus.accountLinkEvents.on { (event: AccountLinkEvent) in
-            switch event {
-            case .AccountLinked(_):
-                self.maybeOpenWiki()
-            }
-        }
     }
     
     func maybeOpenWiki() {

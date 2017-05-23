@@ -16,10 +16,10 @@ def app_pods
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
-    pod 'EmitterKit', '~> 5.0.0'
     pod 'RxSwift',    '~> 3.0'
     pod "RxSwiftExt"
     pod 'RxCocoa',    '~> 3.0'
+    pod 'Whisper'
 end
 
 target 'Kiwi' do

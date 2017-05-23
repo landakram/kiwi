@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import EmitterKit
 import FileKit
 import Async
 import SwiftyDropbox
@@ -66,8 +65,6 @@ class SyncEngine {
     
     let disposeBag: DisposeBag = DisposeBag()
     
-    var localEventListener: EventListener<FilesystemEvent>!
-    
     var events: Observable<Operations> {
         get {
             return self.subject
@@ -82,12 +79,12 @@ class SyncEngine {
     }
     
     func start() {
-        self.localEventListener = self.local.event.on { (event: FilesystemEvent) in
+        self.local.events.subscribe(onNext: { (event: FilesystemEvent) in
             switch event {
             case .delete(let path):
                 // The path may be absolute, so we need to translate to a relative path
                 // that is in common with the remote filesystem.
-                // 
+                //
                 // i.e. it might be /usr/docs/wiki/page.md
                 // where /usr/docs/ is specific to this platform.
                 let relativePath = path.relativeTo(self.local.root)
@@ -95,7 +92,7 @@ class SyncEngine {
                 self.push(event: .delete(path: relativePath)).onSuccess(callback: { (_) in
                     self.dirtyStore.remove(path: path)
                 })
-                // TODO: Do I need to do error handling of the above?
+            // TODO: Do I need to do error handling of the above?
             case .write(let path):
                 let relativePath = path.relativeTo(self.local.root)
                 self.dirtyStore.add(path: path)
@@ -104,15 +101,11 @@ class SyncEngine {
                 })
                 // TODO: Do I need to do error handling of the above?
             }
-        }
+        }).disposed(by: disposeBag)
         
         self.remote.observable.subscribe(onNext: { (event: FilesystemEvent) in
             self.pull(event: event)
         }).disposed(by: disposeBag)
-    }
-    
-    func stop() {
-        self.localEventListener.isListening = false
     }
     
     func push(event: FilesystemEvent) -> Future<Path, RemoteError> {

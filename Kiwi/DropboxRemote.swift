@@ -7,7 +7,6 @@
 //
 
 import SwiftyDropbox
-import EmitterKit
 import BrightFutures
 import FileKit
 import Result
@@ -30,8 +29,6 @@ struct Changeset {
 
 class DropboxRemote {
     static let sharedInstance = DropboxRemote()
-    let event: EmitterKit.Event<FilesystemEvent> = Event()
-    let  bufferredEvents: EmitterKit.Event<Array<FilesystemEvent>> = Event()
     
     let root = Path("/")
     var client: DropboxClient!

@@ -13,6 +13,8 @@ import IDMPhotoBrowser
 import STKWebKitViewController
 import TUSafariActivity
 import Async
+import Whisper
+import RxSwift
 
 class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -28,6 +30,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     var bottommostVisibleText: String?
     
+    var disposeBag: DisposeBag = DisposeBag()
+    
     override var title: String? {
         set {
             super.title = newValue
@@ -39,6 +43,12 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         }
         get {
             return super.title
+        }
+    }
+    
+    func reload() {
+        if let page: Page = self.wiki.page(self.currentPage.permalink) {
+            self.renderPage(page)   
         }
     }
     
@@ -60,9 +70,21 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         // TODO: these are related to actually rendering the wiki as HTML and should be encapsulated
         self.wiki.writeResouceFiles()
         self.wiki.copyImagesToLocalCache()
-        
-        
         self.renderPermalink("home")
+        
+        self.wiki.stream.subscribe(onNext: { (event: WikiEvent) in
+            switch event {
+            case .writeImage(let path):
+                self.wiki.copyImageToLocalCache(path: path)
+                if self.currentPage.rawContent.contains(path.fileName) {
+                    self.reload()
+                }
+            case .writePage(let page):
+                if page.permalink == self.currentPage.permalink {
+                    self.reload()
+                }
+            }
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

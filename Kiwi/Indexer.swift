@@ -9,7 +9,7 @@
 import Foundation
 import YapDatabase
 import YapDatabase.YapDatabaseFullTextSearch
-import EmitterKit
+import RxSwift
 
 class Indexer {
     static let sharedInstance = Indexer()
@@ -18,7 +18,7 @@ class Indexer {
     let filesystem: Filesystem
     let indexingRoot: Path
     
-    var filesystemListener: EventListener<FilesystemEvent>!
+    var disposeBag = DisposeBag()
     
     init(backingStore: YapDatabase = Yap.sharedInstance, filesystem: Filesystem = Filesystem.sharedInstance, root: Path = Wiki.WIKI_PATH) {
         self.backingStore = backingStore
@@ -28,7 +28,7 @@ class Indexer {
     }
     
     func start() {
-        self.filesystemListener = self.filesystem.event.on({ (event: FilesystemEvent) in
+        self.filesystem.events.subscribe(onNext: { (event: FilesystemEvent) in
             switch event {
             case .delete(let path):
                 let relativePath = path.relativeTo(self.filesystem.root)
@@ -51,15 +51,11 @@ class Indexer {
                     }
                 }
             }
-        })
+        }).disposed(by: self.disposeBag)
     }
     
     private func pathIsIndexed(path: Path) -> Bool {
         return path.commonAncestor(self.indexingRoot) == self.indexingRoot
-    }
-    
-    func stop() {
-        self.filesystemListener.isListening = false
     }
     
     func remove(page: Page) {

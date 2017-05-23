@@ -14,7 +14,6 @@ PODS:
   - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
   - DACircularProgress (2.3.1)
-  - EmitterKit (5.0.0)
   - Fabric (1.6.8)
   - FileKit (4.0.0)
   - GRMustache (7.3.2):
@@ -82,6 +81,7 @@ PODS:
     - Alamofire (~> 4.4.0)
   - TUSafariActivity (1.0.4)
   - ViewUtils (1.1.2)
+  - Whisper (5.0.0)
   - YapDatabase (2.9.2):
     - YapDatabase/Standard (= 2.9.2)
   - YapDatabase/Standard (2.9.2):
@@ -137,7 +137,6 @@ DEPENDENCIES:
   - AsyncSwift
   - BrightFutures
   - Crashlytics
-  - EmitterKit (~> 5.0.0)
   - Fabric
   - FileKit (from `https://github.com/landakram/FileKit.git`, branch `set-modification-date`)
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
@@ -156,6 +155,7 @@ DEPENDENCIES:
   - SwiftyDropbox (from `https://github.com/dropbox/SwiftyDropbox.git`, branch `master`)
   - TUSafariActivity
   - ViewUtils
+  - Whisper
   - YapDatabase
 
 EXTERNAL SOURCES:
@@ -188,7 +188,6 @@ SPEC CHECKSUMS:
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
-  EmitterKit: 0057b2086840f20987cb8d4445b4490b96c0bfd8
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   FileKit: 2589d0393b3bfdc599c2ba6e41419be6db4279e0
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
@@ -213,8 +212,9 @@ SPEC CHECKSUMS:
   SwiftyDropbox: 5b48d40e51265659ce5478f311a5d0a10f14c32f
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
+  Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 9497f4e46490cd48c39857d2558787c7f5de0e79
+PODFILE CHECKSUM: 533a354364eef0fb0fc4e2276c2132eb9a0a6b5d

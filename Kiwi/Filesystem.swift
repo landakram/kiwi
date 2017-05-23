@@ -8,7 +8,7 @@
 
 import Foundation
 import FileKit
-import EmitterKit
+import RxSwift
 
 typealias Path = FileKit.Path
 
@@ -16,7 +16,15 @@ typealias Path = FileKit.Path
 struct Filesystem {
     static let sharedInstance = Filesystem()
     
-    let event: Event<FilesystemEvent> = Event();
+    let disposeBag: DisposeBag = DisposeBag()
+    
+    var events: Observable<FilesystemEvent> {
+        get {
+            return self.subject.asObservable()
+        }
+    }
+    private var subject: ReplaySubject<FilesystemEvent> = ReplaySubject.createUnbounded()
+
     let root: Path
     
     init(root: Path = Path.userDocuments) {
@@ -60,7 +68,7 @@ struct Filesystem {
             realFile.path.modificationDate = file.modifiedDate   
         }
         if emit {
-            event.emit(.write(path: file.path))
+            self.subject.onNext(.write(path: file.path))
         }
     }
     
@@ -72,7 +80,7 @@ struct Filesystem {
         print("delete \(path)")
         try fromRoot(path).deleteFile()
         if emit {
-            event.emit(.delete(path: path))
+            self.subject.onNext(.delete(path: path))
         }
     }
     

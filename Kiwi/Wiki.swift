@@ -10,10 +10,16 @@ import Foundation
 import YapDatabase
 import Async
 import FileKit
+import RxSwift
 
 enum SaveResult {
     case success
     case fileExists
+}
+
+enum WikiEvent {
+    case writeImage(path: Path)
+    case writePage(page: Page)
 }
 
 class Wiki {
@@ -26,6 +32,10 @@ class Wiki {
     let filesystem: Filesystem
     let indexer: Indexer
     
+    var disposeBag = DisposeBag()
+    
+    var stream: Observable<WikiEvent>!
+    
     
     init(filesystem: Filesystem = Filesystem.sharedInstance, indexer: Indexer = Indexer.sharedInstance) {
         self.filesystem = filesystem
@@ -35,6 +45,19 @@ class Wiki {
         print("Wiki location:")
         print(self.filesystem.root)
         print("-------------------")
+        self.stream = self.filesystem.events.flatMap({ (event: FilesystemEvent) -> Observable<WikiEvent> in
+            switch event {
+            case .write(let path):
+                if path.commonAncestor(Wiki.IMG_PATH) == Wiki.IMG_PATH {
+                    return Observable.just(WikiEvent.writeImage(path: path))
+                } else if path.commonAncestor(Wiki.WIKI_PATH) == Wiki.WIKI_PATH {
+                    return Observable.just(WikiEvent.writePage(page: try! toPage(self.filesystem.read(path: path))!))
+                } else {
+                    return Observable.empty()
+                }
+            default: return Observable.empty()
+            }
+        })
     }
     
     func scaffold() {
@@ -303,12 +326,16 @@ class Wiki {
         }
     }
     
+    func copyImageToLocalCache(path: Path) {
+        let filename = path.fileName
+        let file: File<Data> = try! self.filesystem.read(path: path)
+        self.writeLocalImage(filename, data: file.contents)
+    }
+    
     func copyImagesToLocalCache() {
         let imgFiles = self.filesystem.list(path: Wiki.IMG_PATH)
         for path in imgFiles {
-            let filename = path.fileName
-            let file: File<Data> = try! self.filesystem.read(path: path)
-            self.writeLocalImage(filename, data: file.contents)
+            self.copyImageToLocalCache(path: path)
         }
     }
 }

@@ -7,12 +7,22 @@
 //
 
 import Foundation
-import EmitterKit
+import RxSwift
 import SwiftyDropbox
 
 class EventBus {
     static let sharedInstance = EventBus()
-    let accountLinkEvents: Event<AccountLinkEvent> = Event()
+    
+    var accountLinkEvents: Observable<AccountLinkEvent> {
+        get {
+            return accountLinkEventsSubject.asObservable()
+        }
+    }
+    private let accountLinkEventsSubject: PublishSubject<AccountLinkEvent> = PublishSubject()
+    
+    func publish(event: AccountLinkEvent) {
+        self.accountLinkEventsSubject.onNext(event)
+    }
 }
 
 enum AccountLinkEvent {
