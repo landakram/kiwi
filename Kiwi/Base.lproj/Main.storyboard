@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,6 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ho-rV-etX">
+                                <rect key="frame" x="29" y="582" width="317" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="jV8-Oa-Egp"/>
                                 </constraints>
@@ -34,6 +37,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiwi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWu-pA-V5e">
+                                <rect key="frame" x="153.5" y="206" width="69" height="45.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="69" id="FMg-43-7BH"/>
                                 </constraints>
@@ -42,6 +46,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JR1-i5-mOU">
+                                <rect key="frame" x="29" y="280" width="317" height="77.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Your personal wiki. Edit, rearrange, and link your ideas together. Use for thoughts, feelings, and journeys.">
                                         <attributes>
@@ -54,6 +59,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kiwi" translatesAutoresizingMaskIntoConstraints="NO" id="7KB-Ah-WHf">
+                                <rect key="frame" x="123.5" y="70" width="128" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="Bce-ga-BRx"/>
                                     <constraint firstAttribute="width" secondItem="7KB-Ah-WHf" secondAttribute="height" multiplier="1:1" id="jhU-IU-bXr"/>
@@ -119,8 +125,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pvm-Bx-0sg">
-                                <frame key="frameInset" width="414" height="736"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvm-Bx-0sg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -128,8 +134,8 @@
                         <constraints>
                             <constraint firstItem="Pvm-Bx-0sg" firstAttribute="leading" secondItem="dYm-iI-Mtq" secondAttribute="leading" id="Dlk-Sj-FHH"/>
                             <constraint firstAttribute="bottom" secondItem="Pvm-Bx-0sg" secondAttribute="bottom" id="VGa-aa-ek1"/>
+                            <constraint firstAttribute="topMargin" secondItem="Pvm-Bx-0sg" secondAttribute="top" id="VZy-Kl-gAD"/>
                             <constraint firstAttribute="trailing" secondItem="Pvm-Bx-0sg" secondAttribute="trailing" id="lPv-Z1-Mjq"/>
-                            <constraint firstItem="Pvm-Bx-0sg" firstAttribute="top" secondItem="dYm-iI-Mtq" secondAttribute="top" id="tih-Ub-qPu"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -148,7 +154,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="topConstraint" destination="tih-Ub-qPu" id="pQe-zO-epP"/>
                         <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
                         <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
                         <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="29u-FC-IGJ"/>
@@ -237,7 +242,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="AX7-UB-X8F">
-                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -246,14 +251,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pageCell" id="Ak8-fb-YDf">
-                                <rect key="frame" x="0.0" y="130" width="375" height="105"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ak8-fb-YDf" id="RPT-sS-Y66">
-                                    <frame key="frameInset" width="375" height="105"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-L4-Ojy">
-                                            <frame key="frameInset" minX="18" minY="13" width="388" height="26"/>
+                                            <rect key="frame" x="18" y="13" width="388" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25.5" id="5q1-rN-WZs"/>
                                             </constraints>
@@ -262,7 +267,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqF-xu-a9n">
-                                            <frame key="frameInset" minX="18" minY="39" width="388" height="56"/>
+                                            <rect key="frame" x="18" y="39" width="388" height="56"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="41.5" id="nft-eN-BPL"/>
                                             </constraints>

@@ -54,7 +54,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.isNavigationBarHidden = false;
         
         self.setupWebView()
