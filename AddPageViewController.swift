@@ -28,64 +28,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         textView = Notepad(frame: self.view.bounds, theme: theme)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
-
-        let buttons = [
-            RFToolbarButton(title: "#", andEventHandler: { 
-                self.textView.insertText("#")
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "*", andEventHandler: { 
-                if (self.textView.selectedRange.length > 0) {
-                    self.textView.wrapSelectedRange(with: "*")
-                } else {
-                    self.textView.insertText("*")
-                }
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "Indent", andEventHandler: {
-                self.textView.insertText("  ")
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "Wiki Link", andEventHandler: {
-                if (self.textView.selectedRange.length > 0) {
-                    self.textView.wrapSelectedRange(withStart: "[[", end: "]]")
-                    let linkName = self.textView.text(in: self.textView.selectedTextRange!)
-                    self.textView.replace(self.textView.selectedTextRange!, withText: linkName!.capitalized)
-                } else {
-                    var range = self.textView.selectedRange
-                    range.location += 2
-                    self.textView.insertText("[[]]")
-                    self.textView.selectedRange = range
-                }
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "`", andEventHandler: {
-                if (self.textView.selectedRange.length > 0) {
-                    self.textView.wrapSelectedRange(with: "`")
-                } else {
-                    self.textView.insertText("`")
-                }
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "Photo", andEventHandler: {
-                self.textViewWantsImage()
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "Link", andEventHandler: {
-                var range = self.textView.selectedRange
-                range.location += 1
-                self.textView.insertText("[]()")
-                self.textView.selectedRange = range
-            }, for: .touchUpInside),
-            RFToolbarButton(title: "Quote", andEventHandler: {
-                var range = self.textView.selectedRange
-                range.location += 3
-                self.textView.insertText(self.textView.text.characters.count == 0 ? "> " : "\n> ")
-                self.textView.selectedRange = range
-            }, for: .touchUpInside),
-            
-        ]
-        
-        textView.inputAccessoryView = RFKeyboardToolbar(buttons: buttons)
+        textView.inputAccessoryView = self.setUpToolbar()
         self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(textView)
         
-        
-        let dict = ["textView": textView!]
+        let dict = ["textView": textView]
         let horizontalConstraints = NSLayoutConstraint.constraints(
             withVisualFormat: "H:|-0-[textView]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
@@ -95,11 +42,10 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
             withVisualFormat: "V:|-0-[textView]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["textView" : textView!])
+            views: ["textView" : textView])
         view.addConstraints(verticalConstraints)
         view.addConstraints(horizontalConstraints) 
  
-        
         textView.isScrollEnabled = true
         textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
@@ -130,7 +76,6 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
             }
         }
         
-        
         if let page = self.page {
             textView.insertText(page.rawContent)
             titleField.text = page.name
@@ -147,6 +92,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         
+        // Attempt to scroll to the same location the user was just looking
+        // at before opening the editor
         if let visibleText = (self.bottommostVisibleText as NSString?) {
             var searchText: NSString = visibleText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
             let start = min(1, searchText.length)
@@ -194,6 +141,61 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
                            animations: { self.view.layoutIfNeeded() },
                            completion: nil)
         }
+    }
+    
+    func setUpToolbar() -> RFKeyboardToolbar {
+        let buttons = [
+            RFToolbarButton(title: "#", andEventHandler: {
+                self.textView.insertText("#")
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "*", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(with: "*")
+                } else {
+                    self.textView.insertText("*")
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Indent", andEventHandler: {
+                self.textView.insertText("  ")
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Wiki Link", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(withStart: "[[", end: "]]")
+                    let linkName = self.textView.text(in: self.textView.selectedTextRange!)
+                    self.textView.replace(self.textView.selectedTextRange!, withText: linkName!.capitalized)
+                } else {
+                    var range = self.textView.selectedRange
+                    range.location += 2
+                    self.textView.insertText("[[]]")
+                    self.textView.selectedRange = range
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "`", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(with: "`")
+                } else {
+                    self.textView.insertText("`")
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Photo", andEventHandler: {
+                self.textViewWantsImage()
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Link", andEventHandler: {
+                var range = self.textView.selectedRange
+                range.location += 1
+                self.textView.insertText("[]()")
+                self.textView.selectedRange = range
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Quote", andEventHandler: {
+                var range = self.textView.selectedRange
+                range.location += 3
+                self.textView.insertText(self.textView.text.characters.count == 0 ? "> " : "\n> ")
+                self.textView.selectedRange = range
+            }, for: .touchUpInside),
+            
+            ]
+        
+        return RFKeyboardToolbar(buttons: buttons)
     }
 
     override func didReceiveMemoryWarning() {
