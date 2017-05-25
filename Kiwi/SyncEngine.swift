@@ -155,23 +155,37 @@ class SyncEngine {
  * Tracks the dirty state of paths in the local filesystem.
  */
 struct DirtyStore {
-    var backingSet: Set<Path> = Set<Path>()
+    private var backingSet: Set<String> = Set<String>()
+    
+    private var localStorage: UserDefaults = UserDefaults.standard
+    
+    init() {
+        if let data = self.localStorage.data(forKey: "DirtyStore") {
+            if let storedSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? Set<String> {
+                self.backingSet = storedSet
+            }
+        }
+    }
     
     mutating func add(path: Path) {
-        backingSet.insert(path)
+        backingSet.insert(path.standardRawValue)
+        localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
     
     mutating func remove(path: Path) {
-        backingSet.remove(path)
+        backingSet.remove(path.standardRawValue)
+        localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
     
     func has(path: Path) -> Bool {
-        return backingSet.contains(path)
+        return backingSet.contains(path.standardRawValue)
     }
     
     func all() -> [Path] {
-        return self.backingSet.sorted(by: { (first: Path, second: Path) -> Bool in
+        return self.backingSet.sorted(by: { (first: String, second: String) -> Bool in
             return true
+        }).map({ (rawPath: String) -> Path in
+            return Path(rawPath)
         })
     }
 }
@@ -190,7 +204,8 @@ class PullOperation: Operation {
             // Right now, this always prefers their version.
             self.readRemoteAndWrite(path: path).map({ (e: Either<Progress, File<Data>>) in
                 return e.mapRight { _ in path }
-            }).subscribe(self.subject)
+            }).retry(.exponentialDelayed(maxCount: 3, initial: 1.0, multiplier: 1.0))
+                .subscribe(self.subject)
             return self.stream
         }
     }
