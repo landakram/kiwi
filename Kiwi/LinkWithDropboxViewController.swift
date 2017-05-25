@@ -75,6 +75,7 @@ class LinkWithDropboxViewController: UIViewController {
             }).disposed(by: self.disposeBag)
             
             remote.configure(client: client)
+            SyncEngine.sharedInstance.sweep()
         }
     }
     

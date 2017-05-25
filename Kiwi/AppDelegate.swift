@@ -34,11 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let client = DropboxClientsManager.authorizedClient {
             syncEngine.remote.configure(client: client)
             syncEngine.sweep()
+            
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
+            rootNavigationController?.viewControllers = [rootViewController!]
+        } else {
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+            rootNavigationController?.viewControllers = [rootViewController!]
         }
-        
-        let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
-        rootNavigationController?.viewControllers = [rootViewController!]
-        
         
         self.window?.rootViewController = rootNavigationController
         self.window?.makeKeyAndVisible()
