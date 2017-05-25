@@ -322,7 +322,7 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
                 let name = body.object(forKey: "name") as! String
                 let isInternal = body.object(forKey: "isInternal") as! Bool
                 if isInternal {
-                    delegate?.renderPermalink(path.lastPathComponent, name: name)
+                    delegate?.renderPermalink(path.lastPathComponent.removingPercentEncoding!, name: name)
                 } else {
                     let webViewController = STKWebKitModalViewController(address: path)
                     webViewController?.webKitViewController.applicationActivities = [TUSafariActivity()]
