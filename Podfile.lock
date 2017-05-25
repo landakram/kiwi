@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.0.1)
+  - AMScrollingNavbar (3.3.2)
   - CocoaLumberjack (2.4.0):
     - CocoaLumberjack/Default (= 2.4.0)
     - CocoaLumberjack/Extensions (= 2.4.0)
@@ -129,6 +130,7 @@ PODS:
     - YapDatabase/Standard/Core
 
 DEPENDENCIES:
+  - AMScrollingNavbar
   - Crashlytics
   - Fabric
   - FileKit (from `https://github.com/landakram/FileKit.git`, branch `set-modification-date`)
@@ -175,6 +177,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AMScrollingNavbar: a46dd0c06ac40d0e7f9a60bc9b707158a9c5e07c
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
@@ -206,4 +209,4 @@ SPEC CHECKSUMS:
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: be88fa6d1eaee2b0a3817f373f5d58973857bc2d
+PODFILE CHECKSUM: 9b328b705a044393188249bd20958fc610284ade

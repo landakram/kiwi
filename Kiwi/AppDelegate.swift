@@ -11,6 +11,7 @@ import Fabric
 import Crashlytics
 import FileKit
 import SwiftyDropbox
+import AMScrollingNavbar
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DropboxClientsManager.setupWithAppKey(DropboxAppKey)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? BaseNavigationController
+        let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? ScrollingNavigationController
         
         if let client = DropboxClientsManager.authorizedClient {
             syncEngine.remote.configure(client: client)

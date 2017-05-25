@@ -91,14 +91,14 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="7zC-2K-S2Q"/>
-                                <exclude reference="si9-7Y-LJm"/>
                                 <exclude reference="Ox6-k0-wpx"/>
                                 <exclude reference="v7U-NU-Hr7"/>
-                                <exclude reference="2aH-La-hkW"/>
-                                <exclude reference="gKu-pj-Ujn"/>
                                 <exclude reference="PCf-mx-7R3"/>
                                 <exclude reference="u6r-Ry-ByC"/>
+                                <exclude reference="2aH-La-hkW"/>
+                                <exclude reference="gKu-pj-Ujn"/>
+                                <exclude reference="7zC-2K-S2Q"/>
+                                <exclude reference="si9-7Y-LJm"/>
                             </mask>
                         </variation>
                     </view>
@@ -124,19 +124,7 @@
                     <view key="view" contentMode="scaleToFill" id="dYm-iI-Mtq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvm-Bx-0sg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Pvm-Bx-0sg" firstAttribute="leading" secondItem="dYm-iI-Mtq" secondAttribute="leading" id="Dlk-Sj-FHH"/>
-                            <constraint firstAttribute="bottom" secondItem="Pvm-Bx-0sg" secondAttribute="bottom" id="VGa-aa-ek1"/>
-                            <constraint firstAttribute="topMargin" secondItem="Pvm-Bx-0sg" secondAttribute="top" id="VZy-Kl-gAD"/>
-                            <constraint firstAttribute="trailing" secondItem="Pvm-Bx-0sg" secondAttribute="trailing" id="lPv-Z1-Mjq"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Wiki" id="q5I-bN-moH">
@@ -154,7 +142,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="webViewContainer" destination="Pvm-Bx-0sg" id="soT-05-sAx"/>
                         <segue destination="Z0d-ey-Vd9" kind="presentation" identifier="ShowAllPages" id="kPq-Rs-Vvx"/>
                         <segue destination="0Ue-zd-YbW" kind="presentation" identifier="EditWikiPage" id="29u-FC-IGJ"/>
                     </connections>
@@ -197,10 +184,10 @@
             </objects>
             <point key="canvasLocation" x="3622" y="300"/>
         </scene>
-        <!--Base Navigation Controller-->
+        <!--Scrolling Navigation Controller-->
         <scene sceneID="51C-lD-YzY">
             <objects>
-                <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWc-ws-jsh" customClass="BaseNavigationController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nWc-ws-jsh" customClass="ScrollingNavigationController" customModule="AMScrollingNavbar" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K9U-19-WGB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

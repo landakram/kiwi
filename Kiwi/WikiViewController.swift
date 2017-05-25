@@ -14,10 +14,10 @@ import STKWebKitViewController
 import TUSafariActivity
 import Whisper
 import RxSwift
+import AMScrollingNavbar
 
-class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate {
+class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    @IBOutlet weak var webViewContainer: UIView!
     
     var titleView : UIButton!
     
@@ -87,9 +87,17 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [self.webView])
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.stopFollowingScrollView()
+        }
     }
     
     
@@ -108,6 +116,20 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     // Mark: - Setup
     
+    override func viewDidLayoutSubviews() {
+        // This stupid hack is the only way I've figured out how to get the page to stop
+        // jumping upon swipe.
+        // I *should* be able to do:
+        //     self.webView.scrollView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, 0, 0)
+        // But this simply does not work. 
+        // Strangely, this does not jump:
+        //     self.webView.scrollView.contentInset = .zero
+        // But then content is hidden behind the navigation bar.
+        // Combined with setting self.webView as a "follower" of the navbar, this 
+        // produces the desired behavior
+        self.webView.frame.origin.y = navigationController?.navigationBar.bottom ?? 0
+    }
+    
     func setupWebView() {
         let userContentController = WKUserContentController()
         let handler = NavigationScriptMessageHandler(delegate: self)
@@ -125,43 +147,37 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.webView.restorationIdentifier = "WikiWebView"
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.allowsBackForwardNavigationGestures = true
-        self.webView.uiDelegate = self;
-        self.webView.navigationDelegate = self;
-        self.webViewContainer.addSubview(self.webView)
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        self.automaticallyAdjustsScrollViewInsets = false
         
-        var horizontalConstraints = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|-0-[webView(webViewContainer)]-0-|",
+        self.view.addSubview(self.webView)
+        
+        let horizontalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["webView": webView, "webViewContainer": webViewContainer])
-        var verticalConstraints = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-0-[webView(webViewContainer)]-0-|",
+            views: ["webView": webView, "view": view])
+        let verticalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["webView": webView, "webViewContainer": webViewContainer])
+            views: ["webView": webView, "view": view])
         
-        webViewContainer.addConstraints(horizontalConstraints)
-        webViewContainer.addConstraints(verticalConstraints)
+        view.addConstraints(horizontalConstraints)
+        view.addConstraints(verticalConstraints)
         
-        var swipeGesture = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipeUp"))
-        swipeGesture.numberOfTouchesRequired = 2
-        swipeGesture.direction = .up
-        swipeGesture.delegate = self
-        self.webView.scrollView.addGestureRecognizer(swipeGesture)
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTitleTap"))
         
         titleView = UIButton(type: .system)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
         titleView.showsTouchWhenHighlighted = true
         titleView.isUserInteractionEnabled = true
-        titleView.addTarget(self, action: Selector("handleTitleTap"), for: UIControlEvents.touchUpInside)
+        titleView.addTarget(self, action: #selector(WikiViewController.handleTitleTap), for: UIControlEvents.touchUpInside)
         titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())
         self.navigationController?.navigationItem.titleView = titleView
         
         self.navigationItem.titleView = titleView
-        self.webView.scrollView.delegate = self
     }
 
     // MARK: - Navigation
@@ -237,7 +253,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         initiatedByFrame frame: WKFrameInfo,
         completionHandler: @escaping () -> Void) {
             
-        var alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
             (action) in
             completionHandler()
@@ -268,7 +284,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if let permalink : String = webView.url!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
+        if let permalink : String = webView.url?.absoluteString.lastPathComponent.stringByDeletingPathExtension {
             if permalink != self.currentPage.permalink {
                 if let page = self.wiki.page(permalink) {
                     self.currentPage = page

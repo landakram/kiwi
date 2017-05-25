@@ -12,6 +12,7 @@ def app_pods
     pod 'Notepad', :git => 'https://github.com/landakram/Notepad.git', :branch => 'theme-path'
     pod 'MRProgress'
     pod 'ViewUtils'
+    pod 'AMScrollingNavbar'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
