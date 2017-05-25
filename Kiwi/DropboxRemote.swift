@@ -39,7 +39,7 @@ class DropboxRemote {
     
     public let forcePollCommand: ReplaySubject<Int> = ReplaySubject.createUnbounded()
     
-    var changesets: Observable<Changeset>!
+    var changesets: ConnectableObservable<Changeset>!
     var observable: ConnectableObservable<FilesystemEvent>!
     
     init(client: DropboxClient? = nil) {
@@ -66,7 +66,7 @@ class DropboxRemote {
             changes = pollLoop.startWith(Changeset(entries: [], cursor: cursor!))
         }
         
-        self.changesets = changes
+        self.changesets = changes.publish()
         
         self.observable =
             self.changesets
@@ -190,8 +190,10 @@ class DropboxRemote {
     }
     
     func configure(client: DropboxClient) {
+        print("Configuring DropboxRemote with \(client)")
         self.client = client
         _ = self.observable.connect() // Start emitting events
+        _ = self.changesets.connect()
     }
         
     func write(file: File<Data>) -> Observable<Path> {
