@@ -1,7 +1,7 @@
 use_frameworks!
 
 def app_pods
-    pod 'SwiftyDropbox', :git => 'https://github.com/dropbox/SwiftyDropbox.git', :branch => 'master'
+    pod 'SwiftyDropbox'
     pod 'hoedown'
     pod 'YapDatabase'
     pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.4.0)
+  - Alamofire (4.0.1)
   - CocoaLumberjack (2.4.0):
     - CocoaLumberjack/Default (= 2.4.0)
     - CocoaLumberjack/Extensions (= 2.4.0)
@@ -74,7 +74,7 @@ PODS:
   - SDWebImage/Core (3.8.2)
   - STKWebKitViewController (0.5.0)
   - SwiftyDropbox (4.1.1):
-    - Alamofire (~> 4.4.0)
+    - Alamofire (~> 4.0.1)
   - TUSafariActivity (1.0.4)
   - ViewUtils (1.1.2)
   - Whisper (5.0.0)
@@ -146,7 +146,7 @@ DEPENDENCIES:
   - RxSwiftExt
   - RxTest (~> 3.0)
   - STKWebKitViewController
-  - SwiftyDropbox (from `https://github.com/dropbox/SwiftyDropbox.git`, branch `master`)
+  - SwiftyDropbox
   - TUSafariActivity
   - ViewUtils
   - Whisper
@@ -160,9 +160,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/landakram/GRMustache.git
   RFMarkdownTextView:
     :path: ~/Documents/code/Memex/RFMarkdownTextView
-  SwiftyDropbox:
-    :branch: master
-    :git: https://github.com/dropbox/SwiftyDropbox.git
 
 CHECKOUT OPTIONS:
   FileKit:
@@ -171,12 +168,9 @@ CHECKOUT OPTIONS:
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
-  SwiftyDropbox:
-    :commit: 5a1b8d01b9195fc8c638029e5c9c4f46442d9c18
-    :git: https://github.com/dropbox/SwiftyDropbox.git
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
@@ -200,7 +194,7 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   STKWebKitViewController: 1371f39e5f697de11aa091064eeed6eb515a2511
-  SwiftyDropbox: 5b48d40e51265659ce5478f311a5d0a10f14c32f
+  SwiftyDropbox: dfcd4d308d32d74729255b48833db61acdfb9c23
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
@@ -208,4 +202,4 @@ SPEC CHECKSUMS:
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 2cefeddbf525fb7d986e74c5b2ae5d26994e7f4e
+PODFILE CHECKSUM: d07fe1eecad5b4d2148015b3d5245278992dac3e

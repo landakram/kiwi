@@ -25,6 +25,10 @@ struct Changeset {
     }
 }
 
+struct DropboxError: Error, CustomStringConvertible {
+    let description: String
+}
+
 class DropboxRemote {
     static let sharedInstance = DropboxRemote()
     
@@ -99,9 +103,7 @@ class DropboxRemote {
                     }
                     observer.onCompleted()
                 } else {
-                    observer.onCompleted()
-                    // TODO: need to reconcile Dropbox error type with Error
-//                    observer.onError(error as! Error)
+                    observer.onError(DropboxError(description: error!.description))
                 }
             }
             
@@ -129,7 +131,7 @@ class DropboxRemote {
         return Observable<Files.ListFolderResult>.create { observer in
             let request = self.client.files.listFolder(path: path, recursive: true).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderError)>?) in
                 guard let result = maybeResult else {
-                    observer.onError(error! as! Error)
+                    observer.onError(DropboxError(description: error!.description))
                     return
                 }
                 
@@ -168,7 +170,7 @@ class DropboxRemote {
             let request = self.client.files.listFolderContinue(cursor: cursor)
             request.response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderContinueError)>?) in
                 guard let result = maybeResult else {
-                    observer.onError(error! as! Error)
+                    observer.onError(DropboxError(description: error!.description))
                     return
                 }
                 
