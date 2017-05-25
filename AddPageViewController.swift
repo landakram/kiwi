@@ -8,29 +8,81 @@
 
 import UIKit
 import ViewUtils
-import RFMarkdownTextView
+import RFKeyboardToolbar
+import Notepad
 
-class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var textViewHeightConstraint: NSLayoutConstraint!
     
-    var textView: MarkdownTextView!
+    var textView: Notepad!
     var page: Page?
     var wiki: Wiki!
-    
-    var imageBlock: ImageBlock! 
     
     var bottommostVisibleText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView = MarkdownTextView(frame: self.view.bounds)
+        textView = Notepad(frame: self.view.bounds, themeFile: "base16-tomorrow-light")
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
+
+        let buttons = [
+            RFToolbarButton(title: "#", andEventHandler: { 
+                self.textView.insertText("#")
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "*", andEventHandler: { 
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(with: "*")
+                } else {
+                    self.textView.insertText("*")
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Indent", andEventHandler: {
+                self.textView.insertText("  ")
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Wiki Link", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(withStart: "[[", end: "]]")
+                    let linkName = self.textView.text(in: self.textView.selectedTextRange!)
+                    self.textView.replace(self.textView.selectedTextRange!, withText: linkName!.capitalized)
+                } else {
+                    var range = self.textView.selectedRange
+                    range.location += 2
+                    self.textView.insertText("[[]]")
+                    self.textView.selectedRange = range
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "`", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(with: "`")
+                } else {
+                    self.textView.insertText("`")
+                }
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Photo", andEventHandler: {
+                self.textViewWantsImage()
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Link", andEventHandler: {
+                var range = self.textView.selectedRange
+                range.location += 1
+                self.textView.insertText("[]()")
+                self.textView.selectedRange = range
+            }, for: .touchUpInside),
+            RFToolbarButton(title: "Quote", andEventHandler: {
+                var range = self.textView.selectedRange
+                range.location += 3
+                self.textView.insertText(self.textView.text.characters.count == 0 ? "> " : "\n> ")
+                self.textView.selectedRange = range
+            }, for: .touchUpInside),
+            
+        ]
         
+        textView.inputAccessoryView = RFKeyboardToolbar(buttons: buttons)
         self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(textView)
+        
         
         let dict = ["textView": textView!]
         let horizontalConstraints = NSLayoutConstraint.constraints(
@@ -44,11 +96,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             metrics: nil,
             views: ["textView" : textView!])
         view.addConstraints(verticalConstraints)
-        view.addConstraints(horizontalConstraints)
+        view.addConstraints(horizontalConstraints) 
+ 
         
         textView.isScrollEnabled = true
-        textView.imagePickerDelegate = self
-        textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.y + self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
+        textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         
         // 50 is estimated from the size of the left and right bar button items
@@ -92,6 +144,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
             object: nil
         )
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        
         if let visibleText = (self.bottommostVisibleText as NSString?) {
             var searchText: NSString = visibleText.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
             let start = min(1, searchText.length)
@@ -117,6 +171,28 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.textView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, 0, 0)
+                self.textView.scrollIndicatorInsets = self.textView.contentInset
+            } else {
+                self.textView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, endFrame?.size.height ?? 0, 0);
+                self.textView.scrollIndicatorInsets = self.textView.contentInset;
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -210,18 +286,19 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         }
     }
     
-    func textViewWantsImage(_ textView: RFMarkdownTextView!, completion imageBlock: ImageBlock!) {
+    
+    func textViewWantsImage() {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
         picker.modalPresentationStyle = .popover
         picker.delegate = self
         
-        self.imageBlock = imageBlock
         picker.popoverPresentationController?.sourceView = textView
         picker.popoverPresentationController?.sourceRect = textView.caretRect(for: (textView.selectedTextRange?.start)!)
         self.present(picker, animated: true, completion: nil)
     }
+ 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
@@ -229,7 +306,10 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         let imageFileName = self.wiki.saveImage(chosenImage)
         
-        imageBlock(imageFileName)
+        var range = self.textView.selectedRange
+        range.location += 2
+        self.textView.insertText("![](img/\(imageFileName))")
+        self.textView.selectedRange = range
     }
     
     func textFieldDidChange() {
@@ -263,5 +343,22 @@ class AddPageViewController: UIViewController, UITextViewDelegate, ImagePickerDe
         let titleField = self.navigationItem.titleView as! UITextField
         titleField.text = coder.decodeObject(forKey: "titleText") as! String
         textFieldDidChange()
+    }
+}
+
+extension Notepad {
+    func wrapSelectedRange(with string: String!) {
+        return self.wrapSelectedRange(withStart: string, end: string)
+    }
+    
+    func wrapSelectedRange(withStart startString: String!, end endString: String!) {
+        let length = self.selectedRange.length;
+        let location = self.selectedRange.location;
+        self.selectedRange = NSMakeRange(self.selectedRange.location, 0)
+        self.insertText(startString)
+        let endLocation = self.selectedRange.location + length;
+        self.selectedRange = NSMakeRange(endLocation, 0)
+        self.insertText(endString)
+        self.selectedRange = NSMakeRange(location + startString.lengthOfBytes(using: .utf8), length)
     }
 }

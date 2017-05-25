@@ -13,7 +13,6 @@ I'm thankful to have been built with open-source software and, in turn, so thank
 * [Commonplace](https://github.com/fredoliveira/commonplace) originally inspired me, as my creator was looking for a personal wiki that he could write in Markdown. My creator actually uses Commonplace to view me on his computer!
 * [Hoedown](https://github.com/hoedown/hoedown) parses Markdown for me
 * [GRMustache](https://github.com/groue/GRMustache) templates my pages
-* [RFMarkdownTextView](https://github.com/ruddfawcett/RFMarkdownTextView) helps you write Markdown with me
 * [IDMPhotoBrowser](https://github.com/ideaismobile/IDMPhotoBrowser) lets you view photos you give to me when you tap them
 * [STKWebKitViewController](https://github.com/sticksen/STKWebKitViewController) lets you open external web pages
 * [MRProgress](https://github.com/mrackwitz/MRProgress) lets me do stuff in the background and make it look pretty
