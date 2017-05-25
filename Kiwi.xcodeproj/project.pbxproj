@@ -27,6 +27,8 @@
 		4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
 		4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
 		4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
+		4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
+		4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
 		4D3D8E1E1BB4A064000C53EE /* Config.development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */; };
 		4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */; };
 		4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
@@ -145,6 +147,7 @@
 		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D36BA611DD1980E00C9408F /* Filesystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filesystem.swift; sourceTree = "<group>"; };
 		4D36BA641DD1B7F800C9408F /* SyncEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
+		4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "base16-tomorrow-light.json"; sourceTree = "<group>"; };
 		4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.development.xcconfig; sourceTree = "<group>"; };
 		4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.production.xcconfig; sourceTree = "<group>"; };
 		4D3D8E571BB4A1CF000C53EE /* KiwiDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiwiDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -299,6 +302,7 @@
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
 				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
 				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
 				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
@@ -497,6 +501,7 @@
 				4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */,
 				4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */,
 				4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */,
+				4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +540,7 @@
 				4D3D8E4F1BB4A1CF000C53EE /* Images.xcassets in Resources */,
 				4D3D8E501BB4A1CF000C53EE /* gray@2x.png in Resources */,
 				4D3D8E511BB4A1CF000C53EE /* checkmark@2x.png in Resources */,
+				4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

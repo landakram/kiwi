@@ -137,7 +137,7 @@ DEPENDENCIES:
   - IDMPhotoBrowser
   - MRProgress
   - Nimble
-  - Notepad (from `https://github.com/ruddfawcett/Notepad.git`)
+  - Notepad (from `https://github.com/landakram/Notepad.git`, branch `theme-path`)
   - Quick
   - RFKeyboardToolbar
   - RxBlocking (~> 3.0)
@@ -159,7 +159,8 @@ EXTERNAL SOURCES:
   GRMustache:
     :git: https://github.com/landakram/GRMustache.git
   Notepad:
-    :git: https://github.com/ruddfawcett/Notepad.git
+    :branch: theme-path
+    :git: https://github.com/landakram/Notepad.git
 
 CHECKOUT OPTIONS:
   FileKit:
@@ -169,8 +170,8 @@ CHECKOUT OPTIONS:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
   Notepad:
-    :commit: c7b1429902519d230e050246772d090b7a26fbec
-    :git: https://github.com/ruddfawcett/Notepad.git
+    :commit: e13f630b519a1209a2900d6bfb715d8dc4e0f26c
+    :git: https://github.com/landakram/Notepad.git
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
@@ -205,4 +206,4 @@ SPEC CHECKSUMS:
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 822bd9c40acca6b796a1c7af85a96f4f0cd36c61
+PODFILE CHECKSUM: be88fa6d1eaee2b0a3817f373f5d58973857bc2d

@@ -9,7 +9,7 @@ def app_pods
     pod 'IDMPhotoBrowser'
     pod "STKWebKitViewController"
     pod 'TUSafariActivity'
-    pod 'Notepad', :git => 'https://github.com/ruddfawcett/Notepad.git'
+    pod 'Notepad', :git => 'https://github.com/landakram/Notepad.git', :branch => 'theme-path'
     pod 'MRProgress'
     pod 'ViewUtils'
     pod 'Fabric'

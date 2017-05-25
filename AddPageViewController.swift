@@ -24,7 +24,8 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textView = Notepad(frame: self.view.bounds, themeFile: "base16-tomorrow-light")
+        let theme = Theme(themePath: Bundle.main.path(forResource: "base16-tomorrow-light", ofType: "json")!)
+        textView = Notepad(frame: self.view.bounds, theme: theme)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
 
