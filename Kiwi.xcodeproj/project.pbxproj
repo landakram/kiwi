@@ -27,6 +27,8 @@
 		4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
 		4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
 		4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
+		4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
+		4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
 		4D3D8E1E1BB4A064000C53EE /* Config.development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */; };
 		4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */; };
 		4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
@@ -80,8 +82,6 @@
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
 		4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
 		4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
-		4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
-		4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
 		4D5F93DD1AB00F5900D92886 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93DC1AB00F5900D92886 /* green@2x.png */; };
 		4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93E01AB02A3F00D92886 /* menu@2x.png */; };
@@ -147,6 +147,7 @@
 		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D36BA611DD1980E00C9408F /* Filesystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filesystem.swift; sourceTree = "<group>"; };
 		4D36BA641DD1B7F800C9408F /* SyncEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
+		4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "base16-tomorrow-light.json"; sourceTree = "<group>"; };
 		4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.development.xcconfig; sourceTree = "<group>"; };
 		4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.production.xcconfig; sourceTree = "<group>"; };
 		4D3D8E571BB4A1CF000C53EE /* KiwiDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiwiDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,7 +160,6 @@
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
 		4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indexer.swift; sourceTree = "<group>"; };
-		4D5829911C587CE50053C65A /* MarkdownTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -287,7 +287,6 @@
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
 				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
-				4D5829911C587CE50053C65A /* MarkdownTextView.swift */,
 				4D8842CF1C7C3AEA00C70A17 /* Kiwi.playground */,
 				4D4582721D94963E00EBEDD8 /* Constants.m */,
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
@@ -303,6 +302,7 @@
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
 				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
 				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
 				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
@@ -501,6 +501,7 @@
 				4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */,
 				4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */,
 				4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */,
+				4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +540,7 @@
 				4D3D8E4F1BB4A1CF000C53EE /* Images.xcassets in Resources */,
 				4D3D8E501BB4A1CF000C53EE /* gray@2x.png in Resources */,
 				4D3D8E511BB4A1CF000C53EE /* checkmark@2x.png in Resources */,
+				4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,7 +715,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
 				4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */,
@@ -756,7 +757,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */,
-				4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
 				4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,

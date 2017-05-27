@@ -5,12 +5,14 @@ def app_pods
     pod 'hoedown'
     pod 'YapDatabase'
     pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'
-    pod "RFMarkdownTextView", :path => '~/Documents/code/Memex/RFMarkdownTextView'
+    pod "RFKeyboardToolbar"
     pod 'IDMPhotoBrowser'
     pod "STKWebKitViewController"
     pod 'TUSafariActivity'
+    pod 'Notepad', :git => 'https://github.com/landakram/Notepad.git', :branch => 'theme-path'
     pod 'MRProgress'
     pod 'ViewUtils'
+    pod 'AMScrollingNavbar'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
