@@ -82,6 +82,14 @@
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
 		4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
 		4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
+		4D53FEA91EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */; };
+		4D53FEAA1EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */; };
+		4D53FEAB1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */; };
+		4D53FEAC1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */; };
+		4D53FEAE1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEAF1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEB01EDCD90D00FDFE0F /* update_notes_2.0.0.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEB11EDCD91400FDFE0F /* update_notes_2.0.0.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
 		4D5F93DD1AB00F5900D92886 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93DC1AB00F5900D92886 /* green@2x.png */; };
 		4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93E01AB02A3F00D92886 /* menu@2x.png */; };
@@ -160,6 +168,9 @@
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
 		4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indexer.swift; sourceTree = "<group>"; };
+		4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateNotesViewController.swift; sourceTree = "<group>"; };
+		4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateNotesViewController.xib; sourceTree = "<group>"; };
+		4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = update_notes_2.0.0.md; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
@@ -295,6 +306,8 @@
 				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
 				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
 				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
+				4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */,
+				4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -323,6 +336,7 @@
 				4D44273D1B1D7C9000B35C01 /* prism.js */,
 				4D0378101AA881BA00B6D841 /* links.js */,
 				4D4427391B1D710000B35C01 /* auto-render-latex.min.js */,
+				4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -477,9 +491,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D53FEB01EDCD90D00FDFE0F /* update_notes_2.0.0.md in Resources */,
 				4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */,
 				4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */,
 				4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */,
+				4D53FEAB1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
 				4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */,
 				4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */,
@@ -516,9 +532,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D53FEB11EDCD91400FDFE0F /* update_notes_2.0.0.md in Resources */,
 				4D3D8E3A1BB4A1CF000C53EE /* available_in_dropbox.md in Resources */,
 				4D3D8E3B1BB4A1CF000C53EE /* working_with_pages.md in Resources */,
 				4D3D8E3C1BB4A1CF000C53EE /* acknowledgements.md in Resources */,
+				4D53FEAC1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D3D8E3D1BB4A1CF000C53EE /* IDMPBLocalizations.bundle in Resources */,
 				4D3D8E3E1BB4A1CF000C53EE /* Config.production.xcconfig in Resources */,
 				4D3D8E3F1BB4A1CF000C53EE /* writing_with_kiwi.md in Resources */,
@@ -717,7 +735,9 @@
 			files = (
 				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
+				4D53FEA91EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */,
 				4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */,
+				4D53FEAE1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
@@ -758,7 +778,9 @@
 			files = (
 				4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
+				4D53FEAA1EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */,
 				4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */,
+				4D53FEAF1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,

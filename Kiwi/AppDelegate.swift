@@ -12,6 +12,7 @@ import Crashlytics
 import FileKit
 import SwiftyDropbox
 import AMScrollingNavbar
+import YapDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]
+        } else if self.isUpdating() {
+            let conn = Yap.sharedInstance.newConnection()
+            conn.readWrite({ (t: YapDatabaseReadWriteTransaction) in
+                t.removeAllObjectsInAllCollections()
+            })
+            
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+            rootViewController?.upgradingFromV1 = true
+            rootNavigationController?.viewControllers = [rootViewController!]
+            
+            let deadlineTime = DispatchTime.now() + .seconds(3)
+            DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                self.markVersion()
+            }
         } else {
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
             rootNavigationController?.viewControllers = [rootViewController!]
@@ -98,11 +113,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        if self.isUpdating() {
+            print("Not restoring state")
+            return false
+        }
+        print("Restoring state")
         return true
     }
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
+    }
+    
+    
+    func isLoadingForFirstTime() -> Bool {
+        return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
+    }
+    
+    func markVersion() {
+        let defaults = UserDefaults.standard
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        defaults.set(currentAppVersion, forKey: "appVersion")
+    }
+    
+    func isUpdating() -> Bool {
+        let defaults = UserDefaults.standard
+        
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let previousVersion = defaults.string(forKey: "appVersion")
+        if previousVersion == nil && self.isLoadingForFirstTime() {
+            // first launch
+            return false
+        } else if previousVersion == nil && !self.isLoadingForFirstTime() {
+            // First time setting the app version
+            return true
+        }
+        else if previousVersion == currentAppVersion {
+            // same version
+            return false
+        } else {
+            // other version
+            return true
+        }
     }
 }
 
