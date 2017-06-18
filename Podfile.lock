@@ -73,11 +73,11 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - STKWebKitViewController (0.5.0)
+  - SwiftMessages (3.3.3)
   - SwiftyDropbox (4.1.1):
     - Alamofire (~> 4.0.1)
   - TUSafariActivity (1.0.4)
   - ViewUtils (1.1.2)
-  - Whisper (5.0.0)
   - YapDatabase (2.9.2):
     - YapDatabase/Standard (= 2.9.2)
   - YapDatabase/Standard (2.9.2):
@@ -148,10 +148,10 @@ DEPENDENCIES:
   - RxSwiftExt
   - RxTest (~> 3.0)
   - STKWebKitViewController
+  - SwiftMessages
   - SwiftyDropbox
   - TUSafariActivity
   - ViewUtils
-  - Whisper
   - YapDatabase
 
 EXTERNAL SOURCES:
@@ -201,12 +201,12 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   STKWebKitViewController: 1371f39e5f697de11aa091064eeed6eb515a2511
+  SwiftMessages: 09cea3336e3fb63c3578983c8aac65acaa6d884a
   SwiftyDropbox: dfcd4d308d32d74729255b48833db61acdfb9c23
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
-  Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
   YapDatabase: b1e43555a34a5298e23a045be96817a5ef0da58f
 
 COCOAPODS: 1.1.1
 
-PODFILE CHECKSUM: 9b328b705a044393188249bd20958fc610284ade
+PODFILE CHECKSUM: 1116db6b34d8e1107275e5d9eb6bf78372ee563a

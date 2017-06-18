@@ -13,6 +13,8 @@ import FileKit
 import SwiftyDropbox
 import AMScrollingNavbar
 import YapDatabase
+import RxSwift
+import SwiftMessages
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var filesystem: Filesystem = Filesystem.sharedInstance
     var syncEngine: SyncEngine = SyncEngine.sharedInstance
     var indexer: Indexer = Indexer.sharedInstance
+    
+    var disposeBag: DisposeBag = DisposeBag()
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -57,6 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             rootNavigationController?.viewControllers = [rootViewController!]
         }
         
+        setUpStatusBarMessages()
+        
         self.window?.rootViewController = rootNavigationController
         self.window?.makeKeyAndVisible()
         let kiwiColor = Constants.KiwiColor
@@ -71,6 +77,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         return true
+    }
+    
+    func setUpStatusBarMessages() {
+        let view = MessageView.viewFromNib(layout: .StatusLine)
+        var config = SwiftMessages.Config()
+        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+        config.duration = .indefinite(delay: 0, minimum: 1)
+        
+        var lastPushFilename: String? = nil
+        var lastPullFilename: String? = nil
+        self.syncEngine.events.subscribe(onNext: { (o: Operations) in
+            switch o {
+            case .PullOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    let filename = path.fileName
+                    lastPullFilename = filename
+                    operation.stream.subscribe(onNext: { (e: Either<Progress, Path>) in
+                        switch e {
+                        case .left( _):
+                            // When a file is pushed, it is then pulled right after.
+                            // This not-so-gracefully prevents ths subsequent pull message 
+                            // from showing
+                            if lastPushFilename != filename {
+                                view.configureContent(body: "Downloading \(filename)...")
+                                SwiftMessages.show(config: config, view: view)
+                            }
+                        case .right( _): break
+                        }
+                        
+                        // Reset the lastPullFilename after a few seconds
+                        // This way, we still show notifications if a remote
+                        // file is changed repeatedly.
+                        let deadlineTime = DispatchTime.now() + .seconds(3)
+                        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                            if lastPullFilename == filename {
+                                lastPullFilename = nil
+                            }
+                        }
+
+                    }, onCompleted: { 
+                        SwiftMessages.hide(id: view.id)
+                    }).disposed(by: self.disposeBag)
+                default: break
+                }
+            case .PushOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    let filename = path.fileName
+                    lastPushFilename = filename
+                    operation.stream.subscribe(onNext: { (e: Either<Progress, Path>) in
+                        switch e {
+                        case .left(_):
+                            if lastPullFilename != filename {
+                                view.configureContent(body: "Uploading \(filename)...")
+                                SwiftMessages.show(config: config, view: view)
+                            }
+                        case .right(_): break
+                        }
+                        
+                        let deadlineTime = DispatchTime.now() + .seconds(3)
+                        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                            if lastPushFilename == filename {
+                                lastPushFilename = nil
+                            }
+                        }
+                    }, onCompleted: {
+                        SwiftMessages.hide(id: view.id)
+                    }).disposed(by: self.disposeBag)
+                default: break
+                }
+            }
+        }).disposed(by: self.disposeBag)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

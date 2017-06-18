@@ -19,7 +19,7 @@ def app_pods
     pod 'RxSwift',    '~> 3.0'
     pod "RxSwiftExt"
     pod 'RxCocoa',    '~> 3.0'
-    pod 'Whisper'
+    pod 'SwiftMessages'
 end
 
 target 'Kiwi' do

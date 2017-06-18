@@ -196,14 +196,17 @@ class DropboxRemote {
         _ = self.changesets.connect() // Start emitting events
     }
         
-    func write(file: File<Data>) -> Observable<Path> {
-        return Observable.create({ (observer: AnyObserver<Path>) -> Disposable in
+    func write(file: File<Data>) -> Observable<Either<Progress, Path>> {
+        return Observable.create({ observer in
             let request = self.client.files.upload(path: self.fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
-            
+            request.progress({ (p: Progress) in
+                observer.onNext(.left(p))
+            })
             request.response { (metadata: Files.FileMetadata?, error: CallError<(Files.UploadError)>?) in
                 if error == nil {
                     print("write to remote \(file.path.rawValue)")
-                    observer.onNext(file.path)
+                    observer.onNext(.right(file.path))
+                    observer.onCompleted()
                 } else {
                     print("write to remote \(file.path.rawValue) failure: \(error!)")
                     observer.onError(RemoteError.WriteError(path: file.path))
@@ -217,16 +220,18 @@ class DropboxRemote {
         })
     }
     
-    func delete<T: ReadableWritable>(file: File<T>) -> Observable<Path> {
+    func delete<T: ReadableWritable>(file: File<T>) -> Observable<Either<Progress, Path>> {
         return self.delete(path: file.path)
     }
     
-    func delete(path: Path) -> Observable<Path> {
-        return Observable.create({ (observer: AnyObserver<Path>) -> Disposable in
+    func delete(path: Path) -> Observable<Either<Progress, Path>> {
+        return Observable.create({ observer in
             let request = self.client.files.delete(path: self.fromRoot(path).rawValue)
+            observer.onNext(.left(Progress(totalUnitCount: 100))) // Fake the progress since Dropbox does not report it
             request.response(completionHandler: { (metadata: Files.Metadata?, error: CallError<(Files.DeleteError)>?) in
                 if error == nil {
-                    observer.onNext(path)
+                    observer.onNext(.right(path))
+                    observer.onCompleted()
                 } else {
                     observer.onError(RemoteError.WriteError(path: path))
                 }

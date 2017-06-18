@@ -102,12 +102,14 @@ class LinkWithDropboxViewController: UIViewController {
                     return path.fileName == "home.md"
                 default: return false
                 }
+            default: return false
             }
         }.flatMap({ (o: Operations) -> Observable<Either<Progress, Path>> in
             print("found home pull operation")
             switch o {
             case .PullOperation(let operation):
                 return operation.stream
+            default: return Observable.empty()
             }
         })
     }
