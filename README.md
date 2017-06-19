@@ -9,6 +9,8 @@ Kiwi is a personal wiki app for iOS. A short list of features:
 * You can add photos, use LaTeX, make checkboxes, and write syntax-highlighted 
   code snippets and prose
 
+<img src="Screenshots/screenshot1.jpeg" width="200" /> <img src="Screenshots/screenshot2.jpeg" width="200" /> <img src="Screenshots/screenshot3.jpeg" width="200" /> <img src="Screenshots/screenshot4.jpeg" width="200" /> 
+
 ## Getting started
 
 Are you interested in **using the app**? Consider supporting me by [buying it in
