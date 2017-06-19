@@ -12,12 +12,10 @@ import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
 import TUSafariActivity
-import Whisper
 import RxSwift
 import AMScrollingNavbar
 
 class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     var titleView : UIButton!
     
@@ -57,7 +55,10 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.navigationController?.isNavigationBarHidden = false;
         
         self.setupWebView()
-        
+        self.setUpWiki()
+    }
+    
+    func setUpWiki() {
         self.wiki = Wiki()
         
         if (self.isLoadingForFirstTime()) {
@@ -68,6 +69,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         // TODO: these are related to actually rendering the wiki as HTML and should be encapsulated
         self.wiki.writeResouceFiles()
         self.wiki.copyImagesToLocalCache()
+        
         self.renderPermalink("home")
         
         self.wiki.stream.subscribe(onNext: { (event: WikiEvent) in

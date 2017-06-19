@@ -44,6 +44,7 @@ enum Either<T, U> {
 }
 
 enum Operations {
+    case PushOperation(operation: PushOperation)
     case PullOperation(operation: PullOperation)
 }
 
@@ -77,51 +78,18 @@ class SyncEngine {
     
     func start() {
         self.local.events.subscribe(onNext: { (event: FilesystemEvent) in
-            switch event {
-            case .delete(let path):
-                // The path may be absolute, so we need to translate to a relative path
-                // that is in common with the remote filesystem.
-                //
-                // i.e. it might be /usr/docs/wiki/page.md
-                // where /usr/docs/ is specific to this platform.
-                let relativePath = path.relativeTo(self.local.root)
-                self.dirtyStore.add(path: relativePath)
-                self.push(event: .delete(path: relativePath)).subscribe(onNext: { (_) in
-                    self.dirtyStore.remove(path: path)
-                }).disposed(by: self.disposeBag)
-            // TODO: Do I need to do error handling of the above?
-            case .write(let path):
-                let relativePath = path.relativeTo(self.local.root)
-                self.dirtyStore.add(path: path)
-                self.push(event: .write(path: relativePath)).subscribe(onNext: { (_) in
-                    self.dirtyStore.remove(path: path)
-                }).disposed(by: self.disposeBag)
-                // TODO: Do I need to do error handling of the above?
-            }
+            _ = self.push(event: event)
         }).disposed(by: disposeBag)
         
         self.remote.observable.subscribe(onNext: { (event: FilesystemEvent) in
-            self.pull(event: event)
+            _ = self.pull(event: event)
         }).disposed(by: disposeBag)
     }
     
-    func push(event: FilesystemEvent) -> Observable<Path> {
-        switch event {
-        case .delete(let path):
-            // TODO: handle conflicts.
-            // Right now, this always prefers our version.
-            return self.remote.delete(path: path)
-        case .write(let path):
-            // TODO: handle conflicts.
-            // Right now, this always prefers our version.
-            let file: File<Data> = try! self.local.read(path: path)
-            // The path may be absolute, so we need to translate to a relative path
-            // that is in common with the remote filesystem.
-            //
-            // i.e. it might be /usr/docs/wiki/page.md
-            // where /usr/docs/ is specific to this platform.
-            return self.remote.write(file: File(path: file.path.relativeTo(self.local.root), contents: file.contents))
-        }
+    func push(event: FilesystemEvent) -> Observable<Either<Progress, Path>> {
+        let operation = PushOperation(event: event, local: self.local, remote: self.remote, dirtyStore: self.dirtyStore)
+        self.subject.onNext(.PushOperation(operation: operation))
+        return operation.execute()
     }
     
     func pull(event: FilesystemEvent) -> Observable<Either<Progress, Path>> {
@@ -154,7 +122,7 @@ class SyncEngine {
 /**
  * Tracks the dirty state of paths in the local filesystem.
  */
-struct DirtyStore {
+class DirtyStore {
     private var backingSet: Set<String> = Set<String>()
     
     private var localStorage: UserDefaults = UserDefaults.standard
@@ -167,12 +135,12 @@ struct DirtyStore {
         }
     }
     
-    mutating func add(path: Path) {
+    func add(path: Path) {
         backingSet.insert(path.standardRawValue)
         localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
     
-    mutating func remove(path: Path) {
+    func remove(path: Path) {
         backingSet.remove(path.standardRawValue)
         localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
@@ -187,6 +155,61 @@ struct DirtyStore {
         }).map({ (rawPath: String) -> Path in
             return Path(rawPath)
         })
+    }
+}
+
+class PushOperation: Operation {
+    func execute() -> Observable<Either<Progress, Path>> {
+        switch event {
+        case .delete(let path):
+            // TODO: handle conflicts.
+            // Right now, this always prefers our version.
+            
+            self.dirtyStore.add(path: path)
+            self.remote.delete(path: path.relativeTo(self.local.root)).do(onNext: { (e: Either<Progress, Path>) in
+                _ = e.mapRight({ (p: Path) -> Path in
+                    self.dirtyStore.remove(path: path)
+                    return p
+                })
+            }).subscribe(self.subject)
+        case .write(let path):
+            // TODO: handle conflicts.
+            // Right now, this always prefers our version.
+            let file: File<Data> = try! self.local.read(path: path)
+            // The path may be absolute, so we need to translate to a relative path
+            // that is in common with the remote filesystem.
+            //
+            // i.e. it might be /usr/docs/wiki/page.md
+            // where /usr/docs/ is specific to this platform.
+            
+            self.dirtyStore.add(path: path)
+            self.remote.write(file: File(path: file.path.relativeTo(self.local.root), contents: file.contents)).do(onNext: { (e: Either<Progress, Path>) in
+                _ = e.mapRight({ (p: Path) -> Path in
+                    self.dirtyStore.remove(path: path)
+                    return p
+                })
+            }).subscribe(self.subject)
+        }
+        return self.stream
+    }
+    
+    let event: FilesystemEvent
+    let local: Filesystem
+    let remote: DropboxRemote
+    var dirtyStore: DirtyStore
+    
+    var stream: Observable<Either<Progress, Path>> {
+        get {
+            return self.subject
+        }
+    }
+    private var subject: ReplaySubject<Either<Progress, Path>> = ReplaySubject.createUnbounded()
+    
+    init(event: FilesystemEvent, local: Filesystem, remote: DropboxRemote, dirtyStore: DirtyStore) {
+        self.event = event
+        self.local = local
+        self.remote = remote
+        self.dirtyStore = dirtyStore
     }
 }
 

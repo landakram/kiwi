@@ -12,6 +12,11 @@ import Crashlytics
 import FileKit
 import SwiftyDropbox
 import AMScrollingNavbar
+import YapDatabase
+import RxSwift
+import SwiftMessages
+import ReachabilitySwift
+import RxReachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var filesystem: Filesystem = Filesystem.sharedInstance
     var syncEngine: SyncEngine = SyncEngine.sharedInstance
     var indexer: Indexer = Indexer.sharedInstance
+    
+    var disposeBag: DisposeBag = DisposeBag()
+    
+    var reachability: Reachability?
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -33,14 +42,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let client = DropboxClientsManager.authorizedClient {
             syncEngine.remote.configure(client: client)
-            syncEngine.sweep()
+            
+            self.syncEngine.sweep()
+            
+            reachability = Reachability()
+            try? reachability?.startNotifier()
+            reachability?.rx.isConnected
+                .subscribe(onNext: {
+                    self.syncEngine.sweep()
+                })
+                .addDisposableTo(disposeBag)
             
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]
+        } else if self.isUpdating() {
+            let conn = Yap.sharedInstance.newConnection()
+            conn.readWrite({ (t: YapDatabaseReadWriteTransaction) in
+                t.removeAllObjectsInAllCollections()
+            })
+            
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+            rootViewController?.upgradingFromV1 = true
+            rootNavigationController?.viewControllers = [rootViewController!]
+            
+            let deadlineTime = DispatchTime.now() + .seconds(3)
+            DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                self.markVersion()
+            }
         } else {
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
             rootNavigationController?.viewControllers = [rootViewController!]
         }
+        
+        setUpStatusBarMessages()
         
         self.window?.rootViewController = rootNavigationController
         self.window?.makeKeyAndVisible()
@@ -56,6 +90,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         return true
+    }
+    
+    func setUpStatusBarMessages() {
+        let view = MessageView.viewFromNib(layout: .StatusLine)
+        var config = SwiftMessages.Config()
+        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+        config.duration = .indefinite(delay: 0, minimum: 1)
+        
+        var lastPushFilename: String? = nil
+        var lastPullFilename: String? = nil
+        self.syncEngine.events.subscribe(onNext: { (o: Operations) in
+            switch o {
+            case .PullOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    let filename = path.fileName
+                    lastPullFilename = filename
+                    operation.stream.subscribe(onNext: { (e: Either<Progress, Path>) in
+                        switch e {
+                        case .left( _):
+                            // When a file is pushed, it is then pulled right after.
+                            // This not-so-gracefully prevents ths subsequent pull message 
+                            // from showing
+                            if lastPushFilename != filename {
+                                view.configureContent(body: "Downloading \(filename)...")
+                                SwiftMessages.show(config: config, view: view)
+                            }
+                        case .right( _): break
+                        }
+                        
+                        // Reset the lastPullFilename after a few seconds
+                        // This way, we still show notifications if a remote
+                        // file is changed repeatedly.
+                        let deadlineTime = DispatchTime.now() + .seconds(3)
+                        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                            if lastPullFilename == filename {
+                                lastPullFilename = nil
+                            }
+                        }
+
+                    }, onCompleted: { 
+                        SwiftMessages.hide(id: view.id)
+                    }).disposed(by: self.disposeBag)
+                default: break
+                }
+            case .PushOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    let filename = path.fileName
+                    lastPushFilename = filename
+                    operation.stream.subscribe(onNext: { (e: Either<Progress, Path>) in
+                        switch e {
+                        case .left(_):
+                            if lastPullFilename != filename {
+                                view.configureContent(body: "Uploading \(filename)...")
+                                SwiftMessages.show(config: config, view: view)
+                            }
+                        case .right(_): break
+                        }
+                        
+                        let deadlineTime = DispatchTime.now() + .seconds(3)
+                        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                            if lastPushFilename == filename {
+                                lastPushFilename = nil
+                            }
+                        }
+                    }, onCompleted: {
+                        SwiftMessages.hide(id: view.id)
+                    }).disposed(by: self.disposeBag)
+                default: break
+                }
+            }
+        }).disposed(by: self.disposeBag)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -98,11 +205,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        if self.isUpdating() {
+            print("Not restoring state")
+            return false
+        }
+        print("Restoring state")
         return true
     }
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         return true
+    }
+    
+    
+    func isLoadingForFirstTime() -> Bool {
+        return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
+    }
+    
+    func markVersion() {
+        let defaults = UserDefaults.standard
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        defaults.set(currentAppVersion, forKey: "appVersion")
+    }
+    
+    func isUpdating() -> Bool {
+        let defaults = UserDefaults.standard
+        
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let previousVersion = defaults.string(forKey: "appVersion")
+        if previousVersion == nil && self.isLoadingForFirstTime() {
+            // first launch
+            return false
+        } else if previousVersion == nil && !self.isLoadingForFirstTime() {
+            // First time setting the app version
+            return true
+        }
+        else if previousVersion == currentAppVersion {
+            // same version
+            return false
+        } else {
+            // other version
+            return true
+        }
     }
 }
 

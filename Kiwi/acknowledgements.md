@@ -20,5 +20,6 @@ I'm thankful to have been built with open-source software and, in turn, so thank
 * [AMScrollingNavbar](https://github.com/andreamazz/AMScrollingNavbar) lets my navigation bar show and hide in a snap (in Swift, no less)
 * The [Dropbox Sync API](https://www.dropbox.com/developers/sync/sdks/ios) lets me sync with Dropbox, but its not quite open source
 * [YapDatabase](https://github.com/yapstudios/YapDatabase) lets you search pages really fast
+* [Notepad](https://github.com/ruddfawcett/Notepad) lets you write Markdown
 * [KaTeX](https://khan.github.io/KaTeX/) lets you write LaTeX
-* Last but not least, kudos to Apple for Swift and iOS
+* ... and others, better documented [here](https://github.com/landakram/kiwi/blob/master/Podfile)

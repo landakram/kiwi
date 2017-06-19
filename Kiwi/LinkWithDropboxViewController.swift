@@ -10,12 +10,14 @@ import UIKit
 import MRProgress
 import SwiftyDropbox
 import RxSwift
+import RxCocoa
 
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
     var eventBus: EventBus = EventBus.sharedInstance
     var disposeBag: DisposeBag = DisposeBag()
 
+    var upgradingFromV1: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,19 @@ class LinkWithDropboxViewController: UIViewController {
                 self.maybeOpenWiki()
             }
         }).disposed(by: disposeBag)
+        
+        if upgradingFromV1 {
+            let path = Bundle.main.path(forResource: "update_notes_2.0.0", ofType: "md")
+            let content = try! String(contentsOf: URL(fileURLWithPath: path!), encoding: .utf8)
+            
+            let page = Page(rawContent: content , permalink: "update_notes_2.0.0", name: "Update Notes", modifiedTime: Date(), createdTime: Date(), isDirty: false)
+            
+            let wikiController = UpdateNotesViewController(nibName: "UpdateNotesViewController", bundle: nil)
+            wikiController.page = page
+            
+            let navigation = UINavigationController(rootViewController: wikiController)
+            self.present(navigation, animated: true, completion: nil)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -41,7 +56,6 @@ class LinkWithDropboxViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.maybeOpenWiki()
     }
     
     func maybeOpenWiki() {
@@ -88,12 +102,14 @@ class LinkWithDropboxViewController: UIViewController {
                     return path.fileName == "home.md"
                 default: return false
                 }
+            default: return false
             }
         }.flatMap({ (o: Operations) -> Observable<Either<Progress, Path>> in
             print("found home pull operation")
             switch o {
             case .PullOperation(let operation):
                 return operation.stream
+            default: return Observable.empty()
             }
         })
     }
