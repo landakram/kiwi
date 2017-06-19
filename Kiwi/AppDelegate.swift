@@ -40,6 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? ScrollingNavigationController
         
+        let didDeleteApp = DropboxClientsManager.authorizedClient != nil && self.isLoadingForFirstTime()
+        if didDeleteApp {
+            DropboxClientsManager.unlinkClients()
+        }
         if let client = DropboxClientsManager.authorizedClient {
             syncEngine.remote.configure(client: client)
             
@@ -205,7 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        if self.isUpdating() {
+        if self.isUpdating() || self.isLoadingForFirstTime() {
             print("Not restoring state")
             return false
         }
