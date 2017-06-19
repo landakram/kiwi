@@ -20,6 +20,7 @@ def app_pods
     pod "RxSwiftExt"
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftMessages'
+    pod 'RxReachability'
 end
 
 target 'Kiwi' do

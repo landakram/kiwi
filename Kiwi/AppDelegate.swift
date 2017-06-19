@@ -15,6 +15,8 @@ import AMScrollingNavbar
 import YapDatabase
 import RxSwift
 import SwiftMessages
+import ReachabilitySwift
+import RxReachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var indexer: Indexer = Indexer.sharedInstance
     
     var disposeBag: DisposeBag = DisposeBag()
+    
+    var reachability: Reachability?
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -38,7 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let client = DropboxClientsManager.authorizedClient {
             syncEngine.remote.configure(client: client)
-            syncEngine.sweep()
+            
+            self.syncEngine.sweep()
+            
+            reachability = Reachability()
+            try? reachability?.startNotifier()
+            reachability?.rx.isConnected
+                .subscribe(onNext: {
+                    self.syncEngine.sweep()
+                })
+                .addDisposableTo(disposeBag)
             
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]

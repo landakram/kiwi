@@ -122,7 +122,7 @@ class SyncEngine {
 /**
  * Tracks the dirty state of paths in the local filesystem.
  */
-struct DirtyStore {
+class DirtyStore {
     private var backingSet: Set<String> = Set<String>()
     
     private var localStorage: UserDefaults = UserDefaults.standard
@@ -135,12 +135,12 @@ struct DirtyStore {
         }
     }
     
-    mutating func add(path: Path) {
+    func add(path: Path) {
         backingSet.insert(path.standardRawValue)
         localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
     
-    mutating func remove(path: Path) {
+    func remove(path: Path) {
         backingSet.remove(path.standardRawValue)
         localStorage.set(NSKeyedArchiver.archivedData(withRootObject: backingSet), forKey: "DirtyStore")
     }
