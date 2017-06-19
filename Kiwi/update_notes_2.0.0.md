@@ -17,6 +17,8 @@ In addition to using the new Dropbox API, this release also:
 * Fixes a bug with non-English wiki links. They were popping up the new page editor instead of navigating to the page that was already created.
 * Fixes an issue where the navigation bar would sometimes completely disappear
 * Fixes an issue where swiping back and forth between pages would cause the page to scroll slightly
+* Fixes an issue when editing the "help" pages, where it was hard to tap between
+  paragraphs
 * Adds better highlighting to the page editor
 * Adds notifications when pages are being uploaded/downloaded
 
