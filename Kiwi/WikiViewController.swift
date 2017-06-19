@@ -12,11 +12,10 @@ import GRMustache
 import IDMPhotoBrowser
 import STKWebKitViewController
 import TUSafariActivity
-import Async
+import RxSwift
+import AMScrollingNavbar
 
-class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate {
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    @IBOutlet weak var webViewContainer: UIView!
+class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, ScrollingNavigationControllerDelegate {
     
     var titleView : UIButton!
     
@@ -27,6 +26,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     var pendingPageName: String?
     
     var bottommostVisibleText: String?
+    
+    var disposeBag: DisposeBag = DisposeBag()
     
     override var title: String? {
         set {
@@ -42,24 +43,72 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         }
     }
     
+    func reload() {
+        if let page: Page = self.wiki.page(self.currentPage.permalink) {
+            self.renderPage(page)   
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.isNavigationBarHidden = false;
         
         self.setupWebView()
-        
+        self.setUpWiki()
+    }
+    
+    func setUpWiki() {
         self.wiki = Wiki()
         
+        if (self.isLoadingForFirstTime()) {
+            self.wiki.writeDefaultFiles()
+            self.setLoadedFirstTime()
+        }
+        
+        // TODO: these are related to actually rendering the wiki as HTML and should be encapsulated
+        self.wiki.writeResouceFiles()
+        self.wiki.copyImagesToLocalCache()
+        
         self.renderPermalink("home")
+        
+        self.wiki.stream.subscribe(onNext: { (event: WikiEvent) in
+            switch event {
+            case .writeImage(let path):
+                self.wiki.copyImageToLocalCache(path: path)
+                if self.currentPage.rawContent.contains(path.fileName) {
+                    self.reload()
+                }
+            case .writePage(let page):
+                if page.permalink == self.currentPage.permalink {
+                    self.reload()
+                }
+            }
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [self.webView])
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.stopFollowingScrollView()
+        }
+    }
+    
+    
+    func isLoadingForFirstTime() -> Bool {
+        return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
+    }
+    
+    func setLoadedFirstTime() {
+        UserDefaults.standard.set(true, forKey: "didLoadFirstTime")
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +117,20 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     // Mark: - Setup
+    
+    override func viewDidLayoutSubviews() {
+        // This stupid hack is the only way I've figured out how to get the page to stop
+        // jumping upon swipe.
+        // I *should* be able to do:
+        //     self.webView.scrollView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, 0, 0)
+        // But this simply does not work. 
+        // Strangely, this does not jump:
+        //     self.webView.scrollView.contentInset = .zero
+        // But then content is hidden behind the navigation bar.
+        // Combined with setting self.webView as a "follower" of the navbar, this 
+        // produces the desired behavior
+        self.webView.frame.origin.y = navigationController?.navigationBar.bottom ?? 0
+    }
     
     func setupWebView() {
         let userContentController = WKUserContentController()
@@ -86,43 +149,37 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         self.webView.restorationIdentifier = "WikiWebView"
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.webView.allowsBackForwardNavigationGestures = true
-        self.webView.uiDelegate = self;
-        self.webView.navigationDelegate = self;
-        self.webViewContainer.addSubview(self.webView)
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        self.automaticallyAdjustsScrollViewInsets = false
         
-        var horizontalConstraints = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|-0-[webView(webViewContainer)]-0-|",
+        self.view.addSubview(self.webView)
+        
+        let horizontalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["webView": webView, "webViewContainer": webViewContainer])
-        var verticalConstraints = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-0-[webView(webViewContainer)]-0-|",
+            views: ["webView": webView, "view": view])
+        let verticalConstraints = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-0-[webView(view)]-0-|",
             options: NSLayoutFormatOptions(rawValue: 0),
             metrics: nil,
-            views: ["webView": webView, "webViewContainer": webViewContainer])
+            views: ["webView": webView, "view": view])
         
-        webViewContainer.addConstraints(horizontalConstraints)
-        webViewContainer.addConstraints(verticalConstraints)
+        view.addConstraints(horizontalConstraints)
+        view.addConstraints(verticalConstraints)
         
-        var swipeGesture = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipeUp"))
-        swipeGesture.numberOfTouchesRequired = 2
-        swipeGesture.direction = .up
-        swipeGesture.delegate = self
-        self.webView.scrollView.addGestureRecognizer(swipeGesture)
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: Selector("handleTitleTap"))
         
         titleView = UIButton(type: .system)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
         titleView.showsTouchWhenHighlighted = true
         titleView.isUserInteractionEnabled = true
-        titleView.addTarget(self, action: Selector("handleTitleTap"), for: UIControlEvents.touchUpInside)
+        titleView.addTarget(self, action: #selector(WikiViewController.handleTitleTap), for: UIControlEvents.touchUpInside)
         titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())
         self.navigationController?.navigationItem.titleView = titleView
         
         self.navigationItem.titleView = titleView
-        self.webView.scrollView.delegate = self
     }
 
     // MARK: - Navigation
@@ -160,7 +217,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             addPageViewController.isEditing = true
         } else if segue.identifier == "ShowAllPages" {
             let allPagesViewController = (segue.destination as! UINavigationController).topViewController as! AllPagesViewController
-            allPagesViewController.wiki = self.wiki
+            allPagesViewController.files = self.wiki.files()
+            allPagesViewController.indexer = self.wiki.indexer
         }
     }
     
@@ -197,7 +255,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         initiatedByFrame frame: WKFrameInfo,
         completionHandler: @escaping () -> Void) {
             
-        var alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
             (action) in
             completionHandler()
@@ -228,9 +286,9 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if let permalink : String = webView.url!.absoluteString.lastPathComponent.stringByDeletingPathExtension {
+        if let permalink : String = webView.url?.absoluteString.lastPathComponent.stringByDeletingPathExtension {
             if permalink != self.currentPage.permalink {
-                if let page = wiki.page(permalink) {
+                if let page = self.wiki.page(permalink) {
                     self.currentPage = page
                     self.title = self.currentPage.name
                 }
@@ -255,13 +313,13 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
     
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
-        coder.encode(PageCoder(page: self.currentPage), forKey: "page")
+        coder.encode(EncodablePage(page: self.currentPage), forKey: "page")
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
-        let pageCoder = coder.decodeObject(forKey: "page") as? PageCoder
-        self.currentPage = pageCoder?.page
+        let encodablePage = coder.decodeObject(forKey: "page") as? EncodablePage
+        self.currentPage = encodablePage?.page
         if let page = self.currentPage {
             self.renderPage(page)
         }
@@ -281,7 +339,7 @@ class NavigationScriptMessageHandler: NSObject, WKScriptMessageHandler {
                 let name = body.object(forKey: "name") as! String
                 let isInternal = body.object(forKey: "isInternal") as! Bool
                 if isInternal {
-                    delegate?.renderPermalink(path.lastPathComponent, name: name)
+                    delegate?.renderPermalink(path.lastPathComponent.removingPercentEncoding!, name: name)
                 } else {
                     let webViewController = STKWebKitModalViewController(address: path)
                     webViewController?.webKitViewController.applicationActivities = [TUSafariActivity()]

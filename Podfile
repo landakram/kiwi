@@ -1,19 +1,26 @@
 use_frameworks!
 
 def app_pods
-    pod 'Dropbox-Sync-API-SDK'
+    pod 'SwiftyDropbox'
     pod 'hoedown'
     pod 'YapDatabase'
     pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'
-    pod "RFMarkdownTextView", :path => '~/Documents/code/Memex/RFMarkdownTextView'
+    pod "RFKeyboardToolbar"
     pod 'IDMPhotoBrowser'
     pod "STKWebKitViewController"
     pod 'TUSafariActivity'
-    pod 'AsyncSwift'
+    pod 'Notepad', :git => 'https://github.com/landakram/Notepad.git', :branch => 'theme-path'
     pod 'MRProgress'
     pod 'ViewUtils'
+    pod 'AMScrollingNavbar'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
+    pod 'RxSwift',    '~> 3.0'
+    pod "RxSwiftExt"
+    pod 'RxCocoa',    '~> 3.0'
+    pod 'SwiftMessages'
+    pod 'RxReachability'
 end
 
 target 'Kiwi' do
@@ -22,4 +29,11 @@ end
 
 target 'Kiwi Development' do
     app_pods
+end
+
+target 'KiwiTests' do
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'RxBlocking', '~> 3.0'
+    pod 'RxTest',     '~> 3.0'
 end

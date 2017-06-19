@@ -8,10 +8,16 @@
 
 import UIKit
 import MRProgress
-import Async
+import SwiftyDropbox
+import RxSwift
+import RxCocoa
 
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
+    var eventBus: EventBus = EventBus.sharedInstance
+    var disposeBag: DisposeBag = DisposeBag()
+
+    var upgradingFromV1: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +28,90 @@ class LinkWithDropboxViewController: UIViewController {
         linkWithDropboxButton.layer.cornerRadius = 5
         linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.cgColor
         linkWithDropboxButton.layer.masksToBounds = true
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        eventBus.accountLinkEvents.subscribe(onNext: { (event: AccountLinkEvent) in
+            switch event {
+            case .AccountLinked(_):
+                self.maybeOpenWiki()
+            }
+        }).disposed(by: disposeBag)
+        
+        if upgradingFromV1 {
+            let path = Bundle.main.path(forResource: "update_notes_2.0.0", ofType: "md")
+            let content = try! String(contentsOf: URL(fileURLWithPath: path!), encoding: .utf8)
+            
+            let page = Page(rawContent: content , permalink: "update_notes_2.0.0", name: "Update Notes", modifiedTime: Date(), createdTime: Date(), isDirty: false)
+            
+            let wikiController = UpdateNotesViewController(nibName: "UpdateNotesViewController", bundle: nil)
+            wikiController.page = page
+            
+            let navigation = UINavigationController(rootViewController: wikiController)
+            self.present(navigation, animated: true, completion: nil)
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    func maybeOpenWiki() {
+        if let client = DropboxClientsManager.authorizedClient {
+            let remote = DropboxRemote.sharedInstance
+            
+            let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
+                                                                 title: "Importing...",
+                                                                 mode: .indeterminate,
+                                                                 animated: true)
+            spinner?.setTintColor(Constants.KiwiColor)
+        
+            let wiki = Wiki()
+            wiki.scaffold()
+            
+            // Take the initial sync, and see if the changeset contains the home page
+            let homeChangeset = remote.changesets
+                .take(1)
+                .filter({ (c: Changeset) -> Bool in
+                return c.entries.filter({ $0.pathDisplay?.lastPathComponent == "home.md" }).count > 0
+            })
+            
+            // If it does, then wait for it to sync
+            homeChangeset.flatMap({ (c: Changeset) in
+                return self.awaitHomeSync().filter({ $0.isRight() }).take(1)
+            }).subscribe(onCompleted: {
+                // And finally, move to the wiki view
+                // We let the rest of the pages just download in the background.
+                spinner?.dismiss(true)
+                self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
+            }).disposed(by: self.disposeBag)
+            
+            remote.configure(client: client)
+            SyncEngine.sharedInstance.sweep()
+        }
+    }
+    
+    func awaitHomeSync(syncEngine: SyncEngine = SyncEngine.sharedInstance) -> Observable<Either<Progress, Path>> {
+        return syncEngine.events.filter { (o: Operations) -> Bool in
+            switch o {
+            case .PullOperation(let operation):
+                switch operation.event {
+                case .write(let path):
+                    return path.fileName == "home.md"
+                default: return false
+                }
+            default: return false
+            }
+        }.flatMap({ (o: Operations) -> Observable<Either<Progress, Path>> in
+            print("found home pull operation")
+            switch o {
+            case .PullOperation(let operation):
+                return operation.stream
+            default: return Observable.empty()
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,61 +120,9 @@ class LinkWithDropboxViewController: UIViewController {
     }
     
     @IBAction func didPressLinkWithDropbox(_ sender: AnyObject) {
-        DBAccountManager.shared().addObserver(self, block: {
-            (account: DBAccount?) in
-            guard let account = account else { return }
-            if account.isLinked {
-                DBAccountManager.shared().removeObserver(self)
-                if DBFilesystem.shared() == nil {
-                    let filesystem = DBFilesystem(account: account)
-                    DBFilesystem.setShared(filesystem)
-                }
-                if !DBFilesystem.shared().completedFirstSync {
-                    let spinner = MRProgressOverlayView.showOverlayAdded(to: self.view.window,
-                        title: "Importing...",
-                        mode: .indeterminate,
-                        animated: true)
-                    spinner?.setTintColor(Constants.KiwiColor)
-                    DBFilesystem.shared().addObserver(self, block: { () -> Void in
-                        if DBFilesystem.shared().completedFirstSync {
-                            DBFilesystem.shared().removeObserver(self)
-                            
-                            // Load the whole wiki from Dropbox, then move on
-                            let wiki = Wiki()
-                            Async.background {
-                                if let fileInfos = wiki.getAllFileInfos() {
-                                    let total = Float(fileInfos.count)
-                                    for (index, info) in fileInfos.enumerated() {
-                                        if let file = DBFilesystem.shared().openFile(info.path, error: nil) {
-                                            var error: DBError?
-                                            file.readData(&error)
-                                        }
-                                        if index == 0 {
-                                            Async.main {
-                                                spinner?.mode = .determinateCircular;
-                                            }
-                                        }
-                                        Async.main {
-                                            spinner?.setProgress(Float(index + 1) / total, animated: true)
-                                        }
-                                    }
-                                }
-                            }.main {
-                                spinner?.mode = .indeterminate
-                            }.background {_ in 
-                                wiki.syncUpdatedPagesToYapDatabase()
-                            }.main {
-                                spinner?.dismiss(true)
-                                self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
-                            }
-                        }
-                    })
-                } else {
-                    self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
-                }
-            }
+        DropboxClientsManager.authorizeFromController(UIApplication.shared, controller: self, openURL: { (url: URL) in
+            UIApplication.shared.openURL(url);
         })
-        DBAccountManager.shared().link(from: self)
     }
 
 }

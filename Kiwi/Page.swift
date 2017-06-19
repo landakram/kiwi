@@ -120,30 +120,6 @@ extension TransformsLinksToAnchors {
     }
 }
 
-class PageCoder: NSObject, NSCoding {
-    let page: Page
-    
-    init(page: Page) {
-        self.page = page
-    }
-    
-    required init?(coder decoder: NSCoder) {
-        let rawContent = decoder.decodeObject(forKey: "rawContent") as! String
-        let permalink = decoder.decodeObject(forKey: "permalink") as! String
-        let name = decoder.decodeObject(forKey: "name") as! String
-        let modifiedTime = (decoder.decodeObject(forKey: "modifiedTime") as! NSDate) as Date
-        let createdTime = (decoder.decodeObject(forKey: "createdTime") as! NSDate) as Date
-        
-        self.page = Page(rawContent: rawContent, permalink: permalink, name: name, modifiedTime: modifiedTime, createdTime: createdTime, isDirty: false)
-    }
-    func encode(with coder: NSCoder) {
-        coder.encode(self.page.rawContent, forKey: "rawContent")
-        coder.encode(self.page.permalink, forKey: "permalink")
-        coder.encode(self.page.name, forKey: "name")
-        coder.encode(self.page.modifiedTime, forKey: "modifiedTime")
-        coder.encode(self.page.createdTime, forKey: "createdTime")
-    }
-}
 
 struct Page: HTMLable, TransformsMarkdownToHTML, TransformsLinksToAnchors {
     var rawContent: String

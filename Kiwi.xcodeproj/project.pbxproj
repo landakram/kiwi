@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		04EF104C94000844A71F9864 /* Pods_Kiwi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */; };
+		10777C616A6AEA0E94907290 /* Pods_KiwiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */; };
 		4D0378111AA881BA00B6D841 /* links.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378101AA881BA00B6D841 /* links.js */; };
 		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
+		4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
+		4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
 		4D26DBBA1ABD4002007CE00E /* home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D26DBB91ABD4002007CE00E /* home@2x.png */; };
 		4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */; };
@@ -20,6 +23,12 @@
 		4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC261A9DA30300E0904B /* Images.xcassets */; };
 		4D2AAC2A1A9DA30300E0904B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */; };
 		4D2AAC361A9DA30300E0904B /* KiwiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AAC351A9DA30300E0904B /* KiwiTests.swift */; };
+		4D36BA621DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
+		4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA611DD1980E00C9408F /* Filesystem.swift */; };
+		4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
+		4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D36BA641DD1B7F800C9408F /* SyncEngine.swift */; };
+		4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
+		4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */ = {isa = PBXBuildFile; fileRef = 4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */; };
 		4D3D8E1E1BB4A064000C53EE /* Config.development.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */; };
 		4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */; };
 		4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
@@ -71,8 +80,16 @@
 		4D4582731D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
 		4D4582741D94963E00EBEDD8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4582721D94963E00EBEDD8 /* Constants.m */; };
 		4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */; };
-		4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
-		4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5829911C587CE50053C65A /* MarkdownTextView.swift */; };
+		4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
+		4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */; };
+		4D53FEA91EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */; };
+		4D53FEAA1EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */; };
+		4D53FEAB1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */; };
+		4D53FEAC1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */; };
+		4D53FEAE1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEAF1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEB01EDCD90D00FDFE0F /* update_notes_2.0.0.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
+		4D53FEB11EDCD91400FDFE0F /* update_notes_2.0.0.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */; };
 		4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93D61AB005F800D92886 /* checkmark@2x.png */; };
 		4D5F93DD1AB00F5900D92886 /* green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93DC1AB00F5900D92886 /* green@2x.png */; };
 		4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5F93E01AB02A3F00D92886 /* menu@2x.png */; };
@@ -94,6 +111,8 @@
 		4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC9DC951AADDC5500C64275 /* gray@2x.png */; };
 		4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */; };
 		4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */; };
+		4DCBB2891EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
+		4DCBB28A1EC4023500EFF3FE /* DropboxRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */; };
 		4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */; };
 		4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */; };
 		4DEB69871AA94F6500FB480C /* AddPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEB69861AA94F6500FB480C /* AddPageViewController.swift */; };
@@ -115,11 +134,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiwiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.release.xcconfig"; sourceTree = "<group>"; };
 		3EF991A60A24FCEA7388DC87 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
-		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 2; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4D22D8441EC02CFA0037D2CE /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = YapDatabase.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
 		4D2AAC1A1A9DA30300E0904B /* Kiwi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +153,9 @@
 		4D2AAC2F1A9DA30300E0904B /* KiwiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2AAC341A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4D36BA611DD1980E00C9408F /* Filesystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filesystem.swift; sourceTree = "<group>"; };
+		4D36BA641DD1B7F800C9408F /* SyncEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
+		4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "base16-tomorrow-light.json"; sourceTree = "<group>"; };
 		4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.development.xcconfig; sourceTree = "<group>"; };
 		4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.production.xcconfig; sourceTree = "<group>"; };
 		4D3D8E571BB4A1CF000C53EE /* KiwiDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KiwiDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,13 +167,16 @@
 		4D4582751D94964D00EBEDD8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		4D4B33EB1B9E1F5000BCBE5B /* IDMPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IDMPhotoBrowser.framework; path = "Pods/../build/Debug-iphoneos/Pods/IDMPhotoBrowser.framework"; sourceTree = "<group>"; };
 		4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IDMPBLocalizations.bundle; path = Pods/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle; sourceTree = "<group>"; };
-		4D5829911C587CE50053C65A /* MarkdownTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
+		4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indexer.swift; sourceTree = "<group>"; };
+		4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateNotesViewController.swift; sourceTree = "<group>"; };
+		4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateNotesViewController.xib; sourceTree = "<group>"; };
+		4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = update_notes_2.0.0.md; sourceTree = "<group>"; };
 		4D5F93D61AB005F800D92886 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		4D5F93DC1AB00F5900D92886 /* green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green@2x.png"; sourceTree = "<group>"; };
 		4D5F93E01AB02A3F00D92886 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
 		4D664BA11BAA8ACB00EFC998 /* available_in_dropbox.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = available_in_dropbox.md; sourceTree = "<group>"; };
 		4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WikiViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		4D7CBBAB1AA8291E00638C5C /* home.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = home.md; sourceTree = "<group>"; };
+		4D7CBBAB1AA8291E00638C5C /* home.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = home.md; sourceTree = "<group>"; };
 		4D7CBBAE1AA82F4300638C5C /* layout.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.mustache; sourceTree = "<group>"; };
 		4D7CBBB01AA8304200638C5C /* article.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = article.mustache; sourceTree = "<group>"; };
 		4D7CBBB21AA833E200638C5C /* screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = screen.css; sourceTree = "<group>"; };
@@ -165,6 +192,7 @@
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExternalLinkViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxRemote.swift; sourceTree = "<group>"; };
 		4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BaseNavigationController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hoedown_html_patch.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hoedown_html_patch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -176,7 +204,9 @@
 		70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.debug.xcconfig"; sourceTree = "<group>"; };
 		949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.release.xcconfig"; sourceTree = "<group>"; };
 		AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.release.xcconfig"; sourceTree = "<group>"; };
 		D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10777C616A6AEA0E94907290 /* Pods_KiwiTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +245,7 @@
 				3EF991A60A24FCEA7388DC87 /* Pods.framework */,
 				AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */,
 				D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */,
+				2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -228,7 +260,6 @@
 				4D2AAC321A9DA30300E0904B /* KiwiTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
 				48924F7F2E83D886BAA39977 /* Frameworks */,
-				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
 				99AF236031C2442D5DF544F0 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -267,10 +298,16 @@
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
 				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
 				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
-				4D5829911C587CE50053C65A /* MarkdownTextView.swift */,
 				4D8842CF1C7C3AEA00C70A17 /* Kiwi.playground */,
 				4D4582721D94963E00EBEDD8 /* Constants.m */,
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
+				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
+				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
+				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
+				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
+				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
+				4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */,
+				4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */,
 			);
 			path = Kiwi;
 			sourceTree = "<group>";
@@ -278,6 +315,7 @@
 		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
 				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
 				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
 				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
@@ -290,6 +328,7 @@
 				4DEFE2601B9FF06A00462786 /* working_with_pages.md */,
 				4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */,
 				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
+				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
 				4D7CBBB21AA833E200638C5C /* screen.css */,
 				4D44273B1B1D7C8B00B35C01 /* prism.css */,
 				4D7CBBAE1AA82F4300638C5C /* layout.mustache */,
@@ -297,6 +336,7 @@
 				4D44273D1B1D7C9000B35C01 /* prism.js */,
 				4D0378101AA881BA00B6D841 /* links.js */,
 				4D4427391B1D710000B35C01 /* auto-render-latex.min.js */,
+				4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -325,6 +365,8 @@
 				39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */,
 				70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */,
 				949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */,
+				E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */,
+				B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -357,9 +399,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D2AAC3C1A9DA30300E0904B /* Build configuration list for PBXNativeTarget "KiwiTests" */;
 			buildPhases = (
+				3A70CC6C38C597DA98C8600F /* [CP] Check Pods Manifest.lock */,
 				4D2AAC2B1A9DA30300E0904B /* Sources */,
 				4D2AAC2C1A9DA30300E0904B /* Frameworks */,
 				4D2AAC2D1A9DA30300E0904B /* Resources */,
+				E09245AFDF928DDA8D628D29 /* [CP] Embed Pods Frameworks */,
+				7255D64617AD13ACBF4A82BE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -446,9 +491,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D53FEB01EDCD90D00FDFE0F /* update_notes_2.0.0.md in Resources */,
 				4DB9ADD71BABF59700131C20 /* available_in_dropbox.md in Resources */,
 				4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */,
 				4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */,
+				4D53FEAB1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
 				4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */,
 				4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */,
@@ -470,6 +517,7 @@
 				4D2AAC271A9DA30300E0904B /* Images.xcassets in Resources */,
 				4DC9DC961AADDC5500C64275 /* gray@2x.png in Resources */,
 				4D5F93D71AB005F800D92886 /* checkmark@2x.png in Resources */,
+				4D3983DD1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,9 +532,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D53FEB11EDCD91400FDFE0F /* update_notes_2.0.0.md in Resources */,
 				4D3D8E3A1BB4A1CF000C53EE /* available_in_dropbox.md in Resources */,
 				4D3D8E3B1BB4A1CF000C53EE /* working_with_pages.md in Resources */,
 				4D3D8E3C1BB4A1CF000C53EE /* acknowledgements.md in Resources */,
+				4D53FEAC1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D3D8E3D1BB4A1CF000C53EE /* IDMPBLocalizations.bundle in Resources */,
 				4D3D8E3E1BB4A1CF000C53EE /* Config.production.xcconfig in Resources */,
 				4D3D8E3F1BB4A1CF000C53EE /* writing_with_kiwi.md in Resources */,
@@ -508,6 +558,7 @@
 				4D3D8E4F1BB4A1CF000C53EE /* Images.xcassets in Resources */,
 				4D3D8E501BB4A1CF000C53EE /* gray@2x.png in Resources */,
 				4D3D8E511BB4A1CF000C53EE /* checkmark@2x.png in Resources */,
+				4D3983DE1ED688E6006381A4 /* base16-tomorrow-light.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +592,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */ = {
@@ -557,6 +608,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3A70CC6C38C597DA98C8600F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		4DAD4E961D9795B300B33065 /* ShellScript */ = {
@@ -585,6 +651,21 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c47";
 		};
+		7255D64617AD13ACBF4A82BE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -612,7 +693,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E09245AFDF928DDA8D628D29 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */ = {
@@ -637,9 +733,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5829921C587CE50053C65A /* MarkdownTextView.swift in Sources */,
 				4DC9DC981AAE252F00C64275 /* AllPagesViewController.swift in Sources */,
 				4DE39A511B2CD4FD0099E757 /* hoedown_html_patch.c in Sources */,
+				4D53FEA91EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */,
+				4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */,
+				4D53FEAE1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */,
 				4D2AAC221A9DA30300E0904B /* LinkWithDropboxViewController.swift in Sources */,
 				4DBE60881AA5542A003D3F34 /* Wiki.swift in Sources */,
 				4DEFE25E1B9E52EA00462786 /* acknowledgements.md in Sources */,
@@ -649,7 +747,10 @@
 				4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */,
 				4DDF76A01B9E29F30034ECEE /* BaseNavigationController.swift in Sources */,
 				4D4582731D94963E00EBEDD8 /* Constants.m in Sources */,
+				4D4D5CBB1DD7D2AA00A3D2CA /* Indexer.swift in Sources */,
 				4D2AAC201A9DA30300E0904B /* AppDelegate.swift in Sources */,
+				4D36BA621DD1980E00C9408F /* Filesystem.swift in Sources */,
+				4D36BA651DD1B7F800C9408F /* SyncEngine.swift in Sources */,
 				4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */,
 				4DBE60841AA5527A003D3F34 /* Page.swift in Sources */,
 				4DB9ADD61BABF4DF00131C20 /* available_in_dropbox.md in Sources */,
@@ -658,6 +759,7 @@
 				4D7CBBAA1AA8272E00638C5C /* WikiViewController.swift in Sources */,
 				4DC9DC9A1AAE837D00C64275 /* ExternalLinkViewController.swift in Sources */,
 				4D664BA21BAA8ACB00EFC998 /* available_in_dropbox.md in Sources */,
+				4DCBB2891EC4023500EFF3FE /* DropboxRemote.swift in Sources */,
 				4D7CBBAC1AA8291E00638C5C /* home.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,8 +776,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5829931C587CE50053C65A /* MarkdownTextView.swift in Sources */,
+				4D4D5CBC1DD7D2B900A3D2CA /* Indexer.swift in Sources */,
 				4D3D8E241BB4A1CF000C53EE /* AllPagesViewController.swift in Sources */,
+				4D53FEAA1EDCD0CD00FDFE0F /* UpdateNotesViewController.swift in Sources */,
+				4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */,
+				4D53FEAF1EDCD6EF00FDFE0F /* update_notes_2.0.0.md in Sources */,
 				4D3D8E251BB4A1CF000C53EE /* hoedown_html_patch.c in Sources */,
 				4D3D8E261BB4A1CF000C53EE /* LinkWithDropboxViewController.swift in Sources */,
 				4D3D8E271BB4A1CF000C53EE /* Wiki.swift in Sources */,
@@ -687,6 +792,8 @@
 				4D3D8E2D1BB4A1CF000C53EE /* BaseNavigationController.swift in Sources */,
 				4D4582741D94963E00EBEDD8 /* Constants.m in Sources */,
 				4D3D8E2E1BB4A1CF000C53EE /* AppDelegate.swift in Sources */,
+				4D36BA631DD1980E00C9408F /* Filesystem.swift in Sources */,
+				4D36BA661DD1B7F800C9408F /* SyncEngine.swift in Sources */,
 				4D3D8E2F1BB4A1CF000C53EE /* YapDatabase.swift in Sources */,
 				4D3D8E301BB4A1CF000C53EE /* Page.swift in Sources */,
 				4D3D8E311BB4A1CF000C53EE /* available_in_dropbox.md in Sources */,
@@ -695,6 +802,7 @@
 				4D3D8E331BB4A1CF000C53EE /* WikiViewController.swift in Sources */,
 				4D3D8E341BB4A1CF000C53EE /* ExternalLinkViewController.swift in Sources */,
 				4D3D8E351BB4A1CF000C53EE /* available_in_dropbox.md in Sources */,
+				4DCBB28A1EC4023500EFF3FE /* DropboxRemote.swift in Sources */,
 				4D3D8E361BB4A1CF000C53EE /* home.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -770,7 +878,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -814,7 +922,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -872,6 +980,7 @@
 		};
 		4D2AAC3D1A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -891,6 +1000,7 @@
 		};
 		4D2AAC3E1A9DA30300E0904B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
