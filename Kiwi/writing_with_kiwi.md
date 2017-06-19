@@ -28,7 +28,7 @@ To illustrate _lists_ and how they work, here are the days of the week and what 
 
 ## Photos
 
-You can add photos from your device by pressing the "Photos" button in the toolbar. You'll notice that photos get inserted with `![](A URL to the photo)`. That means you can include photos from elsewhere like: 
+You can add photos from your device by pressing the "Photos" button in the toolbar. You'll notice that photos get inserted with `![](A URL to the photo)`. That means you can include photos from elsewhere like:
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Kiwi1.1.jpg/2560px-Kiwi1.1.jpg)
 
@@ -47,7 +47,7 @@ Internal links are done with square brackets. For instance, here's a link back [
 - [ ] This is another thing
 - [x] This is a completed thing
 
-You can tap the checkbox to complete it. 
+You can tap the checkbox to complete it.
 
 ## Code snippets
 
@@ -69,14 +69,14 @@ To include snippets inline, just `wrap them in backticks`.
 
 ## Math
 
-You can write equations in a LaTeX-like syntax: 
+You can write equations in a LaTeX-like syntax:
 
 $$
 f(x) = \int_{-\infty}^\infty \hat f(\xi)\,e^{2 \pi i \xi x} \,d\xi
-$$ 
+$$
 
 You can write equations inline like $a = 5$.
 
 ------------------------
 
-That should get you pretty far. Good luck out there! 
+That should get you pretty far. Good luck out there!
