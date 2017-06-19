@@ -8,7 +8,7 @@ The [[Home]] page (the one you just came from) is your jumping-off point. **You 
 
 ## Editing pages
 
-To edit a page, **tap the "Edit" button in the top left**. 
+To edit a page, **tap the "Edit" button in the top left**.
 
 Try doing that now and typing something after this sentence. Then, press the checkmark to save.
 

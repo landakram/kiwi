@@ -15,9 +15,10 @@ Unfortunately, as a result of this, **you'll have to re-link your Dropbox accoun
 In addition to using the new Dropbox API, this release also:
 
 * Fixes a bug with non-English wiki links. They were popping up the new page editor instead of navigating to the page that was already created.
-* Adds better highlighting to the page editor
 * Fixes an issue where the navigation bar would sometimes completely disappear
 * Fixes an issue where swiping back and forth between pages would cause the page to scroll slightly
+* Adds better highlighting to the page editor
+* Adds notifications when pages are being uploaded/downloaded
 
 But most of the changes in this update are invisible. When I first made Kiwi, I did most of the development over a very short period of time, hacking things together to *make it work*. Though this helped me actually build the thing, it also meant that the code was messy and hard to extend.
 
