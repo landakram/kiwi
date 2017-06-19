@@ -33,7 +33,7 @@ class DropboxRemote {
     static let sharedInstance = DropboxRemote()
     
     let root = Path("/")
-    var client: DropboxClient!
+    var client: DropboxClient?
     
     let localStorage: UserDefaults = UserDefaults.standard
     
@@ -51,7 +51,7 @@ class DropboxRemote {
             .flatMapFirst { (counter) -> Observable<Changeset> in
             return self.longpollAndPull().do(onNext: { (changeset: Changeset) in
                 self.localStorage.set(changeset.cursor, forKey: "DropboxCursor")
-            })
+            }).ignoreErrors()
         }
         
         let cursor: String? = self.localStorage.string(forKey: "DropboxCursor")
@@ -95,7 +95,7 @@ class DropboxRemote {
         return Observable.create { (observer: AnyObserver<String>) -> Disposable in
             let cursor: String = self.localStorage.string(forKey: "DropboxCursor")!
             print("Longpolling ")
-            let request = self.client.files.listFolderLongpoll(cursor: cursor).response { (result: Files.ListFolderLongpollResult?, error: CallError<(Files.ListFolderLongpollError)>?) in
+            let request = self.client?.files.listFolderLongpoll(cursor: cursor).response { (result: Files.ListFolderLongpollResult?, error: CallError<(Files.ListFolderLongpollError)>?) in
                 print("LongPoll result \(result)")
                 if result != nil {
                     if result!.changes {
@@ -108,7 +108,7 @@ class DropboxRemote {
             }
             
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         }
@@ -129,7 +129,7 @@ class DropboxRemote {
     
     private func pullFirstPage(path: String) -> Observable<Files.ListFolderResult> {
         return Observable<Files.ListFolderResult>.create { observer in
-            let request = self.client.files.listFolder(path: path, recursive: true).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderError)>?) in
+            let request = self.client?.files.listFolder(path: path, recursive: true).response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderError)>?) in
                 guard let result = maybeResult else {
                     observer.onError(DropboxError(description: error!.description))
                     return
@@ -140,7 +140,7 @@ class DropboxRemote {
             })
             
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         }
@@ -167,8 +167,8 @@ class DropboxRemote {
     
     private func pullChangesetPage(cursor: String) -> Observable<Files.ListFolderResult> {
         return Observable.create({ (observer: AnyObserver<Files.ListFolderResult>) -> Disposable in
-            let request = self.client.files.listFolderContinue(cursor: cursor)
-            request.response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderContinueError)>?) in
+            let request = self.client?.files.listFolderContinue(cursor: cursor)
+            request?.response(completionHandler: { (maybeResult: Files.ListFolderResult?, error: CallError<(Files.ListFolderContinueError)>?) in
                 guard let result = maybeResult else {
                     observer.onError(DropboxError(description: error!.description))
                     return
@@ -179,7 +179,7 @@ class DropboxRemote {
             })
             
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         })
@@ -198,11 +198,11 @@ class DropboxRemote {
         
     func write(file: File<Data>) -> Observable<Either<Progress, Path>> {
         return Observable.create({ observer in
-            let request = self.client.files.upload(path: self.fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
-            request.progress({ (p: Progress) in
+            let request = self.client?.files.upload(path: self.fromRoot(file.path).rawValue, mode: .overwrite, autorename: false, mute: false, input: file.contents)
+            request?.progress({ (p: Progress) in
                 observer.onNext(.left(p))
             })
-            request.response { (metadata: Files.FileMetadata?, error: CallError<(Files.UploadError)>?) in
+            request?.response { (metadata: Files.FileMetadata?, error: CallError<(Files.UploadError)>?) in
                 if error == nil {
                     print("write to remote \(file.path.rawValue)")
                     observer.onNext(.right(file.path))
@@ -214,7 +214,7 @@ class DropboxRemote {
             }
             
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         })
@@ -226,9 +226,9 @@ class DropboxRemote {
     
     func delete(path: Path) -> Observable<Either<Progress, Path>> {
         return Observable.create({ observer in
-            let request = self.client.files.delete(path: self.fromRoot(path).rawValue)
+            let request = self.client?.files.delete(path: self.fromRoot(path).rawValue)
             observer.onNext(.left(Progress(totalUnitCount: 100))) // Fake the progress since Dropbox does not report it
-            request.response(completionHandler: { (metadata: Files.Metadata?, error: CallError<(Files.DeleteError)>?) in
+            request?.response(completionHandler: { (metadata: Files.Metadata?, error: CallError<(Files.DeleteError)>?) in
                 if error == nil {
                     observer.onNext(.right(path))
                     observer.onCompleted()
@@ -237,7 +237,7 @@ class DropboxRemote {
                 }
             })
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         })
@@ -245,11 +245,11 @@ class DropboxRemote {
     
     func read(path: Path) -> Observable<Either<Progress, File<Data>>> {
         return Observable.create { observer in
-            let request = self.client.files.download(path: self.fromRoot(path).rawValue)
-            request.progress({ (p: Progress) in
+            let request = self.client?.files.download(path: self.fromRoot(path).rawValue)
+            request?.progress({ (p: Progress) in
                 observer.onNext(.left(p))
             })
-            request.response(completionHandler: { (file: (Files.FileMetadata, Data)?, error: CallError<(Files.DownloadError)>?) in
+            request?.response(completionHandler: { (file: (Files.FileMetadata, Data)?, error: CallError<(Files.DownloadError)>?) in
                 if error != nil {
                     observer.onError(RemoteError.ReadError(path: path))
                 } else {
@@ -260,7 +260,7 @@ class DropboxRemote {
             })
             
             let cancel = Disposables.create {
-                request.cancel()
+                request?.cancel()
             }
             return cancel
         }

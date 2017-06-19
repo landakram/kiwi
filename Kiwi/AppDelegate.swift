@@ -181,6 +181,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        if let client = DropboxClientsManager.authorizedClient {
+            syncEngine.remote.configure(client: client)
+            self.syncEngine.sweep()
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
