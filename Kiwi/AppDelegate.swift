@@ -68,14 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
             rootViewController?.upgradingFromV1 = true
             rootNavigationController?.viewControllers = [rootViewController!]
-            
-            let deadlineTime = DispatchTime.now() + .seconds(3)
-            DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-                self.markVersion()
-            }
         } else {
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
             rootNavigationController?.viewControllers = [rootViewController!]
+        }
+        
+        let deadlineTime = DispatchTime.now() + .seconds(3)
+        DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+            self.markVersion()
         }
         
         setUpStatusBarMessages()
