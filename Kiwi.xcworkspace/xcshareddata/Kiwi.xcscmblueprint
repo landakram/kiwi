@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B60A0166F99872624AD1815E8133EFFBFCAE06AB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B60A0166F99872624AD1815E8133EFFBFCAE06AB" : 9223372036854775807,
+    "DEA2FB7B71A484989D8EAD86FF7222F8B6ADE2E8" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1528DDEC-FE2C-4C65-BBB2-1FA9F1983DE6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B60A0166F99872624AD1815E8133EFFBFCAE06AB" : "Memex\/",
+    "DEA2FB7B71A484989D8EAD86FF7222F8B6ADE2E8" : "Memex\/RFMarkdownTextView\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Kiwi",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Kiwi.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/landakram\/kiwi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B60A0166F99872624AD1815E8133EFFBFCAE06AB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:landakram\/RFMarkdownTextView.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DEA2FB7B71A484989D8EAD86FF7222F8B6ADE2E8"
+    }
+  ]
+}

@@ -3,18 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict>
-		<key>Kiwi Development.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>21</integer>
-		</dict>
-		<key>Kiwi.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>20</integer>
-		</dict>
-	</dict>
+	<dict/>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4D2AAC191A9DA30300E0904B</key>

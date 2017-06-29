@@ -1,0 +1,6 @@
+language: objective-c 
+osx_image: xcode8.3
+xcode_project: Kiwi.xcodeproj
+xcode_scheme: Kiwi
+xcode_sdk: iphonesimulator10.2
+script: xcodebuild clean test -quiet -workspace Kiwi.xcworkspace -scheme Kiwi -sdk iphonesimulator -destination "name=iPhone SE"
