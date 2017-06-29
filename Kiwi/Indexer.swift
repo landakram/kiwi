@@ -15,12 +15,12 @@ class Indexer {
     static let sharedInstance = Indexer()
     
     let backingStore: YapDatabase
-    let filesystem: Filesystem
+    let filesystem: EventedFilesystem
     let indexingRoot: Path
     
     var disposeBag = DisposeBag()
     
-    init(backingStore: YapDatabase = Yap.sharedInstance, filesystem: Filesystem = Filesystem.sharedInstance, root: Path = Wiki.WIKI_PATH) {
+    init(backingStore: YapDatabase = Yap.sharedInstance, filesystem: EventedFilesystem = Filesystem.sharedInstance, root: Path = Wiki.WIKI_PATH) {
         self.backingStore = backingStore
         self.filesystem = filesystem
         self.indexingRoot = root
@@ -33,10 +33,8 @@ class Indexer {
             case .delete(let path):
                 let relativePath = path.relativeTo(self.filesystem.root)
                 if self.pathIsIndexed(path: relativePath) {
-                    let file = File(path: relativePath, contents: "")
-                    if let page = toPage(file) {
-                        self.remove(page: page)
-                    }
+                    let permalink = pathToPermalink(path: path)
+                    self.remove(permalink: permalink)
                 }
             case .write(let path):
                 let relativePath = path.relativeTo(self.filesystem.root)
@@ -58,10 +56,10 @@ class Indexer {
         return path.commonAncestor(self.indexingRoot) == self.indexingRoot
     }
     
-    func remove(page: Page) {
+    func remove(permalink: String) {
         let connection = self.backingStore.newConnection()
         connection.readWrite { (transaction: YapDatabaseReadWriteTransaction) in
-            transaction.removeObject(forKey: page.permalink, inCollection: "pages")
+            transaction.removeObject(forKey: permalink, inCollection: "pages")
         }
     }
     

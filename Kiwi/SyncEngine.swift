@@ -219,7 +219,7 @@ class PullOperation: Operation {
         case .delete(let path):
             // TODO: handle conflicts.
             // Right now, this always prefers their version.
-            try! self.local.delete(path: path)
+            try? self.local.delete(path: path)
             self.subject.onNext(.right(path))
             return self.stream
         case .write(let path):

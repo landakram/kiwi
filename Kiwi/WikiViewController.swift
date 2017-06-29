@@ -66,7 +66,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             self.setLoadedFirstTime()
         }
         
-        // TODO: these are related to actually rendering the wiki as HTML and should be encapsulated
+        // TODO: these are related to actually rendering the wiki as HTML and should not be in the Wiki class
         self.wiki.writeResouceFiles()
         self.wiki.copyImagesToLocalCache()
         
