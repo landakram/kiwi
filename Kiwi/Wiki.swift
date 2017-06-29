@@ -339,9 +339,12 @@ class Wiki {
     }
 }
 
+func pathToPermalink(path: Path) -> String {
+    return path.fileName.stringByDeletingPathExtension
+}
 
 func toPage(_ file: File<String>) -> Page? {
-    let permalink = file.path.fileName.stringByDeletingPathExtension
+    let permalink = pathToPermalink(path: file.path)
     var content = file.contents
     let page = Page(rawContent: content,
                     permalink: permalink,
