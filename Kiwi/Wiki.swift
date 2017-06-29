@@ -349,8 +349,8 @@ func toPage(_ file: File<String>) -> Page? {
     let page = Page(rawContent: content,
                     permalink: permalink,
                     name: Page.permalinkToName(permalink: permalink),
-                    modifiedTime: file.path.modificationDate!,
-                    createdTime: file.path.modificationDate!,
+                    modifiedTime: file.modifiedDate!,
+                    createdTime: file.modifiedDate!,
                     isDirty: false)
     return page
 }

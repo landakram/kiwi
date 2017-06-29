@@ -15,12 +15,12 @@ class Indexer {
     static let sharedInstance = Indexer()
     
     let backingStore: YapDatabase
-    let filesystem: Filesystem
+    let filesystem: EventedFilesystem
     let indexingRoot: Path
     
     var disposeBag = DisposeBag()
     
-    init(backingStore: YapDatabase = Yap.sharedInstance, filesystem: Filesystem = Filesystem.sharedInstance, root: Path = Wiki.WIKI_PATH) {
+    init(backingStore: YapDatabase = Yap.sharedInstance, filesystem: EventedFilesystem = Filesystem.sharedInstance, root: Path = Wiki.WIKI_PATH) {
         self.backingStore = backingStore
         self.filesystem = filesystem
         self.indexingRoot = root

@@ -12,11 +12,23 @@ import RxSwift
 
 typealias Path = FileKit.Path
 
+protocol EventedFilesystem {
+    var events: Observable<FilesystemEvent> { get }
+    var root: Path { get }
+    func list(path: Path) -> [Path]
+    func read<T: ReadableWritable>(path: Path) throws -> File<T>
+    func mkdir(path: Path) throws
+    func exists(path: Path) -> Bool
+    func write<T: ReadableWritable>(file: File<T>, emit: Bool) throws
+    func delete<T: ReadableWritable>(file: File<T>, emit: Bool) throws
+    func delete(path: Path, emit: Bool) throws
+    func touch(path: Path, modificationDate: Date) throws
+}
 
-struct Filesystem {
+struct Filesystem: EventedFilesystem {
     static let sharedInstance = Filesystem()
     
-    let disposeBag: DisposeBag = DisposeBag()
+    private let disposeBag: DisposeBag = DisposeBag()
     
     var events: Observable<FilesystemEvent> {
         get {
@@ -109,7 +121,7 @@ struct File<T: ReadableWritable> {
     init(path: Path, modifiedDate: Date? = nil, contents: T) {
         self.path = path
         self.contents = contents
-        self.modifiedDate = modifiedDate
+        self.modifiedDate = modifiedDate ?? path.modificationDate
     }
 }
 
