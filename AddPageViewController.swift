@@ -268,6 +268,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
                 title: titleText,
                 message: nil,
                 preferredStyle: .actionSheet)
+            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItems?.last
             
             let overwriteAction = UIAlertAction(title: overwriteActionTitle, style: .destructive, handler: { (action) in
                 if actualPage.permalink == "home" {
