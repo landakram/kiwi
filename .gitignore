@@ -29,3 +29,8 @@ keys*xcconfig
 
 *.un~
 Pods/
+fastlane/metadata
+fastlane/screenshots/
+fastlane/report.xml
+fastlane/README.md
+.envrc
