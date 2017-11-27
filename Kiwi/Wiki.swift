@@ -108,21 +108,65 @@ class Wiki {
     }
     
     static func isPage(_ permalink: String) -> Bool {
-        let filePath = Wiki.WIKI_PATH + Path(permalink + ".md")
-        return Filesystem.sharedInstance.exists(path: filePath)
+        let filenames = permalinkFilenames(permalink)
+        for filename in filenames {
+            let filePath = Wiki.WIKI_PATH + Path(filename)
+            if Filesystem.sharedInstance.exists(path: filePath) {
+                return true
+            }
+        }
+        
+        return false
     }
     
     func isPage(_ permalink: String) -> Bool {
         return Wiki.isPage(permalink)
     }
     
+    static func capitalizeSentence(_ sentence: String) -> String {
+        return String(sentence.characters.first!).capitalized + String(sentence.characters.dropFirst()).lowercased()
+    }
+    
+    /*
+     Return a list of file names that might match a given permalink.
+     
+     Given a permalink like wiki_page, this method will return: 
+     
+     [
+        wiki_page.md,
+        Wiki Page.md,
+        Wiki page.md,
+        wiki page.md,
+        Wiki_page.md,
+        Wiki_Page.md,
+        WIKI_PAGE.md,
+        WIKI PAGE.md
+     ]
+     */
+    static func permalinkFilenames(_ permalink: String) -> [String] {
+        let spacedPermalink = permalink.replacingOccurrences(of: "_", with: " ")
+        return [
+            permalink,
+            spacedPermalink.capitalized,
+            capitalizeSentence(spacedPermalink),
+            spacedPermalink,
+            capitalizeSentence(permalink),
+            permalink.capitalized,
+            permalink.uppercased(),
+            spacedPermalink.uppercased()
+        ].map({$0 + ".md"})
+    }
+    
     func page(_ permalink: String) -> Page? {
-        let path = Wiki.WIKI_PATH  + Path(permalink + ".md")
-        if let file: File<String> = try? self.filesystem.read(path: path) {
-            return toPage(file)
-        } else {
-            return nil
+        let filenames = Wiki.permalinkFilenames(permalink)
+        for filename in filenames {
+            let path = Wiki.WIKI_PATH  + Path(filename)
+            if let file: File<String> = try? self.filesystem.read(path: path) {
+                return toPage(file)
+            }
         }
+        
+        return nil
     }
     
     func delete(_ page: Page) {
