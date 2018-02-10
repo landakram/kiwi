@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setUpStatusBarMessages() {
-        let view = MessageView.viewFromNib(layout: .StatusLine)
+        let view = MessageView.viewFromNib(layout: .statusLine)
         var config = SwiftMessages.Config()
         config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
         config.duration = .indefinite(delay: 0, minimum: 1)
