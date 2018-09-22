@@ -173,7 +173,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         titleView = UIButton(type: .system)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
-        titleView.showsTouchWhenHighlighted = true
         titleView.isUserInteractionEnabled = true
         titleView.addTarget(self, action: #selector(WikiViewController.handleTitleTap), for: UIControlEvents.touchUpInside)
         titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())

@@ -9,27 +9,32 @@
 import UIKit
 import ViewUtils
 import RFKeyboardToolbar
-import Notepad
+import Marklight
 
 class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var textViewHeightConstraint: NSLayoutConstraint!
     
-    var textView: Notepad!
+    var textView: UITextView!
     var page: Page?
     var wiki: Wiki!
+    
+    let textStorage = MarklightTextStorage()
     
     var bottommostVisibleText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let theme = Theme(themePath: Bundle.main.path(forResource: "base16-tomorrow-light", ofType: "json")!)
-        textView = Notepad(frame: self.view.bounds, theme: theme)
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+        let textContainer = NSTextContainer()
+        layoutManager.addTextContainer(textContainer)
+
+        textView = UITextView(frame: self.view.bounds, textContainer: textContainer)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.restorationIdentifier = "EditPageTextView"
         textView.inputAccessoryView = self.setUpToolbar()
-        self.automaticallyAdjustsScrollViewInsets = false
         view.addSubview(textView)
         
         let dict = ["textView": textView]
@@ -47,7 +52,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         view.addConstraints(horizontalConstraints) 
  
         textView.isScrollEnabled = true
-        textView.contentInset = UIEdgeInsets(top: self.navigationController!.navigationBar.bottom, left: 0, bottom: 0, right: 0);
+        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         
         // 50 is estimated from the size of the left and right bar button items
@@ -129,10 +134,11 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
             let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
-                self.textView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, 0, 0)
+                self.textView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+
                 self.textView.scrollIndicatorInsets = self.textView.contentInset
             } else {
-                self.textView.contentInset = UIEdgeInsetsMake(self.navigationController?.navigationBar.bottom ?? 0, 0, endFrame?.size.height ?? 0, 0);
+                self.textView.contentInset = UIEdgeInsetsMake(0, 0, endFrame?.size.height ?? 0, 0);
                 self.textView.scrollIndicatorInsets = self.textView.contentInset;
             }
             UIView.animate(withDuration: duration,
@@ -350,7 +356,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
     }
 }
 
-extension Notepad {
+extension UITextView {
     func wrapSelectedRange(with string: String!) {
         return self.wrapSelectedRange(withStart: string, end: string)
     }

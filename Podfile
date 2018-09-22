@@ -9,7 +9,6 @@ def app_pods
     pod 'IDMPhotoBrowser'
     pod 'STKWebKitViewController'
     pod 'TUSafariActivity'
-    pod 'Notepad', :git => 'https://github.com/kimar/Notepad.git', :branch => 'swift-4'
     pod 'Marklight', :git => 'https://github.com/macteo/Marklight.git', :branch => 'feature/swift4'
     pod 'MRProgress'
     pod 'ViewUtils'
