@@ -8,7 +8,6 @@
 
 import Foundation
 import YapDatabase
-import FileKit
 import RxSwift
 
 enum SaveResult {

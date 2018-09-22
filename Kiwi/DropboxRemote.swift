@@ -1,4 +1,5 @@
-    //
+
+//
 //  DropboxRemote.swift
 //  Kiwi
 //
@@ -7,7 +8,6 @@
 //
 
 import SwiftyDropbox
-import FileKit
 import RxSwift
 import RxSwiftExt
 
@@ -186,6 +186,7 @@ class DropboxRemote {
     }
     
     private func fromRoot(_ path: Path) -> Path {
+        debugPrint(path)
         return self.root + path
     }
     

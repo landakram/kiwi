@@ -32,16 +32,6 @@ protocol TransformsLinksToAnchors {
 }
 
 extension String {
-    func nsRange(from range: Range<String.Index>) -> NSRange {
-        let utf16view = self.utf16
-        let from = range.lowerBound.samePosition(in: utf16view)
-        let to = range.upperBound.samePosition(in: utf16view)
-        return NSMakeRange(utf16view.distance(from: utf16view.startIndex, to: from),
-                           utf16view.distance(from: from, to: to))
-    }
-}
-
-extension String {
     func range(from nsRange: NSRange) -> Range<String.Index>? {
         guard
             let from16 = utf16.index(utf16.startIndex, offsetBy: nsRange.location, limitedBy: utf16.endIndex),
@@ -78,7 +68,7 @@ extension TransformsLinksToAnchors {
             // Find the groups in the match
             var groups = [String]()
             for groupno in 0...regex.numberOfCaptureGroups {
-                let groupRange = markdown.range(from: match.rangeAt(groupno))
+                let groupRange = markdown.range(from: match.range(at: groupno))
                 if let group = markdown.substring( with: groupRange! ) as String! {
                     groups.append( group )
                 }

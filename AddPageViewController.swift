@@ -121,7 +121,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         NotificationCenter.default.removeObserver(self)
     }
     
-    func keyboardNotification(notification: NSNotification) {
+    @objc func keyboardNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
@@ -205,7 +205,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
 
     // MARK: - Navigation
     
-    func save() {
+    @objc func save() {
         if shouldPerformSegue(withIdentifier: "SavePage", sender: self) {
             self.performSegue(withIdentifier: "SavePage", sender: self)
         }
@@ -255,7 +255,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         return true
     }
     
-    func deletePage() {
+    @objc func deletePage() {
         if var actualPage = self.page {
             var titleText = "Are you sure you want to delete this page?"
             if actualPage.permalink == "home" {
@@ -316,7 +316,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         self.textView.selectedRange = range
     }
     
-    func textFieldDidChange() {
+    @objc func textFieldDidChange() {
         let textField = self.navigationItem.titleView as! UITextField
         self.navigationItem.rightBarButtonItem?.isEnabled = !textField.text!.isEmpty
     }

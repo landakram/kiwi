@@ -11,7 +11,7 @@ PODS:
     - Fabric (~> 1.7.3)
   - DACircularProgress (2.3.1)
   - Fabric (1.7.3)
-  - FileKit (4.0.0)
+  - FileKit (5.0.0)
   - GRMustache (7.3.2):
     - JRSwizzle (~> 1.0)
   - hoedown (3.0.3):
@@ -22,6 +22,7 @@ PODS:
     - pop
     - SDWebImage (= 4.0.0)
   - JRSwizzle (1.0)
+  - Marklight (1.4.0)
   - MRProgress (0.8.3):
     - MRProgress/ActivityIndicator (= 0.8.3)
     - MRProgress/Blur (= 0.8.3)
@@ -54,23 +55,23 @@ PODS:
   - Notepad (0.2.4)
   - pop (1.0.10)
   - Quick (1.2.0)
-  - ReachabilitySwift (3)
+  - ReachabilitySwift (4.1.0)
   - RFKeyboardToolbar (1.3)
-  - RxBlocking (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxCocoa (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxReachability (0.1.3):
-    - ReachabilitySwift (~> 3)
-    - RxCocoa (~> 3)
-    - RxSwift (~> 3)
-  - RxSwift (3.6.1)
-  - RxSwiftExt (2.5.1):
-    - RxSwiftExt/Core (= 2.5.1)
-  - RxSwiftExt/Core (2.5.1):
-    - RxSwift (~> 3.4)
-  - RxTest (3.6.1):
-    - RxSwift (~> 3.6)
+  - RxBlocking (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxCocoa (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxReachability (0.1.4):
+    - ReachabilitySwift (~> 4)
+    - RxCocoa (~> 4)
+    - RxSwift (~> 4)
+  - RxSwift (4.1.2)
+  - RxSwiftExt (3.1.0):
+    - RxSwiftExt/Core (= 3.1.0)
+  - RxSwiftExt/Core (3.1.0):
+    - RxSwift (~> 4.0)
+  - RxTest (4.1.2):
+    - RxSwift (~> 4.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -149,17 +150,18 @@ DEPENDENCIES:
   - GRMustache (from `https://github.com/landakram/GRMustache.git`)
   - hoedown
   - IDMPhotoBrowser
+  - Marklight (from `https://github.com/macteo/Marklight.git`, branch `feature/swift4`)
   - MRProgress
   - Nimble
-  - Notepad (from `https://github.com/landakram/Notepad.git`, branch `theme-path`)
+  - Notepad (from `https://github.com/kimar/Notepad.git`, branch `swift-4`)
   - Quick
   - RFKeyboardToolbar
-  - RxBlocking (~> 3.0)
-  - RxCocoa (~> 3.0)
-  - RxReachability
-  - RxSwift (~> 3.0)
-  - RxSwiftExt
-  - RxTest (~> 3.0)
+  - RxBlocking (~> 4.1)
+  - RxCocoa (~> 4.1)
+  - RxReachability (from `https://github.com/ivanbruel/RxReachability.git`, branch `master`)
+  - RxSwift (~> 4.1)
+  - RxSwiftExt (~> 3.1)
+  - RxTest (~> 4.1)
   - STKWebKitViewController
   - SwiftMessages
   - SwiftyDropbox
@@ -173,20 +175,32 @@ EXTERNAL SOURCES:
     :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :git: https://github.com/landakram/GRMustache.git
+  Marklight:
+    :branch: feature/swift4
+    :git: https://github.com/macteo/Marklight.git
   Notepad:
-    :branch: theme-path
-    :git: https://github.com/landakram/Notepad.git
+    :branch: swift-4
+    :git: https://github.com/kimar/Notepad.git
+  RxReachability:
+    :branch: master
+    :git: https://github.com/ivanbruel/RxReachability.git
 
 CHECKOUT OPTIONS:
   FileKit:
-    :commit: 3485db024534aaa8a2db9ba0f57d5cfda91b3daa
+    :commit: d747d5cff466be9d85e358d197f618730de584e9
     :git: https://github.com/landakram/FileKit.git
   GRMustache:
     :commit: 47124e76a08400203c4082a7f02acdedddfbfa6d
     :git: https://github.com/landakram/GRMustache.git
+  Marklight:
+    :commit: 36287bab6987d56375cae773d89f2017a21aa149
+    :git: https://github.com/macteo/Marklight.git
   Notepad:
-    :commit: e13f630b519a1209a2900d6bfb715d8dc4e0f26c
-    :git: https://github.com/landakram/Notepad.git
+    :commit: 6fde05ead648305418494a8edbb0a88728ecd5a8
+    :git: https://github.com/kimar/Notepad.git
+  RxReachability:
+    :commit: c44437ec43b62d435931608472430bbe0e5a2c92
+    :git: https://github.com/ivanbruel/RxReachability.git
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
@@ -195,24 +209,25 @@ SPEC CHECKSUMS:
   Crashlytics: a989ef242b66605577a425733797f810bd2725eb
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Fabric: bb495bb9a7a7677c6d03a1f8b83d95bc49b47e41
-  FileKit: 2589d0393b3bfdc599c2ba6e41419be6db4279e0
+  FileKit: 00156eb15be3bf1c0e090ef30df3b559111e86c0
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
   hoedown: c1327bbbc96d269595ed86bf97f1d09867ec7529
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  Marklight: c175962a8d5a6f07b3e244ec6a2986404153cff4
   MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  Notepad: 7ec64c12df61edfb611a795fe9bdfe3faeeb7940
+  Notepad: ac7bcace29c8020691946fe1f4cace8d390859eb
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   RFKeyboardToolbar: c96a7d9458564d1fedc8ef6844b6c467934aade2
-  RxBlocking: 4f4bd5732e8b952e54ae8a57739bcfb645de12bc
-  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
-  RxReachability: 0e781fc978c3c850dda6cafa2c5956ff806a1fcc
-  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
-  RxSwiftExt: ec25c6df68d15ad6fe326792d60452b52e83d606
-  RxTest: 1d00348a7848c91ab5bf5d197d2378aa6b2bb356
+  RxBlocking: f6054985901412fc8c02daa84e92d4ba68c61389
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxReachability: 6e16525bd709156e3af76f12fd0d60ff887bbfc2
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  RxSwiftExt: a9b9c8e94be009146707f9fcb16eaf3cc1f3910c
+  RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   STKWebKitViewController: 1371f39e5f697de11aa091064eeed6eb515a2511
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
@@ -221,6 +236,6 @@ SPEC CHECKSUMS:
   ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
   YapDatabase: 299a32de9d350d37a9ac5b0532609d87d5d2a5de
 
-PODFILE CHECKSUM: 16f7bc01be19e5e1f7a1764320f85675aa3cb335
+PODFILE CHECKSUM: 0a52f0158b7d4f051ad6c1466ffaf1496e05427f
 
 COCOAPODS: 1.3.1
