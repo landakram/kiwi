@@ -161,6 +161,13 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
                     self.textView.insertText("*")
                 }
             }, for: .touchUpInside),
+            RFToolbarButton(title: "- [ ]", andEventHandler: {
+                if (self.textView.selectedRange.length > 0) {
+                    self.textView.wrapSelectedRange(with: "- [ ]")
+                } else {
+                    self.textView.insertText("- [ ] ")
+                }
+            }, for: .touchUpInside),
             RFToolbarButton(title: "Indent", andEventHandler: {
                 self.textView.insertText("  ")
             }, for: .touchUpInside),
