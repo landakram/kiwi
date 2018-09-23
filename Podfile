@@ -5,22 +5,22 @@ def app_pods
     pod 'hoedown'
     pod 'YapDatabase'
     pod 'GRMustache', :git => 'https://github.com/landakram/GRMustache.git'
-    pod "RFKeyboardToolbar"
+    pod 'RFKeyboardToolbar'
     pod 'IDMPhotoBrowser'
-    pod "STKWebKitViewController"
+    pod 'STKWebKitViewController'
     pod 'TUSafariActivity'
-    pod 'Notepad', :git => 'https://github.com/landakram/Notepad.git', :branch => 'theme-path'
+    pod 'Marklight', :git => 'https://github.com/macteo/Marklight.git', :branch => 'feature/swift4'
     pod 'MRProgress'
     pod 'ViewUtils'
     pod 'AMScrollingNavbar'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
-    pod 'RxSwift',    '~> 3.0'
-    pod "RxSwiftExt"
-    pod 'RxCocoa',    '~> 3.0'
+    pod 'RxSwift', '~> 4.1'
+    pod 'RxSwiftExt', '~> 3.1'
+    pod 'RxCocoa', '~> 4.1'
     pod 'SwiftMessages'
-    pod 'RxReachability'
+    pod 'RxReachability', :git => 'https://github.com/ivanbruel/RxReachability.git', :branch => 'master'
 end
 
 target 'Kiwi' do
@@ -34,6 +34,6 @@ end
 target 'KiwiTests' do
     pod 'Quick'
     pod 'Nimble'
-    pod 'RxBlocking', '~> 3.0'
-    pod 'RxTest',     '~> 3.0'
+    pod 'RxBlocking', '~> 4.1'
+    pod 'RxTest',     '~> 4.1'
 end

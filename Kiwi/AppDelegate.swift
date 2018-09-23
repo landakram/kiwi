@@ -9,13 +9,12 @@
 import UIKit
 import Fabric
 import Crashlytics
-import FileKit
 import SwiftyDropbox
 import AMScrollingNavbar
 import YapDatabase
 import RxSwift
 import SwiftMessages
-import ReachabilitySwift
+import Reachability
 import RxReachability
 
 @UIApplicationMain
@@ -89,15 +88,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITextField.appearance().tintColor = kiwiColor
         UITextView.appearance().tintColor = kiwiColor
         UINavigationBar.appearance().titleTextAttributes = [
-            NSForegroundColorAttributeName: UINavigationBar.appearance().tintColor,
-            NSFontAttributeName: UIFont.systemFont(ofSize: 0),
+            NSAttributedStringKey.foregroundColor: UINavigationBar.appearance().tintColor,
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 0),
         ]
         
         return true
     }
     
     func setUpStatusBarMessages() {
-        let view = MessageView.viewFromNib(layout: .StatusLine)
+        let view = MessageView.viewFromNib(layout: .statusLine)
         var config = SwiftMessages.Config()
         config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
         config.duration = .indefinite(delay: 0, minimum: 1)
@@ -121,7 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 view.configureContent(body: "Downloading \(filename)...")
                                 SwiftMessages.show(config: config, view: view)
                             }
-                        case .right( _): break
+                        case .right( _):
+                            SwiftMessages.hide(id: view.id)
+                            break
                         }
                         
                         // Reset the lastPullFilename after a few seconds

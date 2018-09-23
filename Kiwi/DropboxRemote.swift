@@ -1,4 +1,5 @@
-    //
+
+//
 //  DropboxRemote.swift
 //  Kiwi
 //
@@ -7,7 +8,6 @@
 //
 
 import SwiftyDropbox
-import FileKit
 import RxSwift
 import RxSwiftExt
 
@@ -186,6 +186,7 @@ class DropboxRemote {
     }
     
     private func fromRoot(_ path: Path) -> Path {
+        debugPrint(path)
         return self.root + path
     }
     
@@ -226,9 +227,9 @@ class DropboxRemote {
     
     func delete(path: Path) -> Observable<Either<Progress, Path>> {
         return Observable.create({ observer in
-            let request = self.client?.files.delete(path: self.fromRoot(path).rawValue)
+            let request = self.client?.files.deleteV2(path: self.fromRoot(path).rawValue)
             observer.onNext(.left(Progress(totalUnitCount: 100))) // Fake the progress since Dropbox does not report it
-            request?.response(completionHandler: { (metadata: Files.Metadata?, error: CallError<(Files.DeleteError)>?) in
+            request?.response(completionHandler: { (result: Files.DeleteResult?, error: CallError<(Files.DeleteError)>?) in
                 if error == nil {
                     observer.onNext(.right(path))
                     observer.onCompleted()

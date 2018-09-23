@@ -132,7 +132,7 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
 
     // MARK: - Navigation
     
-    func navigateToHomePage() {
+    @objc func navigateToHomePage() {
         self.performSegue(withIdentifier: "NavigateToSelectedPage", sender: self)
     }
 

@@ -7,10 +7,15 @@
 //
 
 import Foundation
-import FileKit
+import class FileKit.File
+import struct FileKit.Path
+import protocol FileKit.Readable
+import protocol FileKit.Writable
 import RxSwift
 
 typealias Path = FileKit.Path
+typealias ReadableWritable = FileKit.Readable & FileKit.Writable
+typealias FileKitFile = FileKit.File
 
 protocol EventedFilesystem {
     var events: Observable<FilesystemEvent> { get }
@@ -57,7 +62,7 @@ struct Filesystem: EventedFilesystem {
     }
     
     func read<T: ReadableWritable>(path: Path) throws -> File<T> {
-        let realFile = FileKit.File<T>(path: fromRoot(path))
+        let realFile = FileKitFile<T>(path: fromRoot(path))
         let contents = try realFile.read()
         let absPath = fromRoot(path)
         return File(path: absPath, modifiedDate: absPath.modificationDate, contents: contents)
@@ -74,7 +79,7 @@ struct Filesystem: EventedFilesystem {
     
     func write<T: ReadableWritable>(file: File<T>, emit: Bool = true) throws {
         print("write \(file.path)")
-        let realFile = FileKit.File<T>(path: fromRoot(file.path))
+        let realFile = FileKitFile<T>(path: fromRoot(file.path))
         try realFile.write(file.contents)
         if ((file.modifiedDate) != nil) {
             realFile.path.modificationDate = file.modifiedDate   
@@ -130,3 +135,30 @@ enum FilesystemEvent {
     case delete(path: Path)
 }
 
+// Path functions
+
+func + (lhs: Path, rhs: Path) -> Path {
+    if lhs.rawValue.isEmpty || lhs.rawValue == "." { return rhs }
+    if rhs.rawValue.isEmpty || rhs.rawValue == "." { return lhs }
+    switch (lhs.rawValue.hasSuffix(Path.separator), rhs.rawValue.hasPrefix(Path.separator)) {
+    case (true, true):
+        let rhsRawValue = rhs.rawValue.dropFirst()
+        return Path("\(lhs.rawValue)\(rhsRawValue)")
+    case (false, false):
+        return Path("\(lhs.rawValue)\(Path.separator)\(rhs.rawValue)")
+    default:
+        return Path("\(lhs.rawValue)\(rhs.rawValue)")
+    }
+}
+
+/// Converts a `String` to a `Path` and returns the concatenated result.
+
+func + (lhs: String, rhs: Path) -> Path {
+    return Path(lhs) + rhs
+}
+
+/// Converts a `String` to a `Path` and returns the concatenated result.
+
+func + (lhs: Path, rhs: String) -> Path {
+    return lhs + Path(rhs)
+}

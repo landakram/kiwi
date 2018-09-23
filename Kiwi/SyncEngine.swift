@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import FileKit
 import SwiftyDropbox
 import RxSwift
 
@@ -227,7 +226,8 @@ class PullOperation: Operation {
             // Right now, this always prefers their version.
             self.readRemoteAndWrite(path: path).map({ (e: Either<Progress, File<Data>>) in
                 return e.mapRight { _ in path }
-            }).retry(.exponentialDelayed(maxCount: 3, initial: 1.0, multiplier: 1.0))
+            })
+                .retry(.exponentialDelayed(maxCount: 3, initial: 1.0, multiplier: 1.0))
                 .subscribe(self.subject)
             return self.stream
         }

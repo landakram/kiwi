@@ -94,8 +94,8 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [self.webView])
         }
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         if let navigationController = navigationController as? ScrollingNavigationController {
             navigationController.stopFollowingScrollView()
@@ -173,7 +173,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         titleView = UIButton(type: .system)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
-        titleView.showsTouchWhenHighlighted = true
         titleView.isUserInteractionEnabled = true
         titleView.addTarget(self, action: #selector(WikiViewController.handleTitleTap), for: UIControlEvents.touchUpInside)
         titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())
@@ -184,7 +183,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
 
     // MARK: - Navigation
     
-    func handleTitleTap() {
+    @objc func handleTitleTap() {
         self.performSegue(withIdentifier: "ShowAllPages", sender: self)
     }
     
@@ -365,7 +364,8 @@ class ChecklistScriptMessageHandler: NSObject, WKScriptMessageHandler {
             }
         } else if message.name == "loaded" {
             if let string = delegate?.currentPage.rawContent {
-                let js = "injectRawMarkdown(\"\(string.addingPercentEscapes(using: String.Encoding.utf8)!)\")"
+                let escapedMarkdown = string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let js = "injectRawMarkdown(\"\(escapedMarkdown!)\")"
                 delegate?.webView.evaluateJavaScript(js, completionHandler: nil)
             }
         }
