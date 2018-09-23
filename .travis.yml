@@ -1,5 +1,5 @@
 language: objective-c 
-osx_image: xcode8.3
+osx_image: xcode9.4
 xcode_project: Kiwi.xcodeproj
 xcode_scheme: Kiwi
 xcode_sdk: iphonesimulator10.2
