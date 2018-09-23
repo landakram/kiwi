@@ -188,8 +188,8 @@
 		4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kiwi-Bridging-Header.h"; sourceTree = "<group>"; };
 		4DBE60831AA5527A003D3F34 /* Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Page.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DBE60871AA5542A003D3F34 /* Wiki.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Wiki.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Hoedown.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Hoedown.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = Hoedown.h; path = Kiwi/Wiki/Hoedown.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = Hoedown.m; path = Kiwi/Wiki/Hoedown.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4DC512F21BD7374A00E62355 /* String+NSString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+NSString.swift"; sourceTree = "<group>"; };
 		4DC9DC951AADDC5500C64275 /* gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray@2x.png"; sourceTree = "<group>"; };
 		4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AllPagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -199,7 +199,7 @@
 		4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = hoedown_html_patch.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = hoedown_html_patch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4DE39A521B2CDF840099E757 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AddPageViewController.swift; path = ../AddPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AddPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DEFE25D1B9E52EA00462786 /* acknowledgements.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = acknowledgements.md; sourceTree = "<group>"; };
 		4DEFE2601B9FF06A00462786 /* working_with_pages.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = working_with_pages.md; sourceTree = "<group>"; };
 		5F8A4805B80474123335ADE1 /* Pods-Kiwi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -289,68 +289,21 @@
 		4D2AAC1C1A9DA30300E0904B /* Kiwi */ = {
 			isa = PBXGroup;
 			children = (
-				4DEB69861AA94F6500FB480C /* AddPageViewController.swift */,
+				4DBF1027215737990041DA28 /* Supporting Files */,
+				4DBF1025215737540041DA28 /* Extensions */,
+				4DBF10242157374D0041DA28 /* Services */,
+				4DBF1023215736D20041DA28 /* Wiki */,
+				4DBF10222157369D0041DA28 /* Sync */,
+				4DBF1020215736500041DA28 /* Controllers */,
 				4D2AAC1F1A9DA30300E0904B /* AppDelegate.swift */,
-				4D2AAC211A9DA30300E0904B /* LinkWithDropboxViewController.swift */,
-				4D2AAC231A9DA30300E0904B /* Main.storyboard */,
 				4D2AAC261A9DA30300E0904B /* Images.xcassets */,
-				4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */,
-				4D2AAC1D1A9DA30300E0904B /* Supporting Files */,
 				4DBE60511A9DAA43003D3F34 /* Kiwi-Bridging-Header.h */,
-				4DBE60831AA5527A003D3F34 /* Page.swift */,
-				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
-				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
-				4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */,
-				4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */,
-				4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */,
-				4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */,
-				4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */,
-				4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */,
-				4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */,
 				4D0C3BAE1B86FEC700E58333 /* Constants.swift */,
-				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
-				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
 				4D8842CF1C7C3AEA00C70A17 /* Kiwi.playground */,
 				4D4582721D94963E00EBEDD8 /* Constants.m */,
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
-				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
-				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
-				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
-				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
-				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
-				4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */,
-				4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */,
 			);
 			path = Kiwi;
-			sourceTree = "<group>";
-		};
-		4D2AAC1D1A9DA30300E0904B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
-				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
-				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
-				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
-				4D26DBB91ABD4002007CE00E /* home@2x.png */,
-				4D5F93D61AB005F800D92886 /* checkmark@2x.png */,
-				4DC9DC951AADDC5500C64275 /* gray@2x.png */,
-				4D7CBBAB1AA8291E00638C5C /* home.md */,
-				4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */,
-				4DEFE25D1B9E52EA00462786 /* acknowledgements.md */,
-				4DEFE2601B9FF06A00462786 /* working_with_pages.md */,
-				4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */,
-				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
-				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
-				4D7CBBB21AA833E200638C5C /* screen.css */,
-				4D44273B1B1D7C8B00B35C01 /* prism.css */,
-				4D7CBBAE1AA82F4300638C5C /* layout.mustache */,
-				4D7CBBB01AA8304200638C5C /* article.mustache */,
-				4D44273D1B1D7C9000B35C01 /* prism.js */,
-				4D0378101AA881BA00B6D841 /* links.js */,
-				4D4427391B1D710000B35C01 /* auto-render-latex.min.js */,
-				4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		4D2AAC321A9DA30300E0904B /* KiwiTests */ = {
@@ -377,6 +330,149 @@
 				4D8DDB0E1F04BA28007DE912 /* IndexerSpec.swift */,
 			);
 			path = KiwiTests;
+			sourceTree = "<group>";
+		};
+		4DBF1020215736500041DA28 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D2AAC281A9DA30300E0904B /* LaunchScreen.xib */,
+				4D2AAC231A9DA30300E0904B /* Main.storyboard */,
+				4D53FEA71EDCD0CD00FDFE0F /* UpdateNotesViewController.swift */,
+				4D53FEA81EDCD0CD00FDFE0F /* UpdateNotesViewController.xib */,
+				4DDF769F1B9E29F30034ECEE /* BaseNavigationController.swift */,
+				4DC9DC991AAE837D00C64275 /* ExternalLinkViewController.swift */,
+				4DC9DC971AAE252F00C64275 /* AllPagesViewController.swift */,
+				4D7CBBA91AA8272E00638C5C /* WikiViewController.swift */,
+				4D2AAC211A9DA30300E0904B /* LinkWithDropboxViewController.swift */,
+				4DEB69861AA94F6500FB480C /* AddPageViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4DBF10222157369D0041DA28 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				4D36BA641DD1B7F800C9408F /* SyncEngine.swift */,
+				4DCBB2881EC4023500EFF3FE /* DropboxRemote.swift */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
+		4DBF1023215736D20041DA28 /* Wiki */ = {
+			isa = PBXGroup;
+			children = (
+				4DBE608D1AA5BDA8003D3F34 /* Hoedown.h */,
+				4DBE608E1AA5BDA8003D3F34 /* Hoedown.m */,
+				4DE39A4F1B2CD4FD0099E757 /* hoedown_html_patch.c */,
+				4DE39A501B2CD4FD0099E757 /* hoedown_html_patch.h */,
+				4DBE60831AA5527A003D3F34 /* Page.swift */,
+				4DBE60871AA5542A003D3F34 /* Wiki.swift */,
+				4D36BA611DD1980E00C9408F /* Filesystem.swift */,
+				4D4D5CBA1DD7D2AA00A3D2CA /* Indexer.swift */,
+				4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */,
+			);
+			path = Wiki;
+			sourceTree = "<group>";
+		};
+		4DBF10242157374D0041DA28 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4D22D8441EC02CFA0037D2CE /* EventBus.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4DBF1025215737540041DA28 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4DC512F21BD7374A00E62355 /* String+NSString.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4DBF1027215737990041DA28 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4DBF102A2157380B0041DA28 /* Assets */,
+				4DBF1029215737FF0041DA28 /* Update Notes */,
+				4DBF1028215737ED0041DA28 /* Tutorial Pages */,
+				4D2AAC1E1A9DA30300E0904B /* Info.plist */,
+				4D3D8E581BB4A1D0000C53EE /* KiwiDevelopment.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4DBF1028215737ED0041DA28 /* Tutorial Pages */ = {
+			isa = PBXGroup;
+			children = (
+				4D7CBBAB1AA8291E00638C5C /* home.md */,
+				4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */,
+				4DEFE25D1B9E52EA00462786 /* acknowledgements.md */,
+				4DEFE2601B9FF06A00462786 /* working_with_pages.md */,
+				4DB9ADD51BABF4DF00131C20 /* available_in_dropbox.md */,
+			);
+			path = "Tutorial Pages";
+			sourceTree = "<group>";
+		};
+		4DBF1029215737FF0041DA28 /* Update Notes */ = {
+			isa = PBXGroup;
+			children = (
+				4D53FEAD1EDCD6EF00FDFE0F /* update_notes_2.0.0.md */,
+			);
+			path = "Update Notes";
+			sourceTree = "<group>";
+		};
+		4DBF102A2157380B0041DA28 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4DBF102E2157385C0041DA28 /* Templates */,
+				4DBF102D2157383A0041DA28 /* Scripts */,
+				4DBF102C215738350041DA28 /* Stylesheets */,
+				4DBF102B2157382E0041DA28 /* Images */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		4DBF102B2157382E0041DA28 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4D5F93DC1AB00F5900D92886 /* green@2x.png */,
+				4D5F93E01AB02A3F00D92886 /* menu@2x.png */,
+				4D26DBB91ABD4002007CE00E /* home@2x.png */,
+				4D5F93D61AB005F800D92886 /* checkmark@2x.png */,
+				4DC9DC951AADDC5500C64275 /* gray@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		4DBF102C215738350041DA28 /* Stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
+				4D7CBBB21AA833E200638C5C /* screen.css */,
+				4D44273B1B1D7C8B00B35C01 /* prism.css */,
+			);
+			path = Stylesheets;
+			sourceTree = "<group>";
+		};
+		4DBF102D2157383A0041DA28 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
+				4D44273D1B1D7C9000B35C01 /* prism.js */,
+				4D0378101AA881BA00B6D841 /* links.js */,
+				4D4427391B1D710000B35C01 /* auto-render-latex.min.js */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+		4DBF102E2157385C0041DA28 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				4D7CBBAE1AA82F4300638C5C /* layout.mustache */,
+				4D7CBBB01AA8304200638C5C /* article.mustache */,
+			);
+			path = Templates;
 			sourceTree = "<group>";
 		};
 		99AF236031C2442D5DF544F0 /* Pods */ = {
@@ -1093,7 +1189,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
-				INFOPLIST_FILE = Kiwi/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Kiwi/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.markhudnall.Kiwi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1120,7 +1216,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
-				INFOPLIST_FILE = Kiwi/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Kiwi/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.markhudnall.Kiwi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
