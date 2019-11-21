@@ -500,7 +500,6 @@
 				4D2AAC171A9DA30300E0904B /* Frameworks */,
 				4D2AAC181A9DA30300E0904B /* Resources */,
 				05F70F702DC93D7797BCC9ED /* [CP] Embed Pods Frameworks */,
-				8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */,
 				4DAD4E971D97963400B33065 /* ShellScript */,
 			);
 			buildRules = (
@@ -521,7 +520,6 @@
 				4D3D8E371BB4A1CF000C53EE /* Frameworks */,
 				4D3D8E391BB4A1CF000C53EE /* Resources */,
 				E8BCDD8A38230D3E1F3515EE /* [CP] Embed Pods Frameworks */,
-				1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */,
 				4DAD4E961D9795B300B33065 /* ShellScript */,
 			);
 			buildRules = (
@@ -542,7 +540,6 @@
 				4D8DDB011F04B9E5007DE912 /* Frameworks */,
 				4D8DDB021F04B9E5007DE912 /* Resources */,
 				7D80C4C4351DCC31E3FCF2FE /* [CP] Embed Pods Frameworks */,
-				6065187B349BA256467A42A9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -569,7 +566,7 @@
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 8E96ZSV3N3;
 						LastSwiftMigration = 0920;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					4D3D8E201BB4A1CF000C53EE = {
 						DevelopmentTeam = 8E96ZSV3N3;
@@ -590,6 +587,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -690,7 +688,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
@@ -705,6 +703,7 @@
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -733,6 +732,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -747,7 +747,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1D317F7B999FCA0624F03BAB /* [CP] Check Pods Manifest.lock */ = {
@@ -766,21 +766,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1DC5C6B18046C2B6211C2FA7 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3C80D7958288165DEB8D40F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -827,28 +812,13 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c47";
 		};
-		6065187B349BA256467A42A9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7D80C4C4351DCC31E3FCF2FE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS10.3/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
@@ -865,22 +835,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C6E23D3649328076853A2F0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KiwiTests/Pods-KiwiTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DD979AE2B596B69CF82B17E5 /* [CP] Check Pods Manifest.lock */ = {
@@ -907,7 +862,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
@@ -922,6 +877,7 @@
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -950,6 +906,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -964,7 +921,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1080,7 +1037,7 @@
 /* Begin XCBuildConfiguration section */
 		4D2AAC371A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */;
+			baseConfigurationReference = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1177,13 +1134,14 @@
 		};
 		4D2AAC3A1A9DA30300E0904B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */;
+			baseConfigurationReference = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8E96ZSV3N3;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1195,7 +1153,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2d3b2f87-0f0e-49b6-988d-e3cb536c0dbc";
 				"PROVISIONING_PROFILE[sdk=*]" = "";
-				PROVISIONING_PROFILE_SPECIFIER = "com.markhudnall.Kiwi Development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Kiwi/Kiwi-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1254,7 +1212,7 @@
 		};
 		4D3D8E561BB4A1CF000C53EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */;
+			baseConfigurationReference = 4D3D8E1C1BB4A064000C53EE /* Config.development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

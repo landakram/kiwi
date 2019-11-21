@@ -91,7 +91,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         super.viewWillAppear(animated)
         
         if let navigationController = navigationController as? ScrollingNavigationController {
-            navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [self.webView])
+            navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [NavigationBarFollower(view: self.webView)])
         }
     }
     override func viewDidDisappear(_ animated: Bool) {
