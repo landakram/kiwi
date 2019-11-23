@@ -12,7 +12,7 @@
 		4D0378131AA88EA600B6D841 /* writing_with_kiwi.md in Sources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
-		4D0E7E9C2389E0ED00458A73 /* KiwiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E7E9B2389E0ED00458A73 /* KiwiTests.swift */; };
+		4D0E7EA32389F23F00458A73 /* IndexerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DDB0E1F04BA28007DE912 /* IndexerSpec.swift */; };
 		4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
@@ -140,8 +140,6 @@
 		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D0E7E992389E0ED00458A73 /* KiwiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D0E7E9B2389E0ED00458A73 /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KiwiTests.swift; sourceTree = "<group>"; };
-		4D0E7E9D2389E0ED00458A73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D22D8441EC02CFA0037D2CE /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = YapDatabase.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
@@ -152,8 +150,6 @@
 		4D2AAC241A9DA30300E0904B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D2AAC261A9DA30300E0904B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D2AAC291A9DA30300E0904B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4D2AAC341A9DA30300E0904B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D2AAC351A9DA30300E0904B /* KiwiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = KiwiTests.swift; sourceTree = "<group>"; };
 		4D36BA611DD1980E00C9408F /* Filesystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filesystem.swift; sourceTree = "<group>"; };
 		4D36BA641DD1B7F800C9408F /* SyncEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
 		4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "base16-tomorrow-light.json"; sourceTree = "<group>"; };
@@ -252,15 +248,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4D0E7E9A2389E0ED00458A73 /* KiwiTests */ = {
-			isa = PBXGroup;
-			children = (
-				4D0E7E9B2389E0ED00458A73 /* KiwiTests.swift */,
-				4D0E7E9D2389E0ED00458A73 /* Info.plist */,
-			);
-			path = KiwiTests;
-			sourceTree = "<group>";
-		};
 		4D0E7FC32031669D009546D2 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,9 +263,7 @@
 				4D3D8E1D1BB4A064000C53EE /* Config.production.xcconfig */,
 				4D4B33F11B9E201800BCBE5B /* IDMPBLocalizations.bundle */,
 				4D2AAC1C1A9DA30300E0904B /* Kiwi */,
-				4D2AAC321A9DA30300E0904B /* KiwiTests */,
 				4D8DDB051F04B9E5007DE912 /* KiwiTests */,
-				4D0E7E9A2389E0ED00458A73 /* KiwiTests */,
 				4D2AAC1B1A9DA30300E0904B /* Products */,
 				48924F7F2E83D886BAA39977 /* Frameworks */,
 				99AF236031C2442D5DF544F0 /* Pods */,
@@ -314,23 +299,6 @@
 				4D4582751D94964D00EBEDD8 /* Constants.h */,
 			);
 			path = Kiwi;
-			sourceTree = "<group>";
-		};
-		4D2AAC321A9DA30300E0904B /* KiwiTests */ = {
-			isa = PBXGroup;
-			children = (
-				4D2AAC351A9DA30300E0904B /* KiwiTests.swift */,
-				4D2AAC331A9DA30300E0904B /* Supporting Files */,
-			);
-			path = KiwiTests;
-			sourceTree = "<group>";
-		};
-		4D2AAC331A9DA30300E0904B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4D2AAC341A9DA30300E0904B /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		4D8DDB051F04B9E5007DE912 /* KiwiTests */ = {
@@ -944,7 +912,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D0E7E9C2389E0ED00458A73 /* KiwiTests.swift in Sources */,
+				4D0E7EA32389F23F00458A73 /* IndexerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
