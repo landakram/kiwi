@@ -31,6 +31,8 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
+    cert
+    sigh(force: true)
     gym(scheme: "Kiwi") # Build your app - more options available
     pilot
 
@@ -43,7 +45,7 @@ platform :ios do
     # match(type: "appstore")
     # snapshot
     cert
-    sigh
+    sigh(force: true)
     gym(scheme: "Kiwi") # Build your app - more options available
     deliver(force: true)
     # frameit

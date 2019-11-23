@@ -1,0 +1,8 @@
+app_identifier ENV["APP_IDENTIFIER"]
+apple_id ENV["APPLE_ID"]
+
+team_id ENV["TEAM_ID"]
+itc_team_id = ENV["TEAM_ID"]
+
+# you can even provide different app identifiers, Apple IDs and team names per lane:
+# More information: https://docs.fastlane.tools/advanced/#appfile
