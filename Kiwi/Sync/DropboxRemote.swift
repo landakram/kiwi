@@ -68,6 +68,9 @@ class DropboxRemote {
         
         self.changesets = changes.publish()
         
+        // Dropbox works with Changesets, but we just want a stream of
+        // individual change events. We split changesets into individual
+        // events and publish them onto the stream.
         self.observable =
             self.changesets
             .flatMap({ Observable.from($0.entries) })
