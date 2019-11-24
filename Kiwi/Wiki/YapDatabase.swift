@@ -18,7 +18,7 @@ class Yap {
             _sharedInstance = YapDatabase(path: documentsURL.appendingPathComponent("wiki.sqlite").absoluteString)
             
             let block: YapDatabaseFullTextSearchWithObjectBlock = {
-                (dict: NSMutableDictionary, collection: String, key: String, object: Any) in
+                (transaction: YapDatabaseReadTransaction, dict: NSMutableDictionary, collection: String, key: String, object: Any) in
                 
                 if let encodablePage = object as? EncodablePage {
                     let page = encodablePage.page

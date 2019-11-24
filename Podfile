@@ -9,18 +9,18 @@ def app_pods
     pod 'IDMPhotoBrowser'
     pod 'STKWebKitViewController'
     pod 'TUSafariActivity'
-    pod 'Marklight', :git => 'https://github.com/macteo/Marklight.git', :branch => 'feature/swift4'
+    pod 'Marklight'
     pod 'MRProgress'
     pod 'ViewUtils'
     pod 'AMScrollingNavbar'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'FileKit', :git => 'https://github.com/landakram/FileKit.git', :branch => 'set-modification-date'
-    pod 'RxSwift', '~> 4.1'
-    pod 'RxSwiftExt', '~> 3.1'
-    pod 'RxCocoa', '~> 4.1'
-    pod 'SwiftMessages'
-    pod 'RxReachability', :git => 'https://github.com/ivanbruel/RxReachability.git', :branch => 'master'
+    pod 'RxSwift', '~> 5.0'
+    pod 'RxSwiftExt', '~> 5.1'
+    pod 'RxCocoa', '~> 5.0'
+    pod 'SwiftMessages', '~> 5.0'
+    pod 'RxReachability'
 end
 
 target 'Kiwi' do
@@ -34,6 +34,6 @@ end
 target 'KiwiTests' do
     pod 'Quick'
     pod 'Nimble'
-    pod 'RxBlocking', '~> 4.1'
-    pod 'RxTest',     '~> 4.1'
+    pod 'RxBlocking', '~> 5.0'
+    pod 'RxTest',     '~> 5.0'
 end
