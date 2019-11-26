@@ -73,6 +73,20 @@ class Indexer {
         })
     }
     
+    func list() -> [String] {
+        var results: [String] = []
+
+        self.backingStore.newConnection().read({ (transaction) in
+            if let tx = transaction.ext("orderdedByModifiedTimeDesc") as? YapDatabaseViewTransaction {
+                tx.enumerateKeys(inGroup: "pages") { (collection, key, index, stop) in
+                    results.append(key)
+                }
+            }
+        })
+
+        return results
+    }
+
     func get(permalink: String) -> Page? {
         var page: Page?
         

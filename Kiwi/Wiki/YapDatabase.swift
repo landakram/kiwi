@@ -36,8 +36,28 @@ class Yap {
             )
             
             _sharedInstance?.register(fullTextSearch, withName: "fts")
+            _sharedInstance?.register(orderedByModifiedTimeView(), withName: "orderdedByModifiedTimeDesc")
         }
         
         return _sharedInstance!
+    }
+
+    class func orderedByModifiedTimeView() -> YapDatabaseView {
+        let grouping = YapDatabaseViewGrouping.withKeyBlock { (transaction, collection, key) -> String? in
+            return collection
+        }
+        let sorting = YapDatabaseViewSorting.withObjectBlock { (transaction, group, collection1, key1, object1, collection2, key2, object2) -> ComparisonResult in
+            let page1 = (object1 as! EncodablePage).page
+            let page2 = (object2 as! EncodablePage).page
+            if page1.modifiedTime > page2.modifiedTime {
+                return .orderedAscending
+            } else if page2.modifiedTime < page2.modifiedTime {
+                return .orderedDescending
+            } else {
+                return .orderedSame
+            }
+        }
+        let versionTag = "2019-11-25"
+        return YapDatabaseAutoView(grouping: grouping, sorting: sorting, versionTag: versionTag)
     }
 }
