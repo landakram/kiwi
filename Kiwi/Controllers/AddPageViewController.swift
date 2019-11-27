@@ -195,13 +195,15 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
             RFToolbarButton(title: "Quote", andEventHandler: {
                 var range = self.textView.selectedRange
                 range.location += 3
-                self.textView.insertText(self.textView.text.characters.count == 0 ? "> " : "\n> ")
+                self.textView.insertText(self.textView.text.count == 0 ? "> " : "\n> ")
                 self.textView.selectedRange = range
             }, for: .touchUpInside),
-            
-            ]
+            RFToolbarButton(title: "Task", andEventHandler: {
+                self.textView.insertText("- [ ] ")
+            }, for: .touchUpInside),
+        ]
         
-        return RFKeyboardToolbar(buttons: buttons)
+        return RFKeyboardToolbar(buttons: buttons as [Any])
     }
 
     override func didReceiveMemoryWarning() {
@@ -351,7 +353,7 @@ class AddPageViewController: UIViewController, UITextViewDelegate, UIImagePicker
         self.textView.insertText(coder.decodeObject(forKey: "editedText") as! String)
         
         let titleField = self.navigationItem.titleView as! UITextField
-        titleField.text = coder.decodeObject(forKey: "titleText") as! String
+        titleField.text = coder.decodeObject(forKey: "titleText") as? String
         textFieldDidChange()
     }
 }
