@@ -76,7 +76,8 @@ class Wiki {
             "links",
             "auto-render-latex.min",
             "prism",
-            "jquery.min"
+            "jquery.min",
+            "katex.min"
         ]
         for filename in defaultJsFiles {
             copyFileToLocal(Bundle.main.path(forResource: filename, ofType: "js")!)
@@ -84,7 +85,8 @@ class Wiki {
         
         let defaultCSSFiles = [
             "screen",
-            "prism"
+            "prism",
+            "katex.min"
         ]
         for filename in defaultCSSFiles {
             copyFileToLocal(Bundle.main.path(forResource: filename, ofType: "css")!)

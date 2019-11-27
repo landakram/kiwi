@@ -94,6 +94,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             navigationController.followScrollView(self.webView, delay: 50.0, scrollSpeedFactor: 1.0, followers: [NavigationBarFollower(view: self.webView)])
         }
     }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -101,8 +102,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
             navigationController.stopFollowingScrollView()
         }
     }
-    
-    
+
     func isLoadingForFirstTime() -> Bool {
         return !UserDefaults.standard.bool(forKey: "didLoadFirstTime")
     }
@@ -168,8 +168,7 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         
         view.addConstraints(horizontalConstraints)
         view.addConstraints(verticalConstraints)
-        
-        
+
         titleView = UIButton(type: .system)
         titleView.sizeToFit()
         titleView.titleLabel!.font = UIFont.systemFont(ofSize: 18)
@@ -177,7 +176,6 @@ class WikiViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, 
         titleView.addTarget(self, action: #selector(WikiViewController.handleTitleTap), for: UIControlEvents.touchUpInside)
         titleView.setTitleColor(Constants.KiwiColor, for: UIControlState())
         self.navigationController?.navigationItem.titleView = titleView
-        
         self.navigationItem.titleView = titleView
     }
 
