@@ -76,7 +76,8 @@ class Wiki {
             "links",
             "auto-render-latex.min",
             "prism",
-            "jquery.min"
+            "jquery.min",
+            "katex.min"
         ]
         for filename in defaultJsFiles {
             copyFileToLocal(Bundle.main.path(forResource: filename, ofType: "js")!)
@@ -84,7 +85,8 @@ class Wiki {
         
         let defaultCSSFiles = [
             "screen",
-            "prism"
+            "prism",
+            "katex.min"
         ]
         for filename in defaultCSSFiles {
             copyFileToLocal(Bundle.main.path(forResource: filename, ofType: "css")!)
@@ -92,18 +94,7 @@ class Wiki {
     }
 
     func files() -> [String] {
-        let files = self.filesystem.list(path: Wiki.WIKI_PATH)
-        return files.filter({ (path: Path) -> Bool in
-            return !path.isDirectory
-        }).sorted(by: { (path1, path2) -> Bool in
-            if path1.modificationDate == nil || path2.modificationDate == nil {
-                return true
-            } else {
-                return path1.modificationDate! > path2.modificationDate!
-            }
-        }).map({ (path: Path) -> String in
-            return path.fileName
-        })
+        return self.indexer.list()
     }
     
     static func isPage(_ permalink: String) -> Bool {

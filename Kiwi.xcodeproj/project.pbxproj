@@ -13,6 +13,10 @@
 		4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */; };
 		4D0C3BAF1B86FEC700E58333 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C3BAE1B86FEC700E58333 /* Constants.swift */; };
 		4D0E7EA32389F23F00458A73 /* IndexerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DDB0E1F04BA28007DE912 /* IndexerSpec.swift */; };
+		4D0E7EA5238DD11500458A73 /* katex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0E7EA4238DD11500458A73 /* katex.min.js */; };
+		4D0E7EA6238DD11500458A73 /* katex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0E7EA4238DD11500458A73 /* katex.min.js */; };
+		4D0E7EA8238DD11D00458A73 /* katex.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D0E7EA7238DD11D00458A73 /* katex.min.css */; };
+		4D0E7EA9238DD11D00458A73 /* katex.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D0E7EA7238DD11D00458A73 /* katex.min.css */; };
 		4D22D8451EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D22D8461EC02CFA0037D2CE /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22D8441EC02CFA0037D2CE /* EventBus.swift */; };
 		4D26DBB81AB6B51A007CE00E /* YapDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */; };
@@ -140,6 +144,8 @@
 		4D0378121AA88EA600B6D841 /* writing_with_kiwi.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; lineEnding = 0; path = writing_with_kiwi.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		4D0C3BAE1B86FEC700E58333 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Constants.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D0E7E992389E0ED00458A73 /* KiwiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D0E7EA4238DD11500458A73 /* katex.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = katex.min.js; sourceTree = "<group>"; };
+		4D0E7EA7238DD11D00458A73 /* katex.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = katex.min.css; sourceTree = "<group>"; };
 		4D22D8441EC02CFA0037D2CE /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		4D26DBB71AB6B51A007CE00E /* YapDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = YapDatabase.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4D26DBB91ABD4002007CE00E /* home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home@2x.png"; sourceTree = "<group>"; };
@@ -428,6 +434,7 @@
 			children = (
 				4D3983DC1ED688E6006381A4 /* base16-tomorrow-light.json */,
 				4D7CBBB21AA833E200638C5C /* screen.css */,
+				4D0E7EA7238DD11D00458A73 /* katex.min.css */,
 				4D44273B1B1D7C8B00B35C01 /* prism.css */,
 			);
 			path = Stylesheets;
@@ -437,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				4DA4BB5E1BAD3DB200FA9502 /* jquery.min.js */,
+				4D0E7EA4238DD11500458A73 /* katex.min.js */,
 				4D44273D1B1D7C9000B35C01 /* prism.js */,
 				4D0378101AA881BA00B6D841 /* links.js */,
 				4D4427391B1D710000B35C01 /* auto-render-latex.min.js */,
@@ -598,10 +606,12 @@
 				4DEFE25F1B9E8AB900462786 /* acknowledgements.md in Resources */,
 				4D53FEAB1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D4B33F21B9E201800BCBE5B /* IDMPBLocalizations.bundle in Resources */,
+				4D0E7EA5238DD11500458A73 /* katex.min.js in Resources */,
 				4D3D8E1F1BB4A064000C53EE /* Config.production.xcconfig in Resources */,
 				4D0378141AA88F9B00B6D841 /* writing_with_kiwi.md in Resources */,
 				4D7CBBAD1AA82A8400638C5C /* home.md in Resources */,
 				4DA4BB5F1BAD3DB200FA9502 /* jquery.min.js in Resources */,
+				4D0E7EA8238DD11D00458A73 /* katex.min.css in Resources */,
 				4D5F93E11AB02A3F00D92886 /* menu@2x.png in Resources */,
 				4D7CBBB31AA833E200638C5C /* screen.css in Resources */,
 				4D3D8E1E1BB4A064000C53EE /* Config.development.xcconfig in Resources */,
@@ -632,10 +642,12 @@
 				4D3D8E3C1BB4A1CF000C53EE /* acknowledgements.md in Resources */,
 				4D53FEAC1EDCD0CD00FDFE0F /* UpdateNotesViewController.xib in Resources */,
 				4D3D8E3D1BB4A1CF000C53EE /* IDMPBLocalizations.bundle in Resources */,
+				4D0E7EA6238DD11500458A73 /* katex.min.js in Resources */,
 				4D3D8E3E1BB4A1CF000C53EE /* Config.production.xcconfig in Resources */,
 				4D3D8E3F1BB4A1CF000C53EE /* writing_with_kiwi.md in Resources */,
 				4D3D8E401BB4A1CF000C53EE /* home.md in Resources */,
 				4D3D8E411BB4A1CF000C53EE /* jquery.min.js in Resources */,
+				4D0E7EA9238DD11D00458A73 /* katex.min.css in Resources */,
 				4D3D8E421BB4A1CF000C53EE /* menu@2x.png in Resources */,
 				4D3D8E431BB4A1CF000C53EE /* screen.css in Resources */,
 				4D3D8E441BB4A1CF000C53EE /* Config.development.xcconfig in Resources */,

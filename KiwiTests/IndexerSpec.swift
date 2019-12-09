@@ -56,18 +56,39 @@ class FakeFilesystem: EventedFilesystem {
 }
 
 class IndexerSpec: QuickSpec {
-    
     override func spec() {
         describe("the Indexer") {
             var indexer: Indexer!
-            var page: Page!
             var filesystem: FakeFilesystem!
+            var page1: Page!
+            var page2: Page!
+
+            func toDate(str: String) -> Date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy'-'MM'-'dd"
+                return dateFormatter.date(from: str)!
+            }
             
             beforeEach {
                 filesystem = FakeFilesystem()
                 indexer = Indexer(filesystem: filesystem)
                 indexer.start()
-                page = Page(rawContent: "test", permalink: "test_page", name: "Test", modifiedTime: Date(), createdTime: Date(), isDirty: false)
+                page1 = Page(
+                    rawContent: "test",
+                    permalink: "test_page",
+                    name: "Test",
+                    modifiedTime: toDate(str: "2019-11-01"),
+                    createdTime: toDate(str: "2019-11-01"),
+                    isDirty: false
+                )
+                page2 = Page(
+                    rawContent: "test2",
+                    permalink: "test_page2",
+                    name: "Test2",
+                    modifiedTime: toDate(str: "2019-11-02"),
+                    createdTime: toDate(str: "2019-11-02"),
+                    isDirty: false
+                )
             }
             
             context("when a page is written to the filesystem") {
@@ -82,7 +103,7 @@ class IndexerSpec: QuickSpec {
             
             context("when a page is indexed") {
                 beforeEach {
-                    indexer.index(page: page)
+                    indexer.index(page: page1)
                 }
                 
                 context("when a file is removed from the filesystem") {
@@ -93,6 +114,18 @@ class IndexerSpec: QuickSpec {
                     it("should remove it from the index") {
                         expect(indexer.get(permalink: "test_page")).toEventually(beNil())
                     }
+                }
+            }
+
+            describe(".list") {
+                beforeEach {
+                    indexer.index(page: page1)
+                    indexer.index(page: page2)
+                }
+
+                it("returns all permalinks in descending order") {
+                    let permalinks = indexer.list()
+                    expect(permalinks).to(equal([page2.permalink, page1.permalink]))
                 }
             }
         }

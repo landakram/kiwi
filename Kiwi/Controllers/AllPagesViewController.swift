@@ -8,23 +8,23 @@
 
 import UIKit
 
-class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
+class AllPagesViewController: UITableViewController, UISearchResultsUpdating {
     var indexer: Indexer!
     var files: [String]!
     var filteredFiles: [String] = []
-    
     var selectedPermalink: String!
+    var searchController: UISearchController!
     
-    @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.searchController = UISearchController()
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = false
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+        self.tableView.tableHeaderView = self.searchController.searchBar
+        self.definesPresentationContext = true
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "home"),
             style: UIBarButtonItemStyle.plain,
@@ -46,7 +46,7 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.searchDisplayController!.searchResultsTableView {
+        if self.searchController.isActive {
             return self.filteredFiles.count
         } else {
             return self.files.count
@@ -57,7 +57,7 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell
         var files = self.files
-        if tableView == self.searchDisplayController!.searchResultsTableView {
+        if self.searchController.isActive {
             files = self.filteredFiles
             cell = self.tableView.dequeueReusableCell(withIdentifier: "pageCell")!
         } else {
@@ -139,7 +139,7 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "NavigateToSelectedPage" {
-            self.searchBar.resignFirstResponder()
+            self.searchController.searchBar.resignFirstResponder()
             if let cell = sender as? UITableViewCell {
                 if let textLabel = cell.viewWithTag(100) as? UILabel {
                 self.selectedPermalink = Page.nameToPermalink(name: textLabel.text!)   
@@ -167,13 +167,11 @@ class AllPagesViewController: UITableViewController, UISearchDisplayDelegate {
             self.filteredFiles += matches
         }
     }
-    
-    func searchDisplayController(_ controller: UISearchDisplayController, shouldReloadTableForSearch searchString: String?) -> Bool {
-        if let str = searchString {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        if let str = searchController.searchBar.text {
             self.searchPages(str)
         }
-        return true
+        self.tableView.reloadData()
     }
-
-
 }
