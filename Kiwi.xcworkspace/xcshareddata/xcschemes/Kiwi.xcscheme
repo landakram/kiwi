@@ -41,9 +41,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D8DDB031F04B9E5007DE912"
+               BlueprintIdentifier = "4D0E7E982389E0ED00458A73"
                BuildableName = "KiwiTests.xctest"
                BlueprintName = "KiwiTests"
+               ReferencedContainer = "container:Kiwi.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D4238ED23D11FAA009C4B37"
+               BuildableName = "KiwiUITests.xctest"
+               BlueprintName = "KiwiUITests"
                ReferencedContainer = "container:Kiwi.xcodeproj">
             </BuildableReference>
          </TestableReference>
