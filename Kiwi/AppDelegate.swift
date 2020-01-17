@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DropboxClientsManager.unlinkClients()
         }
         if let client = DropboxClientsManager.authorizedClient {
-            syncEngine.remote.configure(client: client)
+            DropboxRemote.sharedInstance.configure(client: client)
             
             self.syncEngine.sweep()
             
@@ -64,11 +64,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 t.removeAllObjectsInAllCollections()
             })
             
-            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "OnboardingViewControllerIdentifier") as? OnboardingViewController
             rootViewController?.upgradingFromV1 = true
             rootNavigationController?.viewControllers = [rootViewController!]
         } else {
-            let rootViewController = storyboard.instantiateViewController(withIdentifier: "LinkWithDropboxIdentifier") as? LinkWithDropboxViewController
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "OnboardingViewControllerIdentifier") as? OnboardingViewController
             rootNavigationController?.viewControllers = [rootViewController!]
         }
         
@@ -183,7 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         if let client = DropboxClientsManager.authorizedClient {
-            syncEngine.remote.configure(client: client)
+            DropboxRemote.sharedInstance.configure(client: client)
             self.syncEngine.sweep()
         }
     }

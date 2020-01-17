@@ -14,10 +14,9 @@ import RxCocoa
 
 class LinkWithDropboxViewController: UIViewController {
     @IBOutlet weak var linkWithDropboxButton: UIButton!
+    @IBOutlet weak var storeLocallyButton: UIButton!
     var eventBus: EventBus = EventBus.sharedInstance
     var disposeBag: DisposeBag = DisposeBag()
-
-    var upgradingFromV1: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,25 +28,17 @@ class LinkWithDropboxViewController: UIViewController {
         linkWithDropboxButton.layer.borderColor = Constants.KiwiColor.cgColor
         linkWithDropboxButton.layer.masksToBounds = true
         
+        storeLocallyButton.layer.borderWidth = 1
+        storeLocallyButton.layer.cornerRadius = 5
+        storeLocallyButton.layer.borderColor = Constants.KiwiColor.cgColor
+        storeLocallyButton.layer.masksToBounds = true
+        
         eventBus.accountLinkEvents.subscribe(onNext: { (event: AccountLinkEvent) in
             switch event {
             case .AccountLinked(_):
-                self.maybeOpenWiki()
+                self.syncAndOpenWiki()
             }
         }).disposed(by: disposeBag)
-        
-        if upgradingFromV1 {
-            let path = Bundle.main.path(forResource: "update_notes_2.0.0", ofType: "md")
-            let content = try! String(contentsOf: URL(fileURLWithPath: path!), encoding: .utf8)
-            
-            let page = Page(rawContent: content , permalink: "update_notes_2.0.0", name: "Update Notes", modifiedTime: Date(), createdTime: Date(), isDirty: false)
-            
-            let wikiController = UpdateNotesViewController(nibName: "UpdateNotesViewController", bundle: nil)
-            wikiController.page = page
-            
-            let navigation = UINavigationController(rootViewController: wikiController)
-            self.present(navigation, animated: true, completion: nil)
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,7 +49,16 @@ class LinkWithDropboxViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    func maybeOpenWiki() {
+    func setUpWiki() {
+        let wiki = Wiki()
+        wiki.scaffold()
+    }
+    
+    func navigateToWiki() {
+        self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
+    }
+    
+    func syncAndOpenWiki() {
         if let client = DropboxClientsManager.authorizedClient {
             let remote = DropboxRemote.sharedInstance
             
@@ -68,8 +68,7 @@ class LinkWithDropboxViewController: UIViewController {
                                                                  animated: true)
             spinner?.setTintColor(Constants.KiwiColor)
         
-            let wiki = Wiki()
-            wiki.scaffold()
+            self.setUpWiki()
             
             // Take the initial sync, and see if the changeset contains the home page
             let homeChangeset = remote.changesets
@@ -85,7 +84,7 @@ class LinkWithDropboxViewController: UIViewController {
                 // And finally, move to the wiki view
                 // We let the rest of the pages just download in the background.
                 spinner?.dismiss(true)
-                self.performSegue(withIdentifier: "LinkWithDropbox", sender: self)
+                self.navigateToWiki()
             }).disposed(by: self.disposeBag)
             
             remote.configure(client: client)
@@ -117,6 +116,12 @@ class LinkWithDropboxViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func didPressStoreLocally(_ sender: UIButton) {
+        SyncEngine.sharedInstance.configure(remote: NullRemote())
+        self.setUpWiki()
+        self.navigateToWiki()
     }
     
     @IBAction func didPressLinkWithDropbox(_ sender: AnyObject) {

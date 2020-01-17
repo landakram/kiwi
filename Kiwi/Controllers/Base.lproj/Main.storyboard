@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,33 +19,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ho-rV-etX">
-                                <rect key="frame" x="29" y="582" width="317" height="59"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="jV8-Oa-Egp"/>
-                                </constraints>
-                                <state key="normal" title="Link with Dropbox" image="white" backgroundImage="white">
-                                    <color key="titleColor" red="0.29256743192672729" green="0.69570088386535645" blue="0.014999973587691784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <state key="highlighted" backgroundImage="light_gray"/>
-                                <connections>
-                                    <action selector="didPressLinkWithDropbox:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="cdO-lr-Tpm"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiwi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWu-pA-V5e">
-                                <rect key="frame" x="153.5" y="186" width="69" height="45.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="69" id="FMg-43-7BH"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWu-pA-V5e">
+                                <rect key="frame" x="142.5" y="186" width="90" height="46"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="35"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JR1-i5-mOU">
-                                <rect key="frame" x="29" y="260" width="317" height="77.5"/>
+                                <rect key="frame" x="29" y="260.5" width="317" height="77.5"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="Your personal wiki. Edit, rearrange, and link your ideas together. Use for thoughts, feelings, and journeys.">
+                                    <fragment content="Kiwi works best with Dropbox, but you can also choose to store your wiki locally.">
                                         <attributes>
                                             <color key="NSColor" red="0.468057753164557" green="0.468057753164557" blue="0.468057753164557" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" metaFont="system" size="18"/>
@@ -62,28 +45,60 @@
                                     <constraint firstAttribute="width" secondItem="7KB-Ah-WHf" secondAttribute="height" multiplier="1:1" id="jhU-IU-bXr"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDB-aU-DqY">
+                                <rect key="frame" x="15" y="515" width="345" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="Bpo-Vm-3MR"/>
+                                </constraints>
+                                <state key="normal" title="Link with Dropbox" image="white" backgroundImage="white">
+                                    <color key="titleColor" red="0.29256743190000001" green="0.69570088389999996" blue="0.01499997359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="light_gray"/>
+                                <connections>
+                                    <action selector="didPressLinkWithDropbox:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wWn-Ux-wHe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ho-rV-etX">
+                                <rect key="frame" x="15" y="582" width="345" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="jV8-Oa-Egp"/>
+                                </constraints>
+                                <state key="normal" title="Store Locally" image="white" backgroundImage="white">
+                                    <color key="titleColor" red="0.29256743192672729" green="0.69570088386535645" blue="0.014999973587691784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="light_gray"/>
+                                <connections>
+                                    <action selector="didPressStoreLocally:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fnB-JU-Vl5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6Ho-rV-etX" secondAttribute="trailing" constant="15" id="25k-kc-hTD"/>
                             <constraint firstItem="JR1-i5-mOU" firstAttribute="top" secondItem="RWu-pA-V5e" secondAttribute="bottom" constant="-23" id="2aH-La-hkW"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="6Ho-rV-etX" secondAttribute="bottom" constant="26" id="3Ru-Mo-ECL"/>
+                            <constraint firstAttribute="trailing" secondItem="nDB-aU-DqY" secondAttribute="trailing" constant="15" id="5L0-0X-UEL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JR1-i5-mOU" secondAttribute="trailing" constant="13" id="6QM-jA-1pb"/>
                             <constraint firstItem="7KB-Ah-WHf" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="50" id="7dE-PS-cZu"/>
                             <constraint firstAttribute="centerX" secondItem="6Ho-rV-etX" secondAttribute="centerX" id="7zC-2K-S2Q"/>
-                            <constraint firstAttribute="centerX" secondItem="RWu-pA-V5e" secondAttribute="centerX" constant="-0.5" id="A4d-7m-Dsk"/>
+                            <constraint firstAttribute="centerX" secondItem="RWu-pA-V5e" secondAttribute="centerX" id="A4d-7m-Dsk"/>
                             <constraint firstItem="RWu-pA-V5e" firstAttribute="top" secondItem="7KB-Ah-WHf" secondAttribute="bottom" constant="8" id="Dkp-XY-XXU"/>
-                            <constraint firstItem="6Ho-rV-etX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="13" id="GcR-6M-ZsR"/>
+                            <constraint firstItem="6Ho-rV-etX" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="EI9-6d-AIM"/>
+                            <constraint firstItem="nDB-aU-DqY" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="GuH-nW-qNE"/>
                             <constraint firstItem="7KB-Ah-WHf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="127" id="Ox6-k0-wpx"/>
                             <constraint firstItem="RWu-pA-V5e" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="157" id="PCf-mx-7R3"/>
                             <constraint firstItem="JR1-i5-mOU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="13" id="RcO-3H-coc"/>
-                            <constraint firstAttribute="centerX" secondItem="6Ho-rV-etX" secondAttribute="centerX" id="Yc9-Vh-Nf0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6Ho-rV-etX" secondAttribute="trailing" constant="13" id="cbt-RI-sW1"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="nDB-aU-DqY" secondAttribute="bottom" constant="93" id="TOT-ck-NkI"/>
+                            <constraint firstItem="6Ho-rV-etX" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="WOm-eJ-shi"/>
                             <constraint firstAttribute="centerX" secondItem="7KB-Ah-WHf" secondAttribute="centerX" id="fE0-ug-Elr"/>
                             <constraint firstItem="JR1-i5-mOU" firstAttribute="top" secondItem="RWu-pA-V5e" secondAttribute="bottom" constant="28.5" id="flq-yK-REw"/>
                             <constraint firstItem="JR1-i5-mOU" firstAttribute="leading" secondItem="7KB-Ah-WHf" secondAttribute="trailing" constant="-242" id="gKu-pj-Ujn"/>
+                            <constraint firstItem="nDB-aU-DqY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="nMz-CK-Oio"/>
                             <constraint firstAttribute="centerY" secondItem="6Ho-rV-etX" secondAttribute="centerY" constant="-273" id="si9-7Y-LJm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RWu-pA-V5e" secondAttribute="trailing" constant="156" id="u6r-Ry-ByC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7KB-Ah-WHf" secondAttribute="trailing" constant="127" id="v7U-NU-Hr7"/>
+                            <constraint firstItem="6Ho-rV-etX" firstAttribute="top" secondItem="nDB-aU-DqY" secondAttribute="bottom" constant="8" id="wF0-Pl-4vx"/>
                             <constraint firstAttribute="centerX" secondItem="JR1-i5-mOU" secondAttribute="centerX" id="xRE-Xi-WTn"/>
                         </constraints>
                         <variation key="default">
@@ -102,13 +117,14 @@
                     <navigationItem key="navigationItem" id="RMo-cy-iA4"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="linkWithDropboxButton" destination="6Ho-rV-etX" id="e6Q-h5-5D8"/>
+                        <outlet property="linkWithDropboxButton" destination="nDB-aU-DqY" id="gS3-jG-EWr"/>
+                        <outlet property="storeLocallyButton" destination="6Ho-rV-etX" id="kK2-xj-Rsg"/>
                         <segue destination="kLp-y0-Ll8" kind="show" identifier="LinkWithDropbox" id="Bxc-gH-zQd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1173" y="484"/>
+            <point key="canvasLocation" x="1172" y="483.50824587706148"/>
         </scene>
         <!--Wiki-->
         <scene sceneID="tYb-ZV-L9A">
@@ -192,7 +208,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="d3x-eK-B9I"/>
+                        <segue destination="siZ-mG-DPF" kind="relationship" relationship="rootViewController" id="C0R-PM-p1g"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NMD-w3-Bfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -327,6 +343,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jeo-hP-DJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3630" y="1121"/>
+        </scene>
+        <!--Onboarding Controller-->
+        <scene sceneID="eQB-tY-z3S">
+            <objects>
+                <viewController storyboardIdentifier="OnboardingViewControllerIdentifier" useStoryboardIdentifierAsRestorationIdentifier="YES" id="siZ-mG-DPF" userLabel="Onboarding Controller" customClass="OnboardingViewController" customModule="Kiwi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NOd-Vb-dav"/>
+                        <viewControllerLayoutGuide type="bottom" id="LNH-ob-cfg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZTD-l2-X3O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIe-G1-Ujr" userLabel="Get Started Button">
+                                <rect key="frame" x="15" y="582" width="345" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="N19-v3-XnA"/>
+                                </constraints>
+                                <state key="normal" title="Get Started" image="white" backgroundImage="white">
+                                    <color key="titleColor" red="0.29256743190000001" green="0.69570088389999996" blue="0.01499997359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="light_gray"/>
+                                <connections>
+                                    <action selector="didPressGetStarted:" destination="siZ-mG-DPF" eventType="touchUpInside" id="Wds-QS-O1R"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kiwi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIo-iU-dXK">
+                                <rect key="frame" x="153.5" y="186" width="68" height="45.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="35"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdg-qm-LlQ">
+                                <rect key="frame" x="29" y="260" width="317" height="77.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Your personal wiki. Edit, rearrange, and link your ideas together. Use for thoughts, feelings, and journeys.">
+                                        <attributes>
+                                            <color key="NSColor" red="0.468057753164557" green="0.468057753164557" blue="0.468057753164557" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" metaFont="system" size="18"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kiwi" translatesAutoresizingMaskIntoConstraints="NO" id="fk4-W7-OTE">
+                                <rect key="frame" x="123.5" y="50" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="AR2-dX-mrJ"/>
+                                    <constraint firstAttribute="width" secondItem="fk4-W7-OTE" secondAttribute="height" multiplier="1:1" id="t4l-w7-1Pf"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="pIo-iU-dXK" secondAttribute="centerX" id="2KC-IF-GXX"/>
+                            <constraint firstAttribute="centerX" secondItem="Pdg-qm-LlQ" secondAttribute="centerX" id="2Wo-MB-uXj"/>
+                            <constraint firstAttribute="centerX" secondItem="EIe-G1-Ujr" secondAttribute="centerX" id="4FG-Ks-XbX"/>
+                            <constraint firstItem="Pdg-qm-LlQ" firstAttribute="top" secondItem="pIo-iU-dXK" secondAttribute="bottom" constant="28.5" id="4px-s7-6bq"/>
+                            <constraint firstAttribute="centerX" secondItem="EIe-G1-Ujr" secondAttribute="centerX" id="EFA-PA-aCZ"/>
+                            <constraint firstItem="fk4-W7-OTE" firstAttribute="leading" secondItem="ZTD-l2-X3O" secondAttribute="leadingMargin" constant="127" id="HCq-62-sGh"/>
+                            <constraint firstAttribute="centerY" secondItem="EIe-G1-Ujr" secondAttribute="centerY" constant="-273" id="HaM-Ex-Vjw"/>
+                            <constraint firstAttribute="trailing" secondItem="EIe-G1-Ujr" secondAttribute="trailing" constant="15" id="Hwc-yJ-VZ1"/>
+                            <constraint firstItem="pIo-iU-dXK" firstAttribute="top" secondItem="fk4-W7-OTE" secondAttribute="bottom" constant="8" id="J7X-bA-O4v"/>
+                            <constraint firstItem="EIe-G1-Ujr" firstAttribute="leading" secondItem="ZTD-l2-X3O" secondAttribute="leading" constant="15" id="Jht-OL-T7E"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fk4-W7-OTE" secondAttribute="trailing" constant="127" id="MTU-cT-taF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Pdg-qm-LlQ" secondAttribute="trailing" constant="13" id="SA9-ME-bX4"/>
+                            <constraint firstItem="Pdg-qm-LlQ" firstAttribute="top" secondItem="pIo-iU-dXK" secondAttribute="bottom" constant="-23" id="UAU-mM-csn"/>
+                            <constraint firstAttribute="centerX" secondItem="fk4-W7-OTE" secondAttribute="centerX" id="WGv-53-1TZ"/>
+                            <constraint firstItem="LNH-ob-cfg" firstAttribute="top" secondItem="EIe-G1-Ujr" secondAttribute="bottom" constant="26" id="cJ3-uX-5ge"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pIo-iU-dXK" secondAttribute="trailing" constant="156" id="cmr-JA-oht"/>
+                            <constraint firstItem="Pdg-qm-LlQ" firstAttribute="leading" secondItem="ZTD-l2-X3O" secondAttribute="leadingMargin" constant="13" id="p4U-NW-vgj"/>
+                            <constraint firstItem="pIo-iU-dXK" firstAttribute="leading" secondItem="ZTD-l2-X3O" secondAttribute="leadingMargin" constant="157" id="psH-ey-3Is"/>
+                            <constraint firstItem="Pdg-qm-LlQ" firstAttribute="leading" secondItem="fk4-W7-OTE" secondAttribute="trailing" constant="-242" id="sj9-cC-rJB"/>
+                            <constraint firstItem="fk4-W7-OTE" firstAttribute="top" secondItem="NOd-Vb-dav" secondAttribute="bottom" constant="50" id="xZk-vD-XzU"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HCq-62-sGh"/>
+                                <exclude reference="MTU-cT-taF"/>
+                                <exclude reference="cmr-JA-oht"/>
+                                <exclude reference="psH-ey-3Is"/>
+                                <exclude reference="UAU-mM-csn"/>
+                                <exclude reference="sj9-cC-rJB"/>
+                                <exclude reference="EFA-PA-aCZ"/>
+                                <exclude reference="HaM-Ex-Vjw"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="64u-bS-Udc"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="getStartedButton" destination="EIe-G1-Ujr" id="tOD-X7-t0D"/>
+                        <segue destination="vXZ-lx-hvc" kind="show" identifier="GetStarted" id="8Z6-XU-akH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BUZ-Od-cY8" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="191" y="484"/>
         </scene>
     </scenes>
     <resources>

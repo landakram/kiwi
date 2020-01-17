@@ -11,11 +11,6 @@ import SwiftyDropbox
 import RxSwift
 import RxSwiftExt
 
-enum RemoteError: Error {
-    case WriteError(path: Path)
-    case ReadError(path: Path)
-}
-
 struct Changeset {
     let entries: Array<Files.Metadata>
     let cursor: String
@@ -29,7 +24,7 @@ struct DropboxError: Error, CustomStringConvertible {
     let description: String
 }
 
-class DropboxRemote {
+class DropboxRemote: Remote {
     static let sharedInstance = DropboxRemote()
     
     let root = Path("/")
@@ -40,7 +35,7 @@ class DropboxRemote {
     public let forcePollCommand: ReplaySubject<Int> = ReplaySubject.createUnbounded()
     
     var changesets: ConnectableObservable<Changeset>!
-    var observable: Observable<FilesystemEvent>!
+    var events: Observable<FilesystemEvent>!
     
     init(client: DropboxClient? = nil) {
         self.client = client
@@ -71,7 +66,7 @@ class DropboxRemote {
         // Dropbox works with Changesets, but we just want a stream of
         // individual change events. We split changesets into individual
         // events and publish them onto the stream.
-        self.observable =
+        self.events =
             self.changesets
             .flatMap({ Observable.from($0.entries) })
             .map { (metadata: Files.Metadata) -> FilesystemEvent? in
@@ -268,5 +263,9 @@ class DropboxRemote {
             }
             return cancel
         }
+    }
+    
+    static func description() -> String {
+        return "DropboxRemote"
     }
 }

@@ -57,7 +57,7 @@ class SyncEngine {
     static let sharedInstance = SyncEngine()
     
     let local: Filesystem
-    let remote: DropboxRemote
+    var remote: Remote
     var dirtyStore: DirtyStore = DirtyStore()
     
     let disposeBag: DisposeBag = DisposeBag()
@@ -69,20 +69,48 @@ class SyncEngine {
     }
     var subject: ReplaySubject<Operations> = ReplaySubject.createUnbounded()
     
-    init(local: Filesystem = Filesystem.sharedInstance, remote: DropboxRemote = DropboxRemote.sharedInstance) {
+    private var localSubscription: Disposable?
+    private var remoteSubscription: Disposable?
+    
+    init(local: Filesystem = Filesystem.sharedInstance, remote: Remote = defaultRemote()) {
         self.local = local
         self.remote = remote
         self.start()
     }
     
-    func start() {
-        self.local.events.subscribe(onNext: { (event: FilesystemEvent) in
-            _ = self.push(event: event)
-        }).disposed(by: disposeBag)
+    static func defaultRemote() -> Remote {
+        guard let remoteString = UserDefaults.standard.string(forKey: "DefaultRemote") else {
+            return DropboxRemote.sharedInstance
+        }
         
-        self.remote.observable.subscribe(onNext: { (event: FilesystemEvent) in
+        switch remoteString {
+        case NullRemote.description():
+            return NullRemote.sharedInstance
+        case DropboxRemote.description():
+            return DropboxRemote.sharedInstance
+        default:
+            return DropboxRemote.sharedInstance
+        }
+    }
+    
+    func configure(remote: Remote) {
+        self.remote = remote
+        UserDefaults.standard.set(type(of: remote).description(), forKey: "DefaultRemote")
+        
+        remoteSubscription?.dispose()
+        self.start()
+    }
+    
+    func start() {
+        localSubscription = self.local.events.subscribe(onNext: { (event: FilesystemEvent) in
+            _ = self.push(event: event)
+        })
+        localSubscription?.disposed(by: disposeBag)
+        
+        remoteSubscription = self.remote.events.subscribe(onNext: { (event: FilesystemEvent) in
             _ = self.pull(event: event)
-        }).disposed(by: disposeBag)
+        })
+        remoteSubscription?.disposed(by: disposeBag)
     }
     
     func push(event: FilesystemEvent) -> Observable<Either<Progress, Path>> {
@@ -194,7 +222,7 @@ class PushOperation: Operation {
     
     let event: FilesystemEvent
     let local: Filesystem
-    let remote: DropboxRemote
+    let remote: Remote
     var dirtyStore: DirtyStore
     
     var stream: Observable<Either<Progress, Path>> {
@@ -204,7 +232,7 @@ class PushOperation: Operation {
     }
     private var subject: ReplaySubject<Either<Progress, Path>> = ReplaySubject.createUnbounded()
     
-    init(event: FilesystemEvent, local: Filesystem, remote: DropboxRemote, dirtyStore: DirtyStore) {
+    init(event: FilesystemEvent, local: Filesystem, remote: Remote, dirtyStore: DirtyStore) {
         self.event = event
         self.local = local
         self.remote = remote
@@ -235,7 +263,7 @@ class PullOperation: Operation {
 
     let event: FilesystemEvent
     let local: Filesystem
-    let remote: DropboxRemote
+    let remote: Remote
     
     var stream: Observable<Either<Progress, Path>> {
         get {
@@ -244,7 +272,7 @@ class PullOperation: Operation {
     }
     private var subject: ReplaySubject<Either<Progress, Path>> = ReplaySubject.createUnbounded()
     
-    init(event: FilesystemEvent, local: Filesystem, remote: DropboxRemote) {
+    init(event: FilesystemEvent, local: Filesystem, remote: Remote) {
         self.event = event
         self.local = local
         self.remote = remote
