@@ -1,0 +1,55 @@
+{
+  "device_frame_version": "latest",
+  "default": {
+    "padding": "5%x10%",
+    "background": "./background.png",
+    "show_complete_frame": false,
+    "stack_title" : false,
+    "title_below_image": false,
+    "frame": "WHITE",
+    "title": {
+      "font": "./fonts/SF-UI-Text-Light.otf",
+      "color": "#5d5d5d"
+    },
+    "title_min_height": "16%",
+    "font_scale_factor": 0.15
+  },
+  "data": [
+    {
+      "filter": "OnboardingScreen"
+    },
+    {
+      "filter": "GetStartedScreen",
+      "title": {
+        "text": "Kiwi syncs with Dropbox, so\nyou own your wiki."
+      },
+      "title_below_image": true
+    },
+    {
+      "filter": "ViewWikiScreen",
+      "title": {
+        "text": "Write beautiful notes and link\nthem together."
+      }
+    },
+    {
+      "filter": "EditScreen",
+      "title": {
+        "text": "Create rich pages formatted\nwith Markdown."
+      }
+    },
+    {
+      "filter": "Search",
+      "title": {
+        "text": "Search your wiki quickly\n and easily."
+      }
+    },
+    {
+      "filter": "WritingWithKiwi",
+      "title": {
+        "text": "Add photos, todos, code and\nLaTeX-formatted math."
+      },
+      "title_below_image": true
+    }
+  ]
+}
+

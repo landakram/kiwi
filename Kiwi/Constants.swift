@@ -11,3 +11,15 @@ import Foundation
 class Constants {
     static let KiwiColor = UIColor(red: 0.362, green: 0.724, blue: 0.111, alpha: 1.0)
 }
+
+class Settings {
+    static let FirstTimeLoad = "didLoadFirstTime"
+    static let DefaultRemote = "DefaultRemote"
+    
+    static func all() -> [String] {
+        [
+            FirstTimeLoad,
+            DefaultRemote
+        ]
+    }
+}

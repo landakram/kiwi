@@ -84,6 +84,7 @@
 		4D42390B23D12282009C4B37 /* Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D42390923D12282009C4B37 /* Remote.swift */; };
 		4D42390D23D12BDC009C4B37 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D42390C23D12BDC009C4B37 /* OnboardingViewController.swift */; };
 		4D42390E23D12BDC009C4B37 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D42390C23D12BDC009C4B37 /* OnboardingViewController.swift */; };
+		4D42391023D6B900009C4B37 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D42390F23D6B900009C4B37 /* SnapshotHelper.swift */; };
 		4D44273A1B1D710000B35C01 /* auto-render-latex.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D4427391B1D710000B35C01 /* auto-render-latex.min.js */; };
 		4D44273C1B1D7C8B00B35C01 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273B1B1D7C8B00B35C01 /* prism.css */; };
 		4D44273E1B1D7C9000B35C01 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D44273D1B1D7C9000B35C01 /* prism.js */; };
@@ -131,6 +132,7 @@
 		4DEFE2611B9FF06A00462786 /* working_with_pages.md in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
 		4DEFE2621B9FF27600462786 /* working_with_pages.md in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFE2601B9FF06A00462786 /* working_with_pages.md */; };
 		82C4C0DD4BF97EB1E02A4495 /* Pods_Kiwi_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */; };
+		C454417ADEF5524711664124 /* Pods_KiwiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0AAB715B778C9D11C2373BD /* Pods_KiwiUITests.framework */; };
 		F880A454125223A6C06272DB /* Pods_KiwiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,9 +151,17 @@
 			remoteGlobalIDString = 4D2AAC191A9DA30300E0904B;
 			remoteInfo = Kiwi;
 		};
+		4DDEF9E523D6C68400E9A413 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D2AAC121A9DA30300E0904B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D3D8E201BB4A1CF000C53EE;
+			remoteInfo = "Kiwi Development";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		283F0EE1255A576695DD65C6 /* Pods-KiwiUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiUITests/Pods-KiwiUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiwiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39E18C9CE0DEAC6594F35080 /* Pods-Kiwi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.release.xcconfig"; sourceTree = "<group>"; };
 		4D0378101AA881BA00B6D841 /* links.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = links.js; sourceTree = "<group>"; };
@@ -183,6 +193,7 @@
 		4D42390623D12132009C4B37 /* NullRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullRemote.swift; sourceTree = "<group>"; };
 		4D42390923D12282009C4B37 /* Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remote.swift; sourceTree = "<group>"; };
 		4D42390C23D12BDC009C4B37 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		4D42390F23D6B900009C4B37 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		4D4427391B1D710000B35C01 /* auto-render-latex.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "auto-render-latex.min.js"; sourceTree = "<group>"; };
 		4D44273B1B1D7C8B00B35C01 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
 		4D44273D1B1D7C9000B35C01 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
@@ -225,12 +236,14 @@
 		4DEB69861AA94F6500FB480C /* AddPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AddPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4DEFE25D1B9E52EA00462786 /* acknowledgements.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = acknowledgements.md; sourceTree = "<group>"; };
 		4DEFE2601B9FF06A00462786 /* working_with_pages.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = working_with_pages.md; sourceTree = "<group>"; };
+		56EB6799602C082842F5435C /* Pods-KiwiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiUITests/Pods-KiwiUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5F8A4805B80474123335ADE1 /* Pods-Kiwi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi/Pods-Kiwi.debug.xcconfig"; sourceTree = "<group>"; };
 		70460637318E9FBC16476BD0 /* Pods-Kiwi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.debug.xcconfig"; sourceTree = "<group>"; };
 		949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kiwi Development.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development.release.xcconfig"; sourceTree = "<group>"; };
 		AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.release.xcconfig"; sourceTree = "<group>"; };
 		D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kiwi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0AAB715B778C9D11C2373BD /* Pods_KiwiUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KiwiUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KiwiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KiwiTests/Pods-KiwiTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,6 +276,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C454417ADEF5524711664124 /* Pods_KiwiUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +291,7 @@
 				AD79D7D964F571A34FFDEB40 /* Pods_Kiwi.framework */,
 				D03766C91F55C3D96EFEECCB /* Pods_Kiwi_Development.framework */,
 				2A81ED7CF2ACA4835BC445FA /* Pods_KiwiTests.framework */,
+				E0AAB715B778C9D11C2373BD /* Pods_KiwiUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -339,6 +354,7 @@
 		4D4238FD23D12037009C4B37 /* KiwiUITests */ = {
 			isa = PBXGroup;
 			children = (
+				4D42390F23D6B900009C4B37 /* SnapshotHelper.swift */,
 				4D4238FE23D12037009C4B37 /* KiwiUITests.swift */,
 				4D42390023D12037009C4B37 /* Info.plist */,
 			);
@@ -511,6 +527,8 @@
 				949080A881D81FD2E7522395 /* Pods-Kiwi Development.release.xcconfig */,
 				E91E6C06FDFD89BC1AA6D9E3 /* Pods-KiwiTests.debug.xcconfig */,
 				B0FE5BE8FEA663B5B5B1FC6C /* Pods-KiwiTests.release.xcconfig */,
+				56EB6799602C082842F5435C /* Pods-KiwiUITests.debug.xcconfig */,
+				283F0EE1255A576695DD65C6 /* Pods-KiwiUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -582,14 +600,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D42390323D12037009C4B37 /* Build configuration list for PBXNativeTarget "KiwiUITests" */;
 			buildPhases = (
+				90D184C895B1C1469CAF28BB /* [CP] Check Pods Manifest.lock */,
 				4D4238F823D12037009C4B37 /* Sources */,
 				4D4238F923D12037009C4B37 /* Frameworks */,
 				4D4238FA23D12037009C4B37 /* Resources */,
+				09ABE72AE4C2D71BF0A578FE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4D42390223D12037009C4B37 /* PBXTargetDependency */,
+				4DDEF9E623D6C68400E9A413 /* PBXTargetDependency */,
 			);
 			name = KiwiUITests;
 			productName = KiwiUITests;
@@ -751,32 +772,32 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GRMustache/GRMustache.framework",
-				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser/IDMPhotoBrowser.framework",
-				"${BUILT_PRODUCTS_DIR}/JRSwizzle/JRSwizzle.framework",
-				"${BUILT_PRODUCTS_DIR}/MRProgress/MRProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Marklight/Marklight.framework",
-				"${BUILT_PRODUCTS_DIR}/RFKeyboardToolbar/RFKeyboardToolbar.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar-iOS9.0/AMScrollingNavbar.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack-iOS9.0/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/DACircularProgress-iOS9.0/DACircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/FileKit-iOS9.0/FileKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GRMustache-iOS9.0/GRMustache.framework",
+				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser-iOS9.0/IDMPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/JRSwizzle-iOS9.0/JRSwizzle.framework",
+				"${BUILT_PRODUCTS_DIR}/MRProgress-iOS9.0/MRProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Marklight-iOS9.0/Marklight.framework",
+				"${BUILT_PRODUCTS_DIR}/RFKeyboardToolbar-iOS9.0/RFKeyboardToolbar.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS9.0/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxReachability-iOS9.0/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS9.0/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/STKWebKitViewController/STKWebKitViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
-				"${BUILT_PRODUCTS_DIR}/TUSafariActivity/TUSafariActivity.framework",
-				"${BUILT_PRODUCTS_DIR}/ViewUtils/ViewUtils.framework",
-				"${BUILT_PRODUCTS_DIR}/YapDatabase/YapDatabase.framework",
-				"${BUILT_PRODUCTS_DIR}/hoedown/hoedown.framework",
-				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftExt-iOS9.0/RxSwiftExt.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STKWebKitViewController-iOS9.0/STKWebKitViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages-iOS9.0/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox-iOS9.0/SwiftyDropbox.framework",
+				"${BUILT_PRODUCTS_DIR}/TUSafariActivity-iOS9.0/TUSafariActivity.framework",
+				"${BUILT_PRODUCTS_DIR}/ViewUtils-iOS9.0/ViewUtils.framework",
+				"${BUILT_PRODUCTS_DIR}/YapDatabase-iOS9.0/YapDatabase.framework",
+				"${BUILT_PRODUCTS_DIR}/hoedown-iOS9.0/hoedown.framework",
+				"${BUILT_PRODUCTS_DIR}/pop-iOS9.0/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -810,6 +831,74 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Kiwi/Pods-Kiwi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		09ABE72AE4C2D71BF0A578FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KiwiUITests/Pods-KiwiUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar-iOS13.2/AMScrollingNavbar.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS13.2/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack-iOS13.2/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/DACircularProgress-iOS13.2/DACircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/FileKit-iOS13.2/FileKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GRMustache-iOS13.2/GRMustache.framework",
+				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser-iOS13.2/IDMPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/JRSwizzle-iOS13.2/JRSwizzle.framework",
+				"${BUILT_PRODUCTS_DIR}/MRProgress-iOS13.2/MRProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Marklight-iOS13.2/Marklight.framework",
+				"${BUILT_PRODUCTS_DIR}/RFKeyboardToolbar-iOS13.2/RFKeyboardToolbar.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS13.2/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS13.2/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxReachability-iOS13.2/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS13.2/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS13.2/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftExt-iOS13.2/RxSwiftExt.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS13.2/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STKWebKitViewController-iOS13.2/STKWebKitViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages-iOS13.2/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox-iOS13.2/SwiftyDropbox.framework",
+				"${BUILT_PRODUCTS_DIR}/TUSafariActivity-iOS13.2/TUSafariActivity.framework",
+				"${BUILT_PRODUCTS_DIR}/ViewUtils-iOS13.2/ViewUtils.framework",
+				"${BUILT_PRODUCTS_DIR}/YapDatabase-iOS13.2/YapDatabase.framework",
+				"${BUILT_PRODUCTS_DIR}/hoedown-iOS13.2/hoedown.framework",
+				"${BUILT_PRODUCTS_DIR}/pop-iOS13.2/pop.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMScrollingNavbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FileKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRMustache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IDMPhotoBrowser.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JRSwizzle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MRProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Marklight.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFKeyboardToolbar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxReachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwiftExt.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STKWebKitViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyDropbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUSafariActivity.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewUtils.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YapDatabase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hoedown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KiwiUITests/Pods-KiwiUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1D317F7B999FCA0624F03BAB /* [CP] Check Pods Manifest.lock */ = {
@@ -855,6 +944,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 543ab8602070ec5673eb17de7821aac352a9ee04 1b4b4067ab5e1899e0980011101edc6d9ae1f1625f397b08f094bfe0eb9c12c47\n";
+		};
+		90D184C895B1C1469CAF28BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KiwiUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		B3A343A7F3ABD5AF71C67DF2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -903,32 +1014,32 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Kiwi Development/Pods-Kiwi Development-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar/AMScrollingNavbar.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/FileKit/FileKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GRMustache/GRMustache.framework",
-				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser/IDMPhotoBrowser.framework",
-				"${BUILT_PRODUCTS_DIR}/JRSwizzle/JRSwizzle.framework",
-				"${BUILT_PRODUCTS_DIR}/MRProgress/MRProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Marklight/Marklight.framework",
-				"${BUILT_PRODUCTS_DIR}/RFKeyboardToolbar/RFKeyboardToolbar.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxReachability/RxReachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/AMScrollingNavbar-iOS9.0/AMScrollingNavbar.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack-iOS9.0/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/DACircularProgress-iOS9.0/DACircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/FileKit-iOS9.0/FileKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GRMustache-iOS9.0/GRMustache.framework",
+				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser-iOS9.0/IDMPhotoBrowser.framework",
+				"${BUILT_PRODUCTS_DIR}/JRSwizzle-iOS9.0/JRSwizzle.framework",
+				"${BUILT_PRODUCTS_DIR}/MRProgress-iOS9.0/MRProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Marklight-iOS9.0/Marklight.framework",
+				"${BUILT_PRODUCTS_DIR}/RFKeyboardToolbar-iOS9.0/RFKeyboardToolbar.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-iOS9.0/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxReachability-iOS9.0/RxReachability.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS9.0/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwiftExt/RxSwiftExt.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/STKWebKitViewController/STKWebKitViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox/SwiftyDropbox.framework",
-				"${BUILT_PRODUCTS_DIR}/TUSafariActivity/TUSafariActivity.framework",
-				"${BUILT_PRODUCTS_DIR}/ViewUtils/ViewUtils.framework",
-				"${BUILT_PRODUCTS_DIR}/YapDatabase/YapDatabase.framework",
-				"${BUILT_PRODUCTS_DIR}/hoedown/hoedown.framework",
-				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwiftExt-iOS9.0/RxSwiftExt.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage-iOS9.0/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/STKWebKitViewController-iOS9.0/STKWebKitViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages-iOS9.0/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyDropbox-iOS9.0/SwiftyDropbox.framework",
+				"${BUILT_PRODUCTS_DIR}/TUSafariActivity-iOS9.0/TUSafariActivity.framework",
+				"${BUILT_PRODUCTS_DIR}/ViewUtils-iOS9.0/ViewUtils.framework",
+				"${BUILT_PRODUCTS_DIR}/YapDatabase-iOS9.0/YapDatabase.framework",
+				"${BUILT_PRODUCTS_DIR}/hoedown-iOS9.0/hoedown.framework",
+				"${BUILT_PRODUCTS_DIR}/pop-iOS9.0/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1082,6 +1193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D4238FF23D12037009C4B37 /* KiwiUITests.swift in Sources */,
+				4D42391023D6B900009C4B37 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1097,6 +1209,11 @@
 			isa = PBXTargetDependency;
 			target = 4D2AAC191A9DA30300E0904B /* Kiwi */;
 			targetProxy = 4D42390123D12037009C4B37 /* PBXContainerItemProxy */;
+		};
+		4DDEF9E623D6C68400E9A413 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D3D8E201BB4A1CF000C53EE /* Kiwi Development */;
+			targetProxy = 4DDEF9E523D6C68400E9A413 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1163,7 +1280,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.markhudnall.KiwiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/Kiwi";
 			};
@@ -1211,7 +1328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.markhudnall.KiwiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/Kiwi";
 			};
@@ -1263,6 +1380,93 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CocoaLumberjack\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DACircularProgress\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"FileKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GRMustache\"",
+					"-framework",
+					"\"IDMPhotoBrowser\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JRSwizzle\"",
+					"-framework",
+					"\"MRProgress\"",
+					"-framework",
+					"\"Marklight\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"RFKeyboardToolbar\"",
+					"-framework",
+					"\"Reachability\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxReachability\"",
+					"-framework",
+					"\"RxRelay\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"RxSwiftExt\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"STKWebKitViewController\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SwiftMessages\"",
+					"-framework",
+					"\"SwiftyDropbox\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TUSafariActivity\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"ViewUtils\"",
+					"-framework",
+					"\"WebKit\"",
+					"-framework",
+					"\"YapDatabase\"",
+					"-framework",
+					"\"hoedown\"",
+					"-framework",
+					"\"pop\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1309,6 +1513,93 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CocoaLumberjack\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Crashlytics\"",
+					"-framework",
+					"\"DACircularProgress\"",
+					"-framework",
+					"\"Fabric\"",
+					"-framework",
+					"\"FileKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GRMustache\"",
+					"-framework",
+					"\"IDMPhotoBrowser\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JRSwizzle\"",
+					"-framework",
+					"\"MRProgress\"",
+					"-framework",
+					"\"Marklight\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"RFKeyboardToolbar\"",
+					"-framework",
+					"\"Reachability\"",
+					"-framework",
+					"\"RxCocoa\"",
+					"-framework",
+					"\"RxReachability\"",
+					"-framework",
+					"\"RxRelay\"",
+					"-framework",
+					"\"RxSwift\"",
+					"-framework",
+					"\"RxSwiftExt\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"STKWebKitViewController\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SwiftMessages\"",
+					"-framework",
+					"\"SwiftyDropbox\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TUSafariActivity\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"ViewUtils\"",
+					"-framework",
+					"\"WebKit\"",
+					"-framework",
+					"\"YapDatabase\"",
+					"-framework",
+					"\"hoedown\"",
+					"-framework",
+					"\"pop\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1436,6 +1727,7 @@
 		};
 		4D42390423D12037009C4B37 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56EB6799602C082842F5435C /* Pods-KiwiUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1468,7 +1760,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e50246d1-c7f5-40c9-9b73-cc7441de9e74";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Kiwi;
 			};
@@ -1476,7 +1768,9 @@
 		};
 		4D42390523D12037009C4B37 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 283F0EE1255A576695DD65C6 /* Pods-KiwiUITests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1507,7 +1801,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e50246d1-c7f5-40c9-9b73-cc7441de9e74";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Kiwi;
 			};

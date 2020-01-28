@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Kiwi
 
 class KiwiUITests: XCTestCase {
 
@@ -22,22 +23,31 @@ class KiwiUITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // UI tests must launch the application that they test.
+    
+    func testScreenshots() {
         let app = XCUIApplication()
+        app.launchArguments = ["--reset"]
+        setupSnapshot(app)
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+//        snapshot("OnboardingScreen")
+        app.buttons["Get Started"].tap()
+        snapshot("GetStartedScreen")
+        app.buttons["Store Locally"].tap()
+//        app.staticTexts["Home"].waitForExistence(timeout: 1)
+        snapshot("ViewWikiScreen")
+        
+        app.navigationBars["Home"].buttons["Edit"].tap()
+        
+        let personalWikiTextView = app.textViews.containing(.link, identifier:"personal wiki").element
+        personalWikiTextView.swipeDown()
+        snapshot("EditScreen")
+        
+        app.navigationBars["Add Page"].buttons["checkmark"].tap()
+        app.navigationBars["Home"].buttons["Home"].tap()
+        snapshot("Search")
+        
+        app.tables.staticTexts["Writing With Kiwi"].tap()
+        app.staticTexts["This is another thing"].firstMatch.tap()
+        snapshot("WritingWithKiwi")
     }
 }

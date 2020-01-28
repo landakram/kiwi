@@ -32,8 +32,14 @@ target 'Kiwi Development' do
 end
 
 target 'KiwiTests' do
+    inherit! :search_paths
     pod 'Quick'
     pod 'Nimble'
     pod 'RxBlocking', '~> 5.0'
     pod 'RxTest',     '~> 5.0'
+end
+
+target 'KiwiUITests' do
+    inherit! :search_paths
+    app_pods
 end

@@ -33,12 +33,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         Fabric.with([Crashlytics.self])
-        
         DropboxClientsManager.setupWithAppKey(DropboxAppKey)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? ScrollingNavigationController
+        if isReset() {
+            DropboxClientsManager.unlinkClients()
+            DropboxClientsManager.authorizedClient = nil
+            DropboxRemote.sharedInstance.configure(client: nil)
+            NullRemote.sharedInstance.configure(configured: false)
+            try? Filesystem.sharedInstance.delete(path: "/wiki")
+            indexer.removeAll()
+            for setting in Settings.all() {
+                UserDefaults.standard.removeObject(forKey: setting)
+            }
+        }
         
+        // Dropbox client configuration
         let didDeleteApp = DropboxClientsManager.authorizedClient != nil && self.isLoadingForFirstTime()
         if didDeleteApp {
             DropboxClientsManager.unlinkClients()
@@ -55,7 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.syncEngine.sweep()
                 })
                 .addDisposableTo(disposeBag)
-            
+        }
+        
+        // Routing
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootNavigationController = storyboard.instantiateViewController(withIdentifier: "RootNavigationController") as? ScrollingNavigationController
+        
+        if self.syncEngine.remote.configured {
             let rootViewController = storyboard.instantiateViewController(withIdentifier: "WikiViewControllerIdentifier") as? WikiViewController
             rootNavigationController?.viewControllers = [rootViewController!]
         } else if self.isUpdating() {
@@ -93,6 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         return true
+    }
+    
+    func isReset() -> Bool {
+        ProcessInfo.processInfo.arguments.contains("--reset")
     }
     
     func setUpStatusBarMessages() {
@@ -214,7 +233,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        if self.isUpdating() || self.isLoadingForFirstTime() {
+        if self.isUpdating() || self.isLoadingForFirstTime() || self.isReset() {
             print("Not restoring state")
             return false
         }

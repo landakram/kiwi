@@ -17,6 +17,7 @@ class Indexer {
     let backingStore: YapDatabase
     let filesystem: EventedFilesystem
     let indexingRoot: Path
+    let collection = "pages"
     
     var disposeBag = DisposeBag()
     
@@ -59,16 +60,23 @@ class Indexer {
     func remove(permalink: String) {
         let connection = self.backingStore.newConnection()
         connection.readWrite { (transaction: YapDatabaseReadWriteTransaction) in
-            transaction.removeObject(forKey: permalink, inCollection: "pages")
+            transaction.removeObject(forKey: permalink, inCollection: collection)
+        }
+    }
+    
+    func removeAll() {
+        let connection = self.backingStore.newConnection()
+        connection.readWrite { (transaction: YapDatabaseReadWriteTransaction) in
+            transaction.removeAllObjectsInAllCollections()
         }
     }
     
     func index(page: Page) {
         let connection = self.backingStore.newConnection()
         connection.readWrite({ (transaction: YapDatabaseReadWriteTransaction!) in
-            let encodablePage = transaction.object(forKey: page.permalink, inCollection: "pages") as? EncodablePage
+            let encodablePage = transaction.object(forKey: page.permalink, inCollection: collection) as? EncodablePage
             if encodablePage == nil || encodablePage!.page.modifiedTime.compare(page.modifiedTime as Date) == .orderedAscending {
-                transaction.setObject(EncodablePage(page: page), forKey: page.permalink, inCollection: "pages")
+                transaction.setObject(EncodablePage(page: page), forKey: page.permalink, inCollection: collection)
             }
         })
     }
@@ -78,7 +86,7 @@ class Indexer {
 
         self.backingStore.newConnection().read({ (transaction) in
             if let tx = transaction.ext("orderdedByModifiedTimeDesc") as? YapDatabaseViewTransaction {
-                tx.enumerateKeys(inGroup: "pages") { (collection, key, index, stop) in
+                tx.enumerateKeys(inGroup: collection) { (collection, key, index, stop) in
                     results.append(key)
                 }
             }
@@ -93,7 +101,7 @@ class Indexer {
         // TODO: previously, this used `beginLongLivedReadTransaction` but I removed it here.
         // Does that matter?
         self.backingStore.newConnection().read({ (transaction) in
-            if let encodablePage = transaction.object(forKey: permalink, inCollection: "pages") as? EncodablePage {
+            if let encodablePage = transaction.object(forKey: permalink, inCollection: collection) as? EncodablePage {
                 page = encodablePage.page
             }
         })

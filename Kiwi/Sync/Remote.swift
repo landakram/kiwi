@@ -16,6 +16,7 @@ protocol Remote {
     func delete<T: ReadableWritable>(file: File<T>) -> Observable<Either<Progress, Path>>
     func delete(path: Path) -> Observable<Either<Progress, Path>>
     func read(path: Path) -> Observable<Either<Progress, File<Data>>>
+    var configured: Bool { get }
     static func description() -> String
 }
 

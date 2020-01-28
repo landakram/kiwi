@@ -21,11 +21,18 @@ class NullRemote: Remote {
     let root = Path("/")
     let events: Observable<FilesystemEvent>!
     
+    var configured: Bool
+    
     init(filesystem: Filesystem = Filesystem.sharedInstance) {
         self.filesystem = filesystem
         self.events = Observable.create({ (observable) -> Disposable in
             return Disposables.create()
         })
+        self.configured = true
+    }
+    
+    func configure(configured: Bool) {
+        self.configured = configured
     }
     
     func write(file: File<Data>) -> Observable<Either<Progress, Path>> {

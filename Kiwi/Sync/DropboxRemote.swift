@@ -36,6 +36,11 @@ class DropboxRemote: Remote {
     
     var changesets: ConnectableObservable<Changeset>!
     var events: Observable<FilesystemEvent>!
+    var configured: Bool {
+        get {
+            self.client != nil
+        }
+    }
     
     init(client: DropboxClient? = nil) {
         self.client = client
@@ -188,7 +193,7 @@ class DropboxRemote: Remote {
         return self.root + path
     }
     
-    func configure(client: DropboxClient) {
+    func configure(client: DropboxClient?) {
         print("Configuring DropboxRemote with \(client)")
         self.client = client
 

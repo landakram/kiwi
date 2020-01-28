@@ -91,6 +91,10 @@ class IndexerSpec: QuickSpec {
                 )
             }
             
+            afterEach {
+                indexer.removeAll()
+            }
+            
             context("when a page is written to the filesystem") {
                 beforeEach {
                     filesystem.subject.onNext(.write(path: "/some/path/wiki/test_page.md"))
@@ -119,6 +123,9 @@ class IndexerSpec: QuickSpec {
 
             describe(".list") {
                 beforeEach {
+                    indexer.list().map { (permalink) in
+                        indexer.remove(permalink: permalink)
+                    }
                     indexer.index(page: page1)
                     indexer.index(page: page2)
                 }

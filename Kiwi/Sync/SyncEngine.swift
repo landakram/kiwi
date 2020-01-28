@@ -79,7 +79,7 @@ class SyncEngine {
     }
     
     static func defaultRemote() -> Remote {
-        guard let remoteString = UserDefaults.standard.string(forKey: "DefaultRemote") else {
+        guard let remoteString = UserDefaults.standard.string(forKey: Settings.DefaultRemote) else {
             return DropboxRemote.sharedInstance
         }
         
@@ -95,7 +95,7 @@ class SyncEngine {
     
     func configure(remote: Remote) {
         self.remote = remote
-        UserDefaults.standard.set(type(of: remote).description(), forKey: "DefaultRemote")
+        UserDefaults.standard.set(type(of: remote).description(), forKey: Settings.DefaultRemote)
         
         remoteSubscription?.dispose()
         self.start()
